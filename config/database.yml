@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: store_dev
+  pool: 5
+  username: store
+  password: store
