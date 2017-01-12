@@ -1,0 +1,31 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+	    <%= link_to "STORE", home_index_path, class: "navbar-brand" %>
+    </div>
+
+    <ul class="nav navbar-nav navbar-left">
+			<% if current_user && current_user.admin? %>
+    	<li>
+    		<%= link_to_if(current_user && current_user.admin?, "Users", { controller: "users", action: "index" }) %>		
+    	</li>
+    	<% end %>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+    	<% if current_user %>
+    	<li>
+    		<p class="navbar-text"><a href="#"><%= current_user.name %></a></p>
+    	</li>
+    	<li>
+    		<%= link_to "Sign out", destroy_user_session_path, class: "" %>
+    	</li>
+    	<% else %>
+    	<li>
+				<%= link_to "Sign in", user_google_oauth2_omniauth_authorize_path, class: "" %>
+			</li>
+	    <% end %>
+    </ul>
+		
+  </div>
+</nav>

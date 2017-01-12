@@ -20,7 +20,7 @@
 .env
 
 # Ignore database configuration
-#/config/database.yml
+/config/database.yml
 
 # Mac custom attributes
 .DS_Store

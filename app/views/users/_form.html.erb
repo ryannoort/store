@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= simple_form_for @user do |f| %>
+    <%= f.input :email %>
+    <%= f.input :role, collection: User::roles.keys, include_blank: false, selected: :user, label_method: lambda{|i| i.to_s.humanize} %>
+    <%= f.button :submit %>
+    <% end %>
+    <!-- <%= f.submit %> -->
   </div>
 <% end %>

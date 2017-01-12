@@ -1,15 +1,1 @@
-
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-			<h1>STORE</h1>
-			<% if current_user %>
-			Hello <%= current_user.name %>
-			<!-- <img src="<%= current_user.image %>" /> -->
-			<%= link_to "Sign out", destroy_user_session_path, class: "btn btn-danger" %>
-			<% else %>
-			<%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path, class: "btn btn-default" %>
-			<% end %>
-		</div>
-	</div>
-</div>
+<h1>Home</h1>
