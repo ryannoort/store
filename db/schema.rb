@@ -10,12 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170112181940) do
+ActiveRecord::Schema.define(version: 20170112194518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
   enable_extension "postgis_topology"
+
+  create_table "collections", force: :cascade do |t|
+    t.string   "name",                 null: false
+    t.integer  "form_id",              null: false
+    t.integer  "owner_id"
+    t.integer  "parent_collection_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "collections_items", id: false, force: :cascade do |t|
+    t.integer "collection_id"
+    t.integer "item_id"
+    t.index ["collection_id"], name: "index_collections_items_on_collection_id", using: :btree
+    t.index ["item_id"], name: "index_collections_items_on_item_id", using: :btree
+  end
 
   create_table "forms", force: :cascade do |t|
     t.integer  "schema_id",  null: false
@@ -45,6 +61,8 @@ ActiveRecord::Schema.define(version: 20170112181940) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "collections", "collections", column: "parent_collection_id"
+  add_foreign_key "collections", "forms"
   add_foreign_key "forms", "schemas"
   add_foreign_key "items", "forms"
 end

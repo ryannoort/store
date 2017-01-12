@@ -1,4 +1,5 @@
 class Form < ApplicationRecord
 	belongs_to :schema
-	has_many :items
+	has_one :item
+	has_one :collection
 end
