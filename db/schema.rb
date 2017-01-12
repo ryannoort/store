@@ -10,16 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170112175916) do
+ActiveRecord::Schema.define(version: 20170112181940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
+  enable_extension "postgis_topology"
 
   create_table "forms", force: :cascade do |t|
     t.integer  "schema_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+# Could not dump table "items" because of following StandardError
+#   Unknown type 'geometry' for column 'location'
 
   create_table "schemas", force: :cascade do |t|
     t.string   "name"
@@ -41,4 +46,5 @@ ActiveRecord::Schema.define(version: 20170112175916) do
   end
 
   add_foreign_key "forms", "schemas"
+  add_foreign_key "items", "forms"
 end
