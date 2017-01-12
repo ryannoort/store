@@ -19,6 +19,9 @@
 # Used by dotenv library to load environment variables.
 .env
 
+# Ignore database configuration
+#/config/database.yml
+
 # Mac custom attributes
 .DS_Store
 
