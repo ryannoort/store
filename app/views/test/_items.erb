@@ -1,0 +1,12 @@
+<ul>
+	<% items.each do |i| %>
+	<li>
+		<dl>
+			<dt>Name</dt>
+			<dd><%= i.name %></dd>
+			<dt>Owner</dt>
+			<dd><%= i.owner.email %></dd>
+		</dl>
+	</li>
+	<% end %>
+<ul>
