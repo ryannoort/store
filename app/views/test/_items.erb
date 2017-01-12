@@ -6,6 +6,8 @@
 			<dd><%= i.name %></dd>
 			<dt>Owner</dt>
 			<dd><%= i.owner.email %></dd>
+			<dt>Meta Data</dt>
+			<dd><%= render(partial: 'test/fields', locals: {fields: i.form.fields}) if i.form.fields %></dd>
 		</dl>
 	</li>
 	<% end %>

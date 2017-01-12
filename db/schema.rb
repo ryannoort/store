@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170112221520) do
+ActiveRecord::Schema.define(version: 20170112225630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,9 +33,9 @@ ActiveRecord::Schema.define(version: 20170112221520) do
     t.index ["item_id"], name: "index_collections_items_on_item_id", using: :btree
   end
 
-  create_table "fields", id: false, force: :cascade do |t|
-    t.string   "name"
-    t.integer  "form_id"
+  create_table "fields", primary_key: ["name", "form_id"], force: :cascade do |t|
+    t.string   "name",       null: false
+    t.integer  "form_id",    null: false
     t.text     "content"
     t.string   "mime_type"
     t.string   "type"

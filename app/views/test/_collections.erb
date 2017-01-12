@@ -7,7 +7,7 @@
 			<dt>Owner</dt>
 			<dd><%= c.owner.email %></dd>
 			<dt>Meta Data</dt>
-			<dd>TODO</dd>
+			<dd><%= render(partial: 'test/fields', locals: {fields: c.form.fields}) if c.form.fields %></dd>
 			<dt>Collections</dt>
 			<dd><%= render(partial: 'test/collections', locals: {collections: c.collections}) if c.collections %></dd>
 			<dt>Items</dt>
