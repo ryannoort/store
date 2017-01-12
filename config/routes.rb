@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'test/index'
+
   get 'home/index'
 
   resources :users

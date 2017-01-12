@@ -1,0 +1,18 @@
+<ul>
+	<% collections.each do |c| %>
+	<li>
+		<dl>
+			<dt>Name</dt>
+			<dd><%= c.name %></dd>
+			<dt>Owner</dt>
+			<dd><%= c.owner.email %></dd>
+			<dt>Meta Data</dt>
+			<dd><%= render(partial: 'test/fields', locals: {fields: c.form.fields}) if c.form.fields %></dd>
+			<dt>Collections</dt>
+			<dd><%= render(partial: 'test/collections', locals: {collections: c.collections}) if c.collections %></dd>
+			<dt>Items</dt>
+			<dd><%= render(partial: 'test/items', locals: {items: c.items}) if c.items %></dd>
+		</dl>
+	</li>
+	<% end %>
+<ul>
