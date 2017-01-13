@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170113200838) do
+ActiveRecord::Schema.define(version: 20170113201714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20170113200838) do
     t.integer  "type",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "hint"
     t.index ["form_id"], name: "index_fields_on_form_id", using: :btree
     t.index ["name", "form_id"], name: "index_fields_on_name_and_form_id", unique: true, using: :btree
     t.index ["name"], name: "index_fields_on_name", using: :btree

@@ -1,5 +1,3 @@
-
-
-Leaflet.tile_layer = "https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/256/{z}/{x}/{y}?access_token={key}"
-Leaflet.attribution = "ARC"
+Leaflet.tile_layer = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+Leaflet.attribution = "© <a href=\"http://www.openstreetmap.org/\">OpenStreetMap</a> contributors"
 Leaflet.max_zoom = 18
