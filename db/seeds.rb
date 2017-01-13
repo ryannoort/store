@@ -9,3 +9,6 @@
 User.create email: 'orodrigu@ualberta.ca', role: :admin
 User.create email: 'mpm1@ualberta.ca', role: :admin
 User.create email: 'ranaweer@ualberta.ca', role: :admin
+
+@schema = File.read(File.join(Rails.root, 'example-schemas', 'story.xml'))
+Schema.create name: 'Story', xml_content: @schema
