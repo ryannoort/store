@@ -1,1 +1,10 @@
 <h1>Home</h1>
+
+<%= map(
+	container_id: "store-map",
+	key: ENV['MAPBOX_KEY'],
+	id: "streets-v10",
+	center: {
+	latlng: [53.525283, -113.525612],
+	zoom: 14
+}) %>
