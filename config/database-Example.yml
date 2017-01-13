@@ -1,5 +1,5 @@
 development:
-  adapter: postgresql
+  adapter: postgis
   encoding: unicode
   database: store_dev
   pool: 5

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170112225630) do
+ActiveRecord::Schema.define(version: 20170112221520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,19 +28,21 @@ ActiveRecord::Schema.define(version: 20170112225630) do
   create_table "collections_items", id: false, force: :cascade do |t|
     t.integer "collection_id"
     t.integer "item_id"
+    t.index ["collection_id", "item_id"], name: "index_collections_items_on_collection_id_and_item_id", unique: true, using: :btree
     t.index ["collection_id"], name: "index_collections_items_on_collection_id", using: :btree
     t.index ["item_id"], name: "index_collections_items_on_item_id", using: :btree
   end
 
-  create_table "fields", primary_key: ["name", "form_id"], force: :cascade do |t|
+  create_table "fields", force: :cascade do |t|
     t.string   "name",       null: false
     t.integer  "form_id",    null: false
     t.text     "content"
     t.string   "mime_type"
-    t.string   "type",       null: false
+    t.integer  "type",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["form_id"], name: "index_fields_on_form_id", using: :btree
+    t.index ["name", "form_id"], name: "index_fields_on_name_and_form_id", unique: true, using: :btree
     t.index ["name"], name: "index_fields_on_name", using: :btree
   end
 
@@ -50,13 +52,21 @@ ActiveRecord::Schema.define(version: 20170112225630) do
     t.datetime "updated_at", null: false
   end
 
-# Could not dump table "items" because of following StandardError
-#   Unknown type 'geometry' for column 'location'
+  create_table "items", force: :cascade do |t|
+    t.string   "name",                                             null: false
+    t.geometry "location",   limit: {:srid=>0, :type=>"geometry"}
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer  "form_id",                                          null: false
+    t.boolean  "is_public",                                        null: false
+    t.integer  "owner_id",                                         null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+  end
 
   create_table "schemas", force: :cascade do |t|
-    t.string   "name"
-    t.text     "xml_content"
-    t.string   "type"
+    t.string   "name",        null: false
+    t.text     "xml_content", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -65,7 +75,7 @@ ActiveRecord::Schema.define(version: 20170112225630) do
     t.string   "uid"
     t.string   "provider"
     t.string   "name"
-    t.string   "email"
+    t.string   "email",      null: false
     t.string   "image"
     t.datetime "last_log"
     t.datetime "created_at", null: false
