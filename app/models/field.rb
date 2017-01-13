@@ -1,19 +1,5 @@
 class Field < ApplicationRecord
 	belongs_to :form
+	
+	enum type: [:text_field, :text_area, :file, :image, :email, :url] unless instance_methods.include? :type
 end
-
-class TextField < Field
-end
-
-class TextArea < Field
-end
-
-class Image < Field
-end
-
-class Email < Field
-end
-
-class Url < Field
-end
-

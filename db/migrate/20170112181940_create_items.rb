@@ -8,12 +8,10 @@ class CreateItems < ActiveRecord::Migration[5.0]
       t.integer :form_id, :null => false
       t.boolean :is_public, :null => false
       t.integer :owner_id, :null => false
-      t.datetime :created_at
-      t.datetime :updated_at
 
       t.timestamps
     end
-	
-	add_foreign_key :items, :forms
+
+    add_foreign_key :items, :forms
   end
 end
