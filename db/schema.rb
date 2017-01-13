@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20170112225630) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
-  enable_extension "postgis_topology"
 
   create_table "collections", force: :cascade do |t|
     t.string   "name",                 null: false
@@ -38,7 +37,7 @@ ActiveRecord::Schema.define(version: 20170112225630) do
     t.integer  "form_id",    null: false
     t.text     "content"
     t.string   "mime_type"
-    t.string   "type"
+    t.string   "type",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["form_id"], name: "index_fields_on_form_id", using: :btree
@@ -71,6 +70,7 @@ ActiveRecord::Schema.define(version: 20170112225630) do
     t.datetime "last_log"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "role"
   end
 
   add_foreign_key "collections", "collections", column: "parent_collection_id"
