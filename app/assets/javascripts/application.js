@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require toaster
+//= require leaflet
 //= require_tree .
 
 
