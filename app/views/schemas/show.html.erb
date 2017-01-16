@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+<dl>
+	<dt>Name</dt>
+	<dd><%=h @schema.name %></dd>
+	<dt>XML</dt>
+	<dd><pre><%=h @schema.xml_content %></pre></dd>
+</dl>
+
+<%= link_to 'Edit', edit_schema_path(@schema) %> |
+<%= link_to 'Back', schemas_path %>
