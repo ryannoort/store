@@ -1,0 +1,14 @@
+<%= simple_form_for(@schema) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  <%= label_tag(:name, "Name") %>
+  <%= f.text_field :name %>
+  <%= label_tag(:xml_content, "Schema Content") %>
+  <%= f.text_area :xml_content %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
