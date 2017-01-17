@@ -11,11 +11,12 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
+//= require rails
 //= require turbolinks
-//= require bootstrap-sprockets
-//= require toaster
+//= require js/bootstrap
 //= require leaflet
+//= require leaflet.draw
+//= require alertify
 //= require_tree .
 
 

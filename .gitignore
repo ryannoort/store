@@ -25,6 +25,8 @@
 # Mac custom attributes
 .DS_Store
 
+vendor/assets/bower_components
+
 # sublime project files
 *.sublime-project
 *.sublime-workspace

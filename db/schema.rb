@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170113201714) do
+ActiveRecord::Schema.define(version: 20170116184259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+  enable_extension "postgis_topology"
 
   create_table "collections", force: :cascade do |t|
     t.string   "name",                 null: false
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(version: 20170113201714) do
     t.integer  "owner_id",                                         null: false
     t.datetime "created_at",                                       null: false
     t.datetime "updated_at",                                       null: false
+    t.index ["location"], name: "index_items_on_location", using: :gist
   end
 
   create_table "schemas", force: :cascade do |t|
