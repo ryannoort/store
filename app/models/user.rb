@@ -1,6 +1,6 @@
 class User < ApplicationRecord
 
-	# enum role: [:admin, :editor, :user] unless instance_methods.include? :role
+	enum role: [:admin, :editor, :user] unless instance_methods.include? :role
 
 	devise :omniauthable, :omniauth_providers => [:google_oauth2]
 	
