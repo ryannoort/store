@@ -1,4 +1,5 @@
 class SchemasController < ApplicationController
+  include SchemasHelper
   before_action :set_schema, only: [:show, :edit, :update, :destroy]
 
   # GET /schemas
@@ -10,6 +11,7 @@ class SchemasController < ApplicationController
   # GET /schemas/1
   # GET /schemas/1.json
   def show
+    create_instance(params[:id])
   end
 
   # GET /schemas/new
