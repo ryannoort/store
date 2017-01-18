@@ -1,45 +1,63 @@
 module SchemasHelper
-	def create_instance(schema_id)
+	def get_form_definition(schema_id)
 		schema = Schema.find(schema_id)
 		xml_data = MultiXml.parse(schema.xml_content)["Schema"]
 
+		form_definition = FormDefinition.new(schema, xml_data["name"], xml_data["description"], xml_data["type"])
+
+		field_array = xml_data["Fields"]["Field"]
+
+		field_array.each do |field_data|
+			field = FieldDefinition.new(field_data["name"], field_data["label"], field_data["type"], field_data["definition"], field_data["hint"], field_data["required"])
+			form_definition.fields.push(field)
+		end
+
+		return form_definition
+	end
+
+	def create_instance(schema_id)
+		form_definition = get_form_definition(schema_id)
+
 		result = nil
 
-		case xml_data["type"]
+		case form_definition.type
 		when "Collection"
-			result = Collection.new()
+			result = Collection.new
 		when "Item"
-			result = Item.new()
+			result = Item.new
 		end
 
 		if result == nil
 			return nil
 		end
 
-		result.form = create_form(xml_data["Fields"])
-		result.form.schema_id = schema_id
+		result.form = create_form(form_definition)
 
-		puts xml_data.inspect
 		puts result.inspect
 
 		return result
 	end
 
 	private
-		def create_form(xml_data)
+		def create_form(form_definition)
 			form = Form.new()
-			field_array = xml_data["Field"]
+			form.schema = form_definition.schema
 
-			field_array.each do |field_data|
-				field = create_form_field(field_data)
+			form_definition.fields do |field_definition|
+				field = create_form_field(field_definition)
+				field.form = form
 				form.fields.push(field)
 			end
 
 			return form
-		end	
+		end
 
-		def create_form_field(xml_data)
-			field = Field.new()
+		def create_form_field(field_definition)
+			field = Field.new
+
+			field.type = field_definition.type
+			field.name = field_definition.name
+			field.content = field_definition.default
 
 			return field
 		end

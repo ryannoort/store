@@ -1,4 +1,4 @@
-<Schema name="Story" description="Details used on a collection to define a story." type="Collection">
+<Schema name="Point" description="Details used on an item to define a point." type="Item">
 	<Fields>
 		<Field type="text_field" name="title" label="Title" required="true"/>
 		<Field type="text_area" name="description" label="Description" required="false"/>

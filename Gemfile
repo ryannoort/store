@@ -64,4 +64,5 @@ gem 'simple_form', '~> 3.4.0'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'cancancan', '~> 1.15.0'
 gem 'leaflet-rails', '~> 1.0.2'
+gem 'multi_xml', '~> 0.6.0'
 
