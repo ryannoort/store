@@ -6,6 +6,7 @@ class FieldDefinition
 		@default = default
 		@hint = hint
 		@is_required = "true" == is_required
+		@order = 0
 	end
 
 	def name
@@ -30,5 +31,9 @@ class FieldDefinition
 
 	def default
 		@default
+	end
+
+	def order
+		@order
 	end
 end

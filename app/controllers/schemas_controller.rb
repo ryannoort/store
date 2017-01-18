@@ -1,6 +1,6 @@
 class SchemasController < ApplicationController
   include SchemasHelper
-  before_action :set_schema, only: [:show, :edit, :update, :destroy]
+  before_action :set_schema, only: [:show, :edit, :update, :destroy, :create_schema_instance, :save_schema_instance]
 
   # GET /schemas
   # GET /schemas.json
@@ -11,7 +11,6 @@ class SchemasController < ApplicationController
   # GET /schemas/1
   # GET /schemas/1.json
   def show
-    create_instance(params[:id])
   end
 
   # GET /schemas/new
@@ -21,6 +20,18 @@ class SchemasController < ApplicationController
 
   # GET /schemas/1/edit
   def edit
+  end
+
+  # GET /schemas/1/instance(/collection/:collectionId)
+  def create_schema_instance
+    @form_definition = get_form_definition(@schema.id)
+    @instance = create_instance(@schema.id, params[:collectionId])
+
+    render template: "schemas/instance"
+  end
+
+  # POST /schemas/1/instance(/collection/:collectionId)
+  def save_schema_instance
   end
 
   # POST /schemas

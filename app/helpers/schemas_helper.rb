@@ -15,11 +15,12 @@ module SchemasHelper
 		return form_definition
 	end
 
-	def create_instance(schema_id)
+	def create_instance(schema_id, collection_id = nil)
 		form_definition = get_form_definition(schema_id)
 
 		result = nil
 
+		# Create the base object
 		case form_definition.type
 		when "Collection"
 			result = Collection.new
@@ -31,12 +32,19 @@ module SchemasHelper
 			return nil
 		end
 
+		# Create the form for the object
 		result.form = create_form(form_definition)
 
-		puts result.inspect
-		puts result.form.inspect
-		result.form.fields do |field|
-			puts field.inspect
+		# If a collection is defined, attach the result to it.
+		if(collection_id != nil)
+			collection = Collection.find(collection_id)
+
+			case form_definition.type
+			when "Collection"
+				result.parent = collection
+			when "Item"
+				collection.items << result
+			end
 		end
 
 		return result
@@ -47,10 +55,11 @@ module SchemasHelper
 			form = Form.new()
 			form.schema = form_definition.schema
 
-			form_definition.fields do |field_definition|
+			form_definition.fields.each do |field_definition|
+				puts "Checking field\n"
 				field = create_form_field(field_definition)
 				field.form = form
-				form.fields.push(field)
+				form.fields << field
 			end
 
 			return form

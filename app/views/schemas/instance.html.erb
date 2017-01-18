@@ -1,0 +1,3 @@
+<h1>New <%=h @form_definition.type %></h1>
+
+<%= render @form_definition.type.downcase + '_form', instance: @instance %>
