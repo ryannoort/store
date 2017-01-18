@@ -18,5 +18,11 @@ module Store
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'leaflet', 'dist')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'leaflet-draw', 'dist')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'AlertifyJS', 'build')
+    config.assets.precompile.push(Proc.new do |path|
+      File.extname(path).in? [
+        '.png',  '.gif', '.jpg', '.jpeg', '.svg', # Images
+        '.eot',  '.otf', '.svc', '.woff', '.ttf', # Fonts
+      ]
+    end)
   end
 end
