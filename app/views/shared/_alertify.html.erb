@@ -1,0 +1,10 @@
+<% unless flash.empty? %>
+     <script type="text/javascript">
+     console.log("run")
+				<% flash.each do |f| %>
+	      <% type = f[0].to_s.gsub('alert', 'error').gsub('notice', 'info') %>
+	     	//  toastr['<%= type %>']('<%= f[1] %>');
+	     		alertify.notify('<%= f[1] %>', '<%= type %>');
+				<% end %>
+     </script>
+<% end %>

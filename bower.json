@@ -1,0 +1,20 @@
+{
+  "name": "store",
+  "homepage": "https://github.com/arcualberta/store",
+  "authors": [
+    "Mark McKellar <mark.mckellar@ualberta.ca>",
+    "Omar Rodriguez Arenas <orodrigu@ualberta.ca>"
+  ],
+  "license": "GPLv3",
+  "ignore": [
+    "vendor/assets/bower_components"
+  ],
+  "dependencies": {
+    "leaflet": "^1.0.2",
+    "leaflet-draw": "^0.4.9",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1",
+    "jquery-ujs": "^1.2.2",
+    "AlertifyJS": "alertify-js#^1.8.0"
+  }
+}

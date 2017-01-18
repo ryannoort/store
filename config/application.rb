@@ -11,5 +11,12 @@ module Store
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'jquery', 'dist')
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'jquery-ujs', 'src')
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'toastr')
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'bootstrap', 'dist')
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'leaflet', 'dist')
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'leaflet-draw', 'dist')
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'AlertifyJS', 'build')
   end
 end

@@ -34,6 +34,10 @@ module SchemasHelper
 		result.form = create_form(form_definition)
 
 		puts result.inspect
+		puts result.form.inspect
+		result.form.fields do |field|
+			puts field.inspect
+		end
 
 		return result
 	end

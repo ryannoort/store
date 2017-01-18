@@ -1,10 +1,23 @@
-<h1>Home</h1>
+<div class="row">
+	<div class="col-md-9">
+		<div id="store-map"></div>
+	</div>
+	<div class="col-md-3">
+		Search / Edit
+		<button id="create-item" class="btn btn-default">Create</button>
 
-<%= map(
-	container_id: "store-map",
-	key: ENV['MAPBOX_KEY'],
-	id: "streets-v10",
-	center: {
-	latlng: [53.525283, -113.525612],
-	zoom: 14
-}) %>
+<!-- 		<div id="item-edit">
+			<input type="text" id="item-name">
+		</div>
+
+
+		<button id="save_item" class="btn btn-default">Create</button>
+		<button id="cancel_item" class="btn btn-default">Create</button> -->
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		Temporal controls
+	</div>
+</div>

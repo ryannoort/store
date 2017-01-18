@@ -71,6 +71,6 @@ class SchemasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def schema_params
-      params.fetch(:schema, {})
+      params.fetch(:schema, {}).permit(:name, :xml_content)
     end
 end
