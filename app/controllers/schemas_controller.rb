@@ -30,10 +30,6 @@ class SchemasController < ApplicationController
     render template: "schemas/instance"
   end
 
-  # POST /schemas/1/instance(/collection/:collectionId)
-  def save_schema_instance
-  end
-
   # POST /schemas
   # POST /schemas.json
   def create

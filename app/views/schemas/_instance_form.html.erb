@@ -1,0 +1,19 @@
+<% field_array = form_definition.fields.sort_by{ |f| f.order } %>
+
+<%= f.fields_for :form do |f_form| %>
+	<%= f_form.hidden_field :schema_id %>
+	<% field_array.each do |field| %>
+		<% field_index = form.fields.index{ |item| item.name == field.name } %>
+		<%= f_form.fields_for :fields, form.fields[field_index] do |f_field| %>
+			<%= f_field.hidden_field :name %>
+			<%= f_field.hidden_field :type %>
+			<%= label_tag(:content, field.label) %>
+			<% case field.type %>
+			<% when "text_area" %>
+				<%= f_field.text_area :content %>
+			<% else %>
+				<%= f_field.text_field :content %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>

@@ -1,5 +1,5 @@
 class Field < ApplicationRecord
-	belongs_to :form	
+	belongs_to :form, :inverse_of => :fields	
 	
 	enum type: {
 		text_field: 0,

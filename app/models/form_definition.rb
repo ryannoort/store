@@ -1,9 +1,9 @@
 class FormDefinition
-	def initialize(schema, name, description, type)
+	def initialize(schema, form_data)
 		@schema = schema
-		@name = name
-		@description = description
-		@type = type
+		@name = form_data["name"]
+		@description = form_data["description"]
+		@type = form_data["type"]
 		@fields = Array.new
 	end
 

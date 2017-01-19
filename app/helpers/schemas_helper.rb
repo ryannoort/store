@@ -3,14 +3,16 @@ module SchemasHelper
 		schema = Schema.find(schema_id)
 		xml_data = MultiXml.parse(schema.xml_content)["Schema"]
 
-		form_definition = FormDefinition.new(schema, xml_data["name"], xml_data["description"], xml_data["type"])
+		form_definition = FormDefinition.new(schema, xml_data)
 
 		field_array = xml_data["Fields"]["Field"]
 
 		field_array.each do |field_data|
-			field = FieldDefinition.new(field_data["name"], field_data["label"], field_data["type"], field_data["definition"], field_data["hint"], field_data["required"])
+			field = FieldDefinition.new(field_data)
 			form_definition.fields.push(field)
 		end
+
+
 
 		return form_definition
 	end
