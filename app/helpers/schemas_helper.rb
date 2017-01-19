@@ -43,9 +43,9 @@ module SchemasHelper
 
 			case form_definition.type
 			when "Collection"
-				result.parent = collection
+				result.parent_collection = collection
 			when "Item"
-				collection.items << result
+				result.collections << collection
 			end
 		end
 

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'home/index'
 
   resources :collections
+  resources :items
 
   resources :schemas do
     member do

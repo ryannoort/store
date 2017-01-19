@@ -2,6 +2,5 @@
 	<Fields>
 		<Field type="text_field" name="title" label="Title" required="true"/>
 		<Field type="text_area" name="description" label="Description" required="false"/>
-		<Field type="number" name="zoom" label="Description" editable="false" default="2"/>
 	</Fields>
 </Schema>

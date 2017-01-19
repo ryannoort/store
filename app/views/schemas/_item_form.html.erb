@@ -1,0 +1,25 @@
+<%= simple_form_for(instance) do |f| %>
+	<%= f.error_notification %>
+
+	<div class="form-inputs">
+	<% if(instance.collections[0] != nil) %>
+		<%= hidden_field_tag :parent_id, instance.collections[0].id %>
+	<% end %>
+
+	<%= label_tag(:name, "Name") %>
+	<%= f.text_field :name %>
+	<%= label_tag(:location, "Location") %>
+	<%= f.text_field :location %>
+	<%= label_tag(:start_time, "Start") %>
+	<%= f.datetime_field :start_time %>
+	<%= label_tag(:end_time, "End") %>
+	<%= f.datetime_field :end_time %>
+	<%= label_tag(:is_public, "Is Public") %>
+	<%= f.check_box :is_public %>
+	<%= render 'instance_form', f: f, form_definition: form_definition, form: instance.form %>
+	</div>
+
+	<div class="form-actions">
+    <%= f.button :submit %>
+  	</div>
+<% end %>

@@ -24,11 +24,8 @@ class CollectionsController < ApplicationController
   # POST /collections
   # POST /collections.json
   def create
-    ActiveRecord::Base.logger = Logger.new(STDOUT)
     @collection = Collection.new(collection_params)
     @collection.owner_id = 0 # TODO: Change to grab the current users Id
-    puts "\nCollection: #{@collection.inspect}\n"
-    puts "Form: #{@collection.form.inspect}\n"
 
     respond_to do |format|
       if @collection.save
@@ -73,6 +70,6 @@ class CollectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collection_params
-      params.fetch(:collection, {}).permit(:name, :form_attributes => [ :id, :schema_id, :fields_attributes => [:id, :name, :content, :type, :mime_content] ])
+      params.fetch(:collection, {}).permit(:parent_collection_id, :name, :form_attributes => [ :id, :schema_id, :fields_attributes => [:id, :name, :content, :type, :mime_content] ])
     end
 end
