@@ -58,7 +58,6 @@ module SchemasHelper
 			form.schema = form_definition.schema
 
 			form_definition.fields.each do |field_definition|
-				puts "Checking field\n"
 				field = create_form_field(field_definition)
 				field.form = form
 				form.fields << field

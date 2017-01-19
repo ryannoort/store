@@ -1,4 +1,5 @@
 class Field < ApplicationRecord
+	self.inheritance_column = :_type_disabled
 	belongs_to :form, :inverse_of => :fields	
 	
 	enum type: {

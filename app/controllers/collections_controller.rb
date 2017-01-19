@@ -73,6 +73,6 @@ class CollectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collection_params
-      params.fetch(:collection, {}).permit(:name, :form => [ :id, :schema_id, :fields => [:id, :name, :content, :type, :mime_content] ])
+      params.fetch(:collection, {}).permit(:name, :form_attributes => [ :id, :schema_id, :fields_attributes => [:id, :name, :content, :type, :mime_content] ])
     end
 end
