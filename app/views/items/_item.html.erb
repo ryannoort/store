@@ -1,0 +1,8 @@
+<dl>
+	<dt>Name</dt>
+	<dd><%= i.name %></dd>
+	<dt>Owner</dt>
+	<dd><%= i.owner.email %></dd>
+	<dt>Meta Data</dt>
+	<dd><%= render(partial: 'form/form_fields', locals: {form: i.form}) if i.form %></dd>
+</dl>

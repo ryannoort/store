@@ -1,6 +1,7 @@
 class CollectionsController < ApplicationController
   before_action :set_collection, only: [:show, :edit, :update, :destroy]
-
+  # load_and_authorize_resource
+  
   # GET /collections
   # GET /collections.json
   def index
@@ -25,7 +26,7 @@ class CollectionsController < ApplicationController
   # POST /collections.json
   def create
     @collection = Collection.new(collection_params)
-    @collection.owner_id = 0 # TODO: Change to grab the current users Id
+    @collection.owner_id = 1 # TODO: Change to grab the current users Id
 
     respond_to do |format|
       if @collection.save

@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(item_params)
-    @item.owner_id = 0 # TODO: Change to grab the current users Id
+    @item.owner_id = 1 # TODO: Change to grab the current users Id
 
     if(item_params["parent_id"] != nil)
       item.collections << Collection.find(item_params["parent_id"])
