@@ -2,7 +2,6 @@
 	<%= f.error_notification %>
 
 	<div class="form-inputs">
-	<%= f.hidden_field :form_id %>
 	<%= label_tag(:name, "Name") %>
 	<%= f.text_field :name %>
 	<%= render 'instance_form', f: f, form_definition: form_definition, form: instance.form %>

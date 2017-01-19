@@ -1,9 +1,8 @@
 class Form < ApplicationRecord
 	belongs_to :schema
-	has_one :item
-	has_one :collection
+	belongs_to :collection, :inverse_of => :form
+	belongs_to :item, :inverse_of => :form
 	has_many :fields
 
 	accepts_nested_attributes_for :fields
-	accepts_nested_attributes_for :collection
 end

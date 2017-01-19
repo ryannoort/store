@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170116184259) do
+ActiveRecord::Schema.define(version: 20170119215806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 20170116184259) do
 
   create_table "collections", force: :cascade do |t|
     t.string   "name",                 null: false
-    t.integer  "form_id",              null: false
     t.integer  "owner_id"
     t.integer  "parent_collection_id"
     t.datetime "created_at",           null: false
@@ -48,9 +47,11 @@ ActiveRecord::Schema.define(version: 20170116184259) do
   end
 
   create_table "forms", force: :cascade do |t|
-    t.integer  "schema_id",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "schema_id",     null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "collection_id"
+    t.integer  "item_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -58,7 +59,6 @@ ActiveRecord::Schema.define(version: 20170116184259) do
     t.geometry "location",   limit: {:srid=>0, :type=>"geometry"}
     t.datetime "start_time"
     t.datetime "end_time"
-    t.integer  "form_id",                                          null: false
     t.boolean  "is_public",                                        null: false
     t.integer  "owner_id",                                         null: false
     t.datetime "created_at",                                       null: false
@@ -82,13 +82,13 @@ ActiveRecord::Schema.define(version: 20170116184259) do
     t.datetime "last_log"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "role",       null: false
+    t.integer  "role"
     t.index ["email"], name: "index_users_on_email", using: :btree
   end
 
   add_foreign_key "collections", "collections", column: "parent_collection_id"
-  add_foreign_key "collections", "forms"
   add_foreign_key "fields", "forms"
+  add_foreign_key "forms", "collections"
+  add_foreign_key "forms", "items"
   add_foreign_key "forms", "schemas"
-  add_foreign_key "items", "forms"
 end
