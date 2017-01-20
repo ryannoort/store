@@ -28,10 +28,6 @@ class ItemController < ApplicationController
     @item = Item.new(item_params)
     @item.owner_id = 0 # TODO: Change to grab the current users Id
 
-    if(item_params["parent_id"] != nil)
-      item.collections << Collection.find(item_params["parent_id"])
-    end
-
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }

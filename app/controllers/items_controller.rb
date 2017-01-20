@@ -28,8 +28,10 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
     @item.owner_id = 1 # TODO: Change to grab the current users Id
 
-    if(item_params["parent_id"] != nil)
-      item.collections << Collection.find(item_params["parent_id"])
+
+
+    if(params["parent_id"] != nil)
+      @item.collections << Collection.find(params["parent_id"])
     end
 
     respond_to do |format|
