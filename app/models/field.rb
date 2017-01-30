@@ -12,4 +12,11 @@ class Field < ApplicationRecord
 		number: 6
 	}
 	
+	def definition
+		form_definition = self.form
+
+		field_index = form_definition.fields.index { |item| item.name == self.name }
+
+		return form_definition.fields[field_index]
+	end
 end

@@ -5,4 +5,8 @@ class Form < ApplicationRecord
 	has_many :fields
 
 	accepts_nested_attributes_for :fields
+
+	def definition
+		self.schema.get_form_definition
+	end
 end
