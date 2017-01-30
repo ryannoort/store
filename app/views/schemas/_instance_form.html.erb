@@ -8,12 +8,16 @@
 			<%= f_field.hidden_field :name %>
 			<%= f_field.hidden_field :type %>
 			<%= label_tag(:content, field.label) %>
+
 			<% case field.type %>
 			<% when "text_area" %>
 				<%= f_field.text_area :content %>
+			<% when "number" %> 
+				<%= f_field.number_field :content %>
 			<% else %>
 				<%= f_field.text_field :content %>
 			<% end %>
+
 		<% end %>
 	<% end %>
 <% end %>
