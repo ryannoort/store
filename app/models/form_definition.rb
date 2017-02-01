@@ -5,6 +5,13 @@ class FormDefinition
 		@description = form_data["description"]
 		@type = form_data["type"]
 		@fields = Array.new
+
+		field_array = form_data["Fields"]["Field"]
+
+		field_array.each do |field_data|
+			field = FieldDefinition.new(field_data)
+			@fields.push(field)
+		end
 	end
 
 	def schema
