@@ -24,3 +24,7 @@ rake db:setup
 rake db:migrate
 rake db:seed
 
+### Bower 
+
+Run `bower install` on app directory top install all vendor dependencies
+

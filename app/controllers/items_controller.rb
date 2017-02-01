@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  # load_and_authorize_resource
+  load_and_authorize_resource
 
   # GET /items
   # GET /items.json
@@ -26,10 +26,8 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(item_params)
-    @item.owner_id = 1 # TODO: Change to grab the current users Id
-
-
-
+    @item.owner = current_user
+    
     if(params["parent_id"] != nil)
       @item.collections << Collection.find(params["parent_id"])
     end
@@ -77,6 +75,8 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.fetch(:item, {}).permit(:name, :location, :start_time, :end_time, :is_public, :form_attributes => [ :id, :schema_id, :fields_attributes => [:id, :name, :content, :type, :mime_content] ])
+      item = params.fetch(:item, {}).permit(:name, :location, :start_time, :end_time, :is_public, :location, :form_attributes => [ :id, :schema_id, :fields_attributes => [:id, :name, :content, :type, :mime_content] ])
+      item[:location] = RGeo::GeoJSON.decode(item[:location], json_parser: :json)
+      return item
     end
 end

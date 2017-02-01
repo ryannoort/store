@@ -6,7 +6,7 @@ class CreateItems < ActiveRecord::Migration[5.0]
       t.datetime :start_time
       t.datetime :end_time
       t.integer :form_id, null: false
-      t.boolean :is_public, null: false
+      t.boolean :is_public, null: false, default: false
       t.integer :owner_id, null: false
 
       t.timestamps

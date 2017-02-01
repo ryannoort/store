@@ -5,14 +5,15 @@ Rails.application.routes.draw do
 
   resources :collections
   resources :items
-
+  resources :users
+  
   resources :schemas do
     member do
       get '/instance(/collection/:collectionId)', to: 'schemas#create_schema_instance'
     end
   end
 
-  resources :users
+  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root "home#index"
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }

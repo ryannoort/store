@@ -10,7 +10,7 @@
     "vendor/assets/bower_components"
   ],
   "dependencies": {
-    "leaflet": "^1.0.2",
+    "leaflet": "^1.0.3",
     "leaflet-draw": "^0.4.9",
     "bootstrap": "^3.3.7",
     "jquery": "^3.1.1",

@@ -1,8 +1,27 @@
-<dl>
-	<dt>Name</dt>
-	<dd><%= item.name %></dd>
-	<dt>Owner</dt>
-	<dd><%= item.owner.email %></dd>
-	<dt>Meta Data</dt>
-	<dd><%= render(partial: 'forms/form_fields', locals: {form: item.form}) if item.form %></dd>
-</dl>
+
+<div class="row form" id="items">
+	<div class="col-md-9">
+		<div id="store-map"></div>
+	</div>
+	<div class="col-md-3">
+		<div class="actions">
+
+			<dl>
+				<dt>Name</dt>
+				<dd><%= item.name %></dd>
+				<dt>Owner</dt>
+				<dd><%= item.owner.name %></dd>
+
+				<dd><%= item.start_time %></dd>
+				<dd><%= item.end_time %></dd>
+				<dt>Meta Data</dt>
+				<dd><%= render(partial: 'forms/form_fields', locals: {form: item.form}) if item.form %></dd>
+			</dl>
+
+		</div>
+	</div>
+</div>
+
+<script>
+var feature = <%= item.feature_json.html_safe %>
+</script>

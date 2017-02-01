@@ -1,0 +1,22 @@
+
+<div class="row form" id="items">
+	<div class="col-md-9">
+		<div id="store-map"></div>
+	</div>
+	<div class="col-md-3">
+		<div class="actions">
+			<%= simple_form_for @item do |f| %>
+				<%= f.input :name %>
+				<%= f.input :start_time %>
+				<%= f.input :end_time %>
+				<%= f.input :is_public %>
+				<%= f.input :location, as: :hidden %>
+				<%= f.button :submit, class: 'btn-default'%>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<script>
+var feature = <%= item.feature_json.html_safe %>
+</script>

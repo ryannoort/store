@@ -58,6 +58,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'dotenv-rails', '~> 2.1.1'
 gem 'pg', '~> 0.19.0'
 gem 'activerecord-postgis-adapter', '~> 4.0.2'
+gem 'rgeo-geojson', '~> 0.4.3'
 gem 'devise', '~> 4.2.0'
 gem 'omniauth-google-oauth2', '~> 0.4.1'
 gem 'simple_form', '~> 3.4.0'
