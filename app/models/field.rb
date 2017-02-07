@@ -1,6 +1,6 @@
 class Field < ApplicationRecord
 	self.inheritance_column = :_type_disabled
-	belongs_to :form, :inverse_of => :fields	
+	# belongs_to :form, :inverse_of => :fields	
 	
 	enum type: {
 		text_field: 0,
@@ -14,11 +14,11 @@ class Field < ApplicationRecord
 	
 	belongs_to :fieldable, polymorphic: true
 
-	def definition
-		form_definition = self.form
+	# def definition
+	# 	form_definition = self.form
 
-		field_index = form_definition.fields.index { |item| item.name == self.name }
+	# 	field_index = form_definition.fields.index { |item| item.name == self.name }
 
-		return form_definition.fields[field_index]
-	end
+	# 	return form_definition.fields[field_index]
+	# end
 end
