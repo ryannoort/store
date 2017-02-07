@@ -12,6 +12,8 @@ class Field < ApplicationRecord
 		number: 6
 	}
 	
+	belongs_to :fieldable, polymorphic: true
+
 	def definition
 		form_definition = self.form
 

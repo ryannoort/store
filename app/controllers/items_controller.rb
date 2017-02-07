@@ -75,7 +75,8 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      item = params.fetch(:item, {}).permit(:name, :location, :start_time, :end_time, :is_public, :location, :form_attributes => [ :id, :schema_id, :fields_attributes => [:id, :name, :content, :type, :mime_content] ])
+      # item = params.fetch(:item, {}).permit(:name, :location, :start_time, :end_time, :is_public, :location, :form_attributes => [ :id, :schema_id, :fields_attributes => [:id, :name, :content, :type, :mime_content] ])
+      item = params.fetch(:item, {}).permit(:name, :location, :start_time, :end_time, :is_public, :location)
       item[:location] = RGeo::GeoJSON.decode(item[:location], json_parser: :json)
       return item
     end

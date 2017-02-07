@@ -17,7 +17,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def update_user
     @user.update({
       name: request.env["omniauth.auth"][:info][:name],
-      image: request.env["omniauth.auth"][:info][:image],
+      image_url: request.env["omniauth.auth"][:info][:image],
       last_log: Time.new
     })
   end

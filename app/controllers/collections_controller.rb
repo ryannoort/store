@@ -26,7 +26,9 @@ class CollectionsController < ApplicationController
   # POST /collections.json
   def create
     @collection = Collection.new(collection_params)
-    @collection.owner_id = 1 # TODO: Change to grab the current users Id
+    # @collection.owner_id = 1 # TODO: Change to grab the current users Id
+    @collection.owner = current_user
+
 
     respond_to do |format|
       if @collection.save

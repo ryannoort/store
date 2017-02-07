@@ -1,5 +1,5 @@
 class Schema < ApplicationRecord
-	has_many :forms
+	has_many :items
 
 	@form_definition = nil
 	def get_form_definition
