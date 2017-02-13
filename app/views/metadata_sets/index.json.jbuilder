@@ -1,0 +1,1 @@
+json.array! @metadata_sets, partial: 'metadata_sets/metadata_set', as: :metadata_set

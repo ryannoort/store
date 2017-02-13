@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :metadata_sets
   get 'test/index'
 
   get 'home/index'

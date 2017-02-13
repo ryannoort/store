@@ -1,8 +1,8 @@
 class CreateJoinTableItemCollection < ActiveRecord::Migration[5.0]
   def change
-      create_table :items_collections, id: false do |t|
-      t.belongs_to :item, index: true
-      t.belongs_to :collection, index: true
-    end
+		create_join_table :items, :collections do |t|
+			t.index [:item_id, :collection_id]
+			t.index [:collection_id, :item_id]
+		end
   end
 end

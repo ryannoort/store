@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202205043) do
+ActiveRecord::Schema.define(version: 20170208225729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,17 +26,11 @@ ActiveRecord::Schema.define(version: 20170202205043) do
     t.index ["owner_id"], name: "index_collections_on_owner_id", using: :btree
   end
 
-  create_table "fields", force: :cascade do |t|
-    t.string   "name",           null: false
-    t.text     "content"
-    t.integer  "type",           null: false
-    t.string   "hint"
-    t.string   "fieldable_type"
-    t.integer  "fieldable_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["fieldable_type", "fieldable_id"], name: "index_fields_on_fieldable_type_and_fieldable_id", using: :btree
-    t.index ["name"], name: "index_fields_on_name", using: :btree
+  create_table "collections_items", id: false, force: :cascade do |t|
+    t.integer "item_id",       null: false
+    t.integer "collection_id", null: false
+    t.index ["collection_id", "item_id"], name: "index_collections_items_on_collection_id_and_item_id", using: :btree
+    t.index ["item_id", "collection_id"], name: "index_collections_items_on_item_id_and_collection_id", using: :btree
   end
 
   create_table "items", force: :cascade do |t|
@@ -45,27 +39,47 @@ ActiveRecord::Schema.define(version: 20170202205043) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.boolean  "is_public",                                        default: false, null: false
-    t.integer  "schema_id"
     t.integer  "owner_id"
     t.datetime "created_at",                                                       null: false
     t.datetime "updated_at",                                                       null: false
     t.index ["location"], name: "index_items_on_location", using: :gist
     t.index ["owner_id"], name: "index_items_on_owner_id", using: :btree
-    t.index ["schema_id"], name: "index_items_on_schema_id", using: :btree
   end
 
-  create_table "items_collections", id: false, force: :cascade do |t|
+  create_table "items_metadata_sets", id: false, force: :cascade do |t|
     t.integer "item_id"
-    t.integer "collection_id"
-    t.index ["collection_id"], name: "index_items_collections_on_collection_id", using: :btree
-    t.index ["item_id"], name: "index_items_collections_on_item_id", using: :btree
+    t.integer "metadata_set_id"
+    t.index ["item_id"], name: "index_items_metadata_sets_on_item_id", using: :btree
+    t.index ["metadata_set_id"], name: "index_items_metadata_sets_on_metadata_set_id", using: :btree
   end
 
-  create_table "schemas", force: :cascade do |t|
-    t.string   "name",        null: false
-    t.text     "xml_content", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+  create_table "metadata_fields", force: :cascade do |t|
+    t.integer  "field_type"
+    t.string   "label"
+    t.string   "hint"
+    t.string   "default"
+    t.boolean  "is_required"
+    t.integer  "order"
+    t.integer  "metadata_set_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["metadata_set_id"], name: "index_metadata_fields_on_metadata_set_id", using: :btree
+  end
+
+  create_table "metadata_sets", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "metadata_values", force: :cascade do |t|
+    t.string   "value"
+    t.integer  "item_id"
+    t.integer  "metadata_field_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["item_id"], name: "index_metadata_values_on_item_id", using: :btree
+    t.index ["metadata_field_id"], name: "index_metadata_values_on_metadata_field_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|

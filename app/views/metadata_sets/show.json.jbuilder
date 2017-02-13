@@ -1,0 +1,1 @@
+json.partial! "metadata_sets/metadata_set", metadata_set: @metadata_set
