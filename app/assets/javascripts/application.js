@@ -17,6 +17,7 @@
 //= require leaflet
 //= require leaflet.draw
 //= require alertify
+//= require knockout
 //= require_tree .
 
 

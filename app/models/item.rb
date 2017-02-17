@@ -6,7 +6,7 @@ class Item < ApplicationRecord
 	has_and_belongs_to_many :collections
 	has_and_belongs_to_many :metadata_sets
 	# has_many :fields, dependent: :destroy, as: :fieldable
-	has_and_belongs_to_many :metadata_sets
+	has_one :item_type
 	has_many :metadata_fields, through: :metadata_sets
 	has_many :metadata_values, dependent: :destroy
 

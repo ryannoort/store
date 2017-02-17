@@ -18,6 +18,7 @@ module Store
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'leaflet', 'dist')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'leaflet-draw', 'dist')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'AlertifyJS', 'build')  
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'knockout', 'dist')
 
     config.assets.precompile.push(Proc.new do |path|
       File.extname(path).in? [

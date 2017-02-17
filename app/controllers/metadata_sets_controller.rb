@@ -15,6 +15,7 @@ class MetadataSetsController < ApplicationController
   # GET /metadata_sets/new
   def new
     @metadata_set = MetadataSet.new
+    @metadata_set.metadata_fields.build
   end
 
   # GET /metadata_sets/1/edit
@@ -25,7 +26,6 @@ class MetadataSetsController < ApplicationController
   # POST /metadata_sets.json
   def create
     @metadata_set = MetadataSet.new(metadata_set_params)
-
     respond_to do |format|
       if @metadata_set.save
         format.html { redirect_to @metadata_set, notice: 'Metadata set was successfully created.' }
@@ -69,6 +69,8 @@ class MetadataSetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def metadata_set_params
-      params.fetch(:metadata_set, {})
+      params.fetch(:metadata_set, {}).permit(:name, 
+        metadata_fields_attributes: [:field_type, :name, :hint, :default, :is_required, :order]
+      )
     end
 end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :item_types
   resources :metadata_sets
   get 'test/index'
 

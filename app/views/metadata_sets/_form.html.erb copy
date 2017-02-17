@@ -1,0 +1,49 @@
+<!-- 
+<%= simple_form_for @metadata_set  do |f| %>
+
+
+	<li class="well field" id="field-clear" hidden>
+		<%= f.simple_fields_for :metadata_fields do |p| %>
+			<%= p.input :name, input_html: { name: 'name' } %>
+			<%= p.input :field_type, collection: MetadataField::field_types, include_blank: false, input_html: { name: 'field_type' } %>
+			<%= p.input :hint, input_html: { name: 'hint' } %>
+			<%= p.input :default, input_html: { name: 'default' } %>
+			<%= p.input :is_required, as: :boolean, input_html: { name: 'is_required' } %>
+			<a class="btn btn-danger remove-field">X</a>
+		<% end %>
+	</li>
+
+
+  <div class="form-inputs">
+ 		<%= f.input :name %>
+ 		<ul class="fields">
+
+ 		</ul>
+  </div>
+
+<% end %>
+<button id="add_field" class="btn btn-default">Add</button>
+<button id="update_set" class="btn btn-default">Create</button>
+
+
+<p>First name: <strong data-bind="text: firstName"></strong></p>
+<p>Last name: <strong data-bind="text: lastName"></strong></p> -->
+
+
+ 
+<script type="text/html" id="field-template">
+	<li>
+		test
+	</li>
+</script>
+
+<div class="form-inputs">
+	<input data-bind="value: data.metadata_set.name" />
+
+	<ul data-bind="foreach: data.metadata_set.metadata_fields_attributes">
+		<div data-bind="template: { name: 'field-template', data: $data }"></div>
+	</ul>
+</div>
+
+
+<a class="btn btn-default" data-bind="click: addField">Add field</a>

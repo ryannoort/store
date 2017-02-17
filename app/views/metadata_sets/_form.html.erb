@@ -1,10 +1,24 @@
-<%= simple_form_for(@metadata_set) do |f| %>
-  <%= f.error_notification %>
+<%= simple_form_for @metadata_set  do |f| %>
+	
+	<li class="well field" id="field-template" hidden>
+		<%= f.simple_fields_for :metadata_fields do |p| %>
+			<%= p.input :name, input_html: { name: 'name' } %>
+			<%= p.input :field_type, collection: MetadataField::field_types.map {|k,v| [k,k]}, include_blank: false, input_html: { name: 'field_type' } %>
+			<%= p.input :hint, input_html: { name: 'hint' } %>
+			<%= p.input :default, input_html: { name: 'default' } %>
+			<%= p.input :is_required, as: :boolean, input_html: { name: 'is_required' } %>
+			<a class="btn btn-danger remove-field">X</a>
+		<% end %>
+	</li>
 
   <div class="form-inputs">
+ 		<%= f.input :name %>
+ 		<ul id="fields">
+
+ 		</ul>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
 <% end %>
+<button id="add_field" class="btn btn-default">Add</button>
+<button id="save_set" class="btn btn-default">Save</button>
+

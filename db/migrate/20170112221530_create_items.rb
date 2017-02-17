@@ -8,6 +8,7 @@ class CreateItems < ActiveRecord::Migration[5.0]
       t.boolean :is_public, null: false, default: false
       # t.belongs_to :metadata_set
       t.belongs_to :owner
+      t.belongs_to :item_type
       t.timestamps
     end
     add_index :items, :location, using: :gist

@@ -115,6 +115,6 @@ itemsReady = ->
 
 
 
-$(document).ready(itemsReady);
+#$(document).ready(itemsReady);
 $(document).on('turbolinks:load', itemsReady);
 
