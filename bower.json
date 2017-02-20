@@ -15,6 +15,7 @@
     "bootstrap": "^3.3.7",
     "jquery": "^3.1.1",
     "jquery-ujs": "^1.2.2",
-    "AlertifyJS": "alertify-js#^1.8.0"
+    "AlertifyJS": "alertify-js#^1.8.0",
+    "knockout": "knockoutjs#^3.4.1"
   }
 }

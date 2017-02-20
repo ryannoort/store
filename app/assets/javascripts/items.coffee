@@ -104,14 +104,32 @@ itemsReady = ->
 			setLocationValue()
 		)
 
-	if ($("body").hasClass("items") and $("body").hasClass("show"))
-		map = L.map('store-map').setView([53.525283, -113.525612], 14);
-		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-		    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-		}).addTo(map);
+		if ($("body").hasClass("items") and $("body").hasClass("show"))
+			map = L.map('store-map').setView([53.525283, -113.525612], 14);
+			L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+				attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+			}).addTo(map);
 
-		geojsonLayer = L.geoJSON(feature).addTo(map);
-		map.fitBounds(geojsonLayer.getBounds());
+			geojsonLayer = L.geoJSON(feature).addTo(map);
+			map.fitBounds(geojsonLayer.getBounds());
+
+		# item type management
+
+		MetadataTypeViewModel = ->
+			self = this
+			# itemTypes is defined on items/_form.html.erb from a ItemType.all call
+			self.itemTypes = itemTypes
+			# add value to fields
+
+			self.itemType = ko.observable(self.itemTypes[0])
+			console.log self.itemType()
+
+
+		ko.applyBindings( new MetadataTypeViewModel() )
+				
+
+
+
 
 
 
