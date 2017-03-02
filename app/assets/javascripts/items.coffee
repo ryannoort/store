@@ -119,6 +119,24 @@ itemsReady = ->
 			self = this
 			# itemTypes is defined on items/_form.html.erb from a ItemType.all call
 			self.itemTypes = itemTypes
+
+			$.each self.itemTypes, (i, type) ->
+				$.each type.metadata_sets, (j, set) ->
+					$.each set.metadata_fields, (k, field) ->
+						field['value'] = ""
+
+			self.data = 
+				name: ""
+				start_time: ""
+				end_time: ""
+				is_public: true
+				item_type: ko.observable(self.itemTypes[0])
+
+			self.saveItem = ->
+				console.log(self.data)
+
+
+
 			# add value to fields
 
 			self.itemType = ko.observable(self.itemTypes[0])
@@ -126,8 +144,6 @@ itemsReady = ->
 
 
 		ko.applyBindings( new MetadataTypeViewModel() )
-				
-
 
 
 

@@ -18,6 +18,8 @@
 //= require leaflet.draw
 //= require alertify
 //= require knockout
+//= require moment
+//= require js/bootstrap-datetimepicker.min
 //= require_tree .
 
 

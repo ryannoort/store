@@ -16,4 +16,10 @@ class ItemType < ApplicationRecord
     end 		
 
 	end
+
+	# def as_json(options={})		
+	# 	options[:include] ||= :metadata_sets
+	# 	super(options)
+	# end
+	
 end

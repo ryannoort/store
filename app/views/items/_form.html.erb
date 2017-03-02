@@ -5,21 +5,54 @@
 	</div>
 	<div class="col-md-3">
 		<div class="actions">
+
+		<form class="simple_form new_item" id="new_item">
+		<div>
+			<label>Name</label>
+			<input data-bind="value: data.name" />
+		</div>
+
+		<div>
+			<label>Start time</label>
+			<input data-bind="value: data.start_time" />
+		</div>
+
+		<div>
+			<label>End time</label>
+			<input data-bind="value: data.end_time" />
+		</div>
+
+		<div>
+			<label>Is public</label>
+			<input type="checkbox" data-bind="checked: data.is_public" />
+		</div>
+
+		<div>
+			<input type="hidden" id="item_location" value="">
+		</div>
+		</form>
+<!-- 
 			<%= simple_form_for @item do |f| %>
 				<%= f.input :name %>
 				<%= f.input :start_time %>
 				<%= f.input :end_time %>
 				<%= f.input :is_public %>
 				<%= f.input :location, as: :hidden %>
-				<%= f.button :submit, class: 'btn-default'%>
-			<% end %>
+				<%= f.button :submit, class: 'btn-default'%> 
+			<% end %> 
+			-->
+
+
 		</div>
 	</div>
 </div>
 
+<button id="save_item" data-bind="click: saveItem" class="btn btn-default">Create Item</button>
+
 <script>
 var feature = <%= item.feature_json.html_safe %>
 var itemTypes = <%= ItemType.all().to_json(include: {metadata_sets: {include: :metadata_fields}}).html_safe %>
+// itemTypeValues = {}
 </script>
 
 
@@ -28,7 +61,7 @@ var itemTypes = <%= ItemType.all().to_json(include: {metadata_sets: {include: :m
 
 
 
-<select data-bind="options: itemTypes, value: itemType, optionsText: 'name'"></select>
+<select data-bind="options: itemTypes, value: data.item_type, optionsText: 'name'"></select>
 
 
 <script type="text/html" id="field-template">
@@ -39,31 +72,17 @@ var itemTypes = <%= ItemType.all().to_json(include: {metadata_sets: {include: :m
 </script>
 
 <script type="text/html" id="text_field-template">
-	<input data-bind="value: name" />
+	<input data-bind="value: value" />
 </script>
 
 <script type="text/html" id="file-template">
-	<input data-bind="value: name" />
+	<input data-bind="value: value" />
 </script>
 
 
-<div data-bind="foreach: itemType().metadata_sets">
+<div data-bind="foreach: data.item_type().metadata_sets">
 	<div data-bind="text: name"></div>
 	<div data-bind="foreach: metadata_fields">
 		<div data-bind="template: {name:'field-template', data: $data}"></div>
 	</div>
 </div>
-
-<!-- render templates -->
-<!-- <div data-bind="template: { name: 'item-type-template', data: itemType() }"></div>
-
-
-<scirpt type="text/html" id="item-type-template">
-	[<div data-bind="text: name"></div>]
-</scirpt>
-
-
-<script type="text/html" id="person-template">
-    <h3 data-bind="text: name"></h3>
-    <p>Credits: <span data-bind="text: credits"></span></p>
-</script> -->
