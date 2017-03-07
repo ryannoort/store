@@ -1,2 +1,24 @@
+<dl>
+	<dt>
+		Name
+	</dt>
+	<dd>
+		<%= @metadata_set.name %>		
+	</dd>
+	<dt>
+		Fields
+	</dt>
+	<dd>
+		<ul>
+			<% @metadata_set.metadata_fields.each do |field| %>
+			<li>
+				<%= field.name%>
+				<%= field.field_type%>
+			</li>
+			<% end %>		
+		</ul>
+	</dd>
+</dl>
+
 <%= link_to 'Edit', edit_metadata_set_path(@metadata_set) %> |
 <%= link_to 'Back', metadata_sets_path %>

@@ -15,10 +15,9 @@ metadataSetReady = ->
 			field_type: 'text_field'
 			hint: ''
 			default: ''
-			is_required: ''
+			is_required: false
 			order: 0
 
-		console.log metadata_field
 		fields = $.map(metadata_field, (element,index) -> return index)
 
 		$('.remove-field').click (e) ->
@@ -33,19 +32,26 @@ metadataSetReady = ->
 				url: '/metadata_sets.json'
 			})
 
+		getInputValue = (input) ->
+			console.log input
+			if ($(input).is(':checkbox'))	
+				console.log "found check"
+				return $(input).is ":checked"
+			return $(input).val()
+
+
 		gatherData = ->
 			data.metadata_set.name = $('#metadata_set_name').val()
 			baseClassName = '.metadata_set_metadata_fields_'
 			$('#fields > .field').each (i, item) ->
-				console.log(item)
 				field = $.extend(true, {}, metadata_field)
 				$.each(fields, (i, name) -> 
 					thisClass = baseClassName + name
-				
-					value = $($(item).find(thisClass)).children('[name="'+name+'"]').val()
-					field[name] = value
+					input = $($(item).find(thisClass)).children('[name="'+name+'"]')[0]
+					field[name] = getInputValue(input)
 				)
 				field.order = i
+				console.log(field)
 				data.metadata_set.metadata_fields_attributes.push field
 
 		$('#add_field').click ->

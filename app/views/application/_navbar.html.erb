@@ -9,6 +9,10 @@
             <%= link_to("Items", { controller: "items", action: "index" }) %>       
         </li>
 
+        <li>
+            <%= link_to("Collections", { controller: "collections", action: "index" }) %>       
+        </li>
+
 		<% if current_user && current_user.admin? %>
     	<li>
     		<%= link_to("Users", { controller: "users", action: "index" }) %>		

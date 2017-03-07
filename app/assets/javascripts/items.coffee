@@ -104,22 +104,13 @@ itemsReady = ->
 			setLocationValue()
 		)
 
-		if ($("body").hasClass("items") and $("body").hasClass("show"))
-			map = L.map('store-map').setView([53.525283, -113.525612], 14);
-			L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-				attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-			}).addTo(map);
-
-			geojsonLayer = L.geoJSON(feature).addTo(map);
-			map.fitBounds(geojsonLayer.getBounds());
-
 		# item type management
 
 		MetadataTypeViewModel = ->
 			self = this
 			# itemTypes is defined on items/_form.html.erb from a ItemType.all call
 			self.itemTypes = itemTypes
-
+			self.itemType = ko.observable(self.itemTypes[0])
 			$.each self.itemTypes, (i, type) ->
 				$.each type.metadata_sets, (j, set) ->
 					$.each set.metadata_fields, (k, field) ->
@@ -130,22 +121,51 @@ itemsReady = ->
 				start_time: ""
 				end_time: ""
 				is_public: true
-				item_type: ko.observable(self.itemTypes[0])
+				
+			getExtraData = ->
+				self.data.location = $("#item_location").val()
+				# self.data.item_type = 1
+				self.data.item_type_id = self.itemType().id
+				self.data.metadata_values_attributes = []
+				$.each self.itemType().metadata_sets, (j, set) ->
+					$.each set.metadata_fields, (k, field) ->
+						self.data.metadata_values_attributes.push(
+							metadata_field_id: field.id
+							value: field.value
+						)
+
+				console.log self.data
 
 			self.saveItem = ->
-				console.log(self.data)
+				getExtraData()
+				
+				data = 
+					item: self.data
 
+				# ajax call
+				$.ajax
+					type: 'POST'
+					dataType: 'json'
+					data: data
+					url: '/items.json'
 
 
 			# add value to fields
 
-			self.itemType = ko.observable(self.itemTypes[0])
-			console.log self.itemType()
+			# self.itemType = ko.observable(self.itemTypes[0])
+			console.log ""
 
 
 		ko.applyBindings( new MetadataTypeViewModel() )
 
+	if ($("body").hasClass("items") and $("body").hasClass("show"))
+		map = L.map('store-map').setView([53.525283, -113.525612], 14);
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
 
+		geojsonLayer = L.geoJSON(feature).addTo(map);
+		map.fitBounds(geojsonLayer.getBounds());
 
 
 

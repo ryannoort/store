@@ -11,6 +11,7 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+    @item_type = ItemType.includes(metadata_sets: [metadata_fields: [:metadata_values] ]).where(item_types: {id: @item.item_type_id} , metadata_values: {item_id: @item.id}).first
   end
 
   # GET /items/new
@@ -20,6 +21,7 @@ class ItemsController < ApplicationController
 
   # GET /items/1/edit
   def edit
+    @item_types = ItemType.includes(metadata_sets: [metadata_fields: [:metadata_values] ]).where(metadata_values: {item_id: @item.id})
   end
 
   # POST /items
@@ -76,7 +78,8 @@ class ItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
       # item = params.fetch(:item, {}).permit(:name, :location, :start_time, :end_time, :is_public, :location, :form_attributes => [ :id, :schema_id, :fields_attributes => [:id, :name, :content, :type, :mime_content] ])
-      item = params.fetch(:item, {}).permit(:name, :location, :start_time, :end_time, :is_public, :location)
+      # item = params.fetch(:item, {}).permit(:name, :location, :start_time, :end_time, :is_public, :location, :metadata_values => [:value, :metadata_field_id])
+      item = params.fetch(:item, {}).permit(:name, :location, :start_time, :end_time, :is_public, :location, :item_type_id, metadata_values_attributes: [:value, :metadata_field_id])
       item[:location] = RGeo::GeoJSON.decode(item[:location], json_parser: :json)
       return item
     end

@@ -4,9 +4,4 @@ class MetadataSet < ApplicationRecord
 
 	accepts_nested_attributes_for :metadata_fields, allow_destroy: true
 	# has_many :metadata_fields, through: :items_fields_values
-
-	# def as_json(options={})		
-	# 	options[:include] ||= :metadata_fields
-	# 	super(options)
-	# end
 end

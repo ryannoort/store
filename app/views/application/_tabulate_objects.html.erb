@@ -1,0 +1,18 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="2">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% objects.each do |object| %>
+      <tr>
+      	<td><%= link_to object.name, object %></td>      
+        <td><%= link_to 'Edit', [:edit, object] %></td>
+        <td><%= link_to 'Destroy', object, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

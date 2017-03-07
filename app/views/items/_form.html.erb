@@ -52,7 +52,6 @@
 <script>
 var feature = <%= item.feature_json.html_safe %>
 var itemTypes = <%= ItemType.all().to_json(include: {metadata_sets: {include: :metadata_fields}}).html_safe %>
-// itemTypeValues = {}
 </script>
 
 
@@ -61,7 +60,7 @@ var itemTypes = <%= ItemType.all().to_json(include: {metadata_sets: {include: :m
 
 
 
-<select data-bind="options: itemTypes, value: data.item_type, optionsText: 'name'"></select>
+<select data-bind="options: itemTypes, value: itemType, optionsText: 'name'"></select>
 
 
 <script type="text/html" id="field-template">
@@ -80,7 +79,7 @@ var itemTypes = <%= ItemType.all().to_json(include: {metadata_sets: {include: :m
 </script>
 
 
-<div data-bind="foreach: data.item_type().metadata_sets">
+<div data-bind="foreach: itemType().metadata_sets">
 	<div data-bind="text: name"></div>
 	<div data-bind="foreach: metadata_fields">
 		<div data-bind="template: {name:'field-template', data: $data}"></div>

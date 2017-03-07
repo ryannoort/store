@@ -1,8 +1,8 @@
 class ItemType < ApplicationRecord
 	has_and_belongs_to_many :metadata_sets
-	# has_many :item_types_metadata_sets
-	# has_many :metadata_sets, through: :item_types_metadata_sets
-	# accepts_nested_attributes_for :metadata_sets
+
+	has_many :items
+	# TODO This is not needed, remove and test
 	attr_accessor :metadata_sets_ids
 	after_save :update_item_type_metadata_sets
 
@@ -14,12 +14,8 @@ class ItemType < ApplicationRecord
         self.metadata_sets << metadata_set
       end
     end 		
-
 	end
 
-	# def as_json(options={})		
-	# 	options[:include] ||= :metadata_sets
-	# 	super(options)
-	# end
+
 	
 end
