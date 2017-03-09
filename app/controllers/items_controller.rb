@@ -11,7 +11,8 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
-    @item_type = ItemType.includes(metadata_sets: [metadata_fields: [:metadata_values] ]).where(item_types: {id: @item.item_type_id} , metadata_values: {item_id: @item.id}).first
+    # @item_type = ItemType.includes(metadata_sets: [metadata_fields: [:metadata_values] ]).where(item_types: {id: @item.item_type_id} , metadata_values: {item_id: @item.id}).first
+    @item_type = ItemType.first
   end
 
   # GET /items/new
@@ -36,6 +37,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
+        # @item.update_item_type item_params['item_type_id']
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render :show, status: :created, location: @item }
       else
@@ -50,6 +52,7 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
+        # @item.update_item_type item_params['item_type_id']
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }
         format.json { render :show, status: :ok, location: @item }
       else

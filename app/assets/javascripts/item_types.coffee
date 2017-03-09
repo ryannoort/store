@@ -5,34 +5,10 @@
 itemTypeReady = ->
 	if ($('body').hasClass('item_types') and $('body').hasClass('new'))
 
-		# get all sets and fill select
-		# setTemplate = ''
-
-		# $.ajax(
-		# 	type: 'GET'
-		# 	dataType: 'json'
-		# 	url: '/metadata_sets.json'
-		# 	async: false
-		# 	success: (sets) ->
-		# 		$.each(sets, (i, set) ->
-		# 			test = $('.set-select').append($('<option>',
-		# 				value: set.id
-		# 				text: set.id
-		# 			))
-		# 			setTemplate = $('#set-template').clone(true)
-		# 			setTemplate.attr('hidden', false)
-		# 		)
-		# )
-
-		# setTemplate = $('#set-template').clone(true)
-		# setTemplate.attr('hidden', false)
-
-
-
 		data =
 			item_type:
 				name: ''
-				metadata_sets_ids: []
+				metadata_set_ids: []
 
 		# create behaviour for add button
 		$('#add_set').click ->
@@ -53,8 +29,7 @@ itemTypeReady = ->
 		gatherData = ->
 			data.item_type.name = $("#item_type_name").val()
 			$('#sets > .set > div > [name="item_type_metadata_set"]').each (i, metadata_set) ->
-				data.item_type.metadata_sets_ids.push {id: $(metadata_set).val() }
-				# console.log $(metadata_set).val()
+				data.item_type.metadata_set_ids.push $(metadata_set).val()
 
 
 		setTemplate = $('#set-template').clone(true)
@@ -62,4 +37,3 @@ itemTypeReady = ->
 
 $(document).on('turbolinks:load', itemTypeReady);	
 
-# accepts_nested_attributes_for :exercise_sets, :reject_if => lambda { |a| a[:exercise_id].blank? }, :allow_destroy => true

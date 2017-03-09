@@ -32,6 +32,7 @@ class CollectionsController < ApplicationController
 
     respond_to do |format|
       if @collection.save
+        # @collection.update_item_type collection_params['item_type_id']
         format.html { redirect_to @collection, notice: 'Collection was successfully created.' }
         format.json { render :show, status: :created, location: @collection }
       else
@@ -46,6 +47,7 @@ class CollectionsController < ApplicationController
   def update
     respond_to do |format|
       if @collection.update(collection_params)
+        # @collection.update_item_type collection_params['item_type_id']
         format.html { redirect_to @collection, notice: 'Collection was successfully updated.' }
         format.json { render :show, status: :ok, location: @collection }
       else
@@ -74,7 +76,7 @@ class CollectionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def collection_params
       # params.fetch(:collection, {}).permit(:parent_collection_id, :name, :form_attributes => [ :id, :schema_id, :fields_attributes => [:id, :name, :content, :type, :mime_content] ])
-      params.fetch(:collection, {}).permit(:name, :item_ids, :collection_ids)
+      params.fetch(:collection, {}).permit(:name, :item_type_id, item_ids: [], collection_ids: [], metadata_values_attributes: [:value, :metadata_field_id])
 
     end
 end

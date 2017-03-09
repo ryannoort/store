@@ -26,15 +26,32 @@
 
 <button id="save_collection" data-bind="click: saveCollection" class="btn btn-default">Create Collection</button>
 
-<%= simple_form_for(@collection) do |f| %>
-  <%= f.error_notification %>
-<!--
-  <div class="form-inputs">
+<script>
+var itemTypes = <%= ItemType.all().to_json(include: {metadata_sets: {include: :metadata_fields}}).html_safe %>
+</script>
 
-  </div>
+<select data-bind="options: itemTypes, value: itemType, optionsText: 'name'"></select>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-  -->
-<% end %>
+
+<script type="text/html" id="field-template">
+	<div data-bind="text: name"></div>
+	<div data-bind="text: field_type"></div>
+	<div data-bind="template: {name: field_type+'-template'}"></div>
+	<!-- <div data-bind="template: {name: field_type+'-template', data: value}"></div> -->
+</script>
+
+<script type="text/html" id="text_field-template">
+	<input data-bind="value: value" />
+</script>
+
+<script type="text/html" id="file-template">
+	<input data-bind="value: value" />
+</script>
+
+
+<div data-bind="foreach: itemType().metadata_sets">
+	<div data-bind="text: name"></div>
+	<div data-bind="foreach: metadata_fields">
+		<div data-bind="template: {name:'field-template', data: $data}"></div>
+	</div>
+</div>

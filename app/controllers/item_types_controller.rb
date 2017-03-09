@@ -69,7 +69,7 @@ class ItemTypesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_type_params
-      params.fetch(:item_type, {}).permit(:name, metadata_sets_ids: [:id])
+      params.fetch(:item_type, {}).permit(:name, metadata_set_ids: [])
     end
 
 end

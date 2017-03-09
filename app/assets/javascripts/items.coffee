@@ -124,7 +124,6 @@ itemsReady = ->
 				
 			getExtraData = ->
 				self.data.location = $("#item_location").val()
-				# self.data.item_type = 1
 				self.data.item_type_id = self.itemType().id
 				self.data.metadata_values_attributes = []
 				$.each self.itemType().metadata_sets, (j, set) ->

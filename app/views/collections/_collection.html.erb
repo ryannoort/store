@@ -1,32 +1,4 @@
 <dl>
 	<dt>Name</dt>
 	<dd><%= collection.name %></dd>
-	<dt>Owner</dt>
-	<dd><%= collection.owner.email %></dd>
-	<dt>Meta Data</dt>
-	<dd><%= render(partial: 'forms/form_fields', locals: {form: collection.form}) if collection.form %></dd>
-	<dt>Collections</dt>
-	<dd>
-		<% if(collection.collections.count > 0) %>
-			<ul>
-			<% collection.collections.each do |c| %>
-				<li><%= render(partial: 'collections/collection', locals: {collection: c}) %></li>
-			<% end %>
-			</ul>
-		<% else %>
-			No collections found.
-		<% end %>
-	</dd>
-	<dt>Items</dt>
-	<dd>
-		<% if(collection.items.count > 0) %>
-			<ul>
-			<% collection.items.each do |i| %>
-				<li><%= render(partial: 'items/item', locals: {item: i}) if i %></li>
-			<% end %>
-			</ul>
-		<% else %>
-			No items found.
-		<% end %>
-	</dd>
 </dl>
