@@ -1,5 +1,5 @@
 class MetadataField < ApplicationRecord
-	# belongs_to :metadata, class_name: "Metadata"
+
 	enum field_type: {
 		text_field: 0,
 		text_area: 1,

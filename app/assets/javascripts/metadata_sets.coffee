@@ -33,9 +33,7 @@ metadataSetReady = ->
 			})
 
 		getInputValue = (input) ->
-			console.log input
 			if ($(input).is(':checkbox'))	
-				console.log "found check"
 				return $(input).is ":checked"
 			return $(input).val()
 
@@ -51,7 +49,6 @@ metadataSetReady = ->
 					field[name] = getInputValue(input)
 				)
 				field.order = i
-				console.log(field)
 				data.metadata_set.metadata_fields_attributes.push field
 
 		$('#add_field').click ->

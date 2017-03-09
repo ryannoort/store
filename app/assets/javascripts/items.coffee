@@ -82,7 +82,6 @@ itemsReady = ->
 			disableDrawing()
 			geojsonLayer = L.geoJSON(feature)
 			addNonGroupLayers(geojsonLayer, featureGroup)
-			console.log(geojsonLayer)
 			map.fitBounds(geojsonLayer.getBounds());
 			setLocationValue()
 
@@ -132,8 +131,6 @@ itemsReady = ->
 							metadata_field_id: field.id
 							value: field.value
 						)
-
-				console.log self.data
 
 			self.saveItem = ->
 				getExtraData()

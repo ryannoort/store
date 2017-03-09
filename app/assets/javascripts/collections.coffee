@@ -28,7 +28,6 @@ collectionsReady = ->
 							metadata_field_id: field.id
 							value: field.value
 						)
-						console.log "metiendo"
 
 			self.saveCollection = ->
 				getExtraData()

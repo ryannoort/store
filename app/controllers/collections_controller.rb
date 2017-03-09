@@ -11,6 +11,7 @@ class CollectionsController < ApplicationController
   # GET /collections/1
   # GET /collections/1.json
   def show
+    @item_type = ItemType.includes(metadata_sets: [metadata_fields: [:metadata_values] ]).where(item_types: {id: @collection.item_type_id} , metadata_values: {valuable_id: @collection.id}).first
   end
 
   # GET /collections/new

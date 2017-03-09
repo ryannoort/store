@@ -19,7 +19,7 @@ itemTypeReady = ->
 
 		$('#save_item_type').click ->
 			gatherData()
-			console.log(data)
+
 			$.ajax
 				type: 'POST'
 				dataType: 'json'
