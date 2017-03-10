@@ -1,5 +1,25 @@
+
+
+<div class="form-inputs">
+	<ul>
+		<li>
+			<label>Name</label>
+			<input type="" name="" data-bind="value: data.name" />
+		</li>
+	</ul>
+
+<ul data-bind="template: { name: 'metadata-field-template',
+							foreach: data.metadata_fields_attributes,
+							as: 'metadata_field' }">					
+</ul>
+
+
+</div>
+
+
+
 <%= simple_form_for @metadata_set  do |f| %>
-	
+<!--	
 	<li class="well field" id="field-template" hidden>
 		<%= f.simple_fields_for :metadata_fields do |p| %>
 			<%= p.input :name, input_html: { name: 'name' } %>
@@ -17,8 +37,43 @@
 
  		</ul>
   </div>
-
+-->
 <% end %>
-<button id="add_field" class="btn btn-default">Add</button>
-<button id="save_set" class="btn btn-default">Save</button>
+
+<% if @metadata_set.id %>
+<script>
+	var metadataSetId = <%= @metadata_set.id %>	
+</script>
+<% end %>
+
+<button id="add_field" class="btn btn-default" data-bind="click: addMetadataField">Add</button>
+<button id="save_set" class="btn btn-default" data-bind="click: saveMetadataSet">Save</button>
+
+<script type="text/html" id="metadata-field-template">
+	<li>
+		<ul>
+		<li>
+			<label>Field name</label>
+			<input type="" name="" data-bind="value: metadata_field.name">
+		</li>
+		<li>
+			<label>Field type</label>
+			<input type="" name="" data-bind="value: metadata_field.field_type">
+		</li>
+		<li>
+			<label>Hint</label>
+			<input type="" name="" data-bind="value: metadata_field.hint">
+		</li>
+		<li>
+			<label>Default</label>
+			<input type="" name="" data-bind="value: metadata_field.default">
+		</li>
+		<li>
+			<label>Is required</label>
+			<input type="checkbox" value="is_required" data-bind="checked: metadata_field.is_required" />
+		</li>
+  	</ul>
+  	<a class="btn btn-danger remove-field" data-bind="click: $root.removeField">X</a>
+  </li>
+</script>
 

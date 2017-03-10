@@ -3,58 +3,57 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 metadataSetReady = ->
-	if ($('body').hasClass('metadata_sets') and $('body').hasClass('new'))
 
-		data = 
-			metadata_set:
-				name: ''
-				metadata_fields_attributes: []
+	if $('body').hasClass('metadata_sets') and $('body').hasClass('new') or $('body').hasClass('edit')
 
-		metadata_field =
-			name: ""
-			field_type: 'text_field'
-			hint: ''
-			default: ''
-			is_required: false
-			order: 0
+		MetadataField = ->
+			self = this
+			self.name = ""
+			self.field_type = ""
+			self.hint = ""
+			self.default = ""
+			self.is_required = false
 
-		fields = $.map(metadata_field, (element,index) -> return index)
+		MetadataSetViewModel = ->
+			self = this
 
-		$('.remove-field').click (e) ->
-			$(e.target).parent().remove()
-
-		$('#save_set').click ->		
-			gatherData()
-			$.ajax({
-				type: 'POST',
-				dataType: 'json',
-				data: data,
-				url: '/metadata_sets.json'
-			})
-
-		getInputValue = (input) ->
-			if ($(input).is(':checkbox'))	
-				return $(input).is ":checked"
-			return $(input).val()
-
-
-		gatherData = ->
-			data.metadata_set.name = $('#metadata_set_name').val()
-			baseClassName = '.metadata_set_metadata_fields_'
-			$('#fields > .field').each (i, item) ->
-				field = $.extend(true, {}, metadata_field)
-				$.each(fields, (i, name) -> 
-					thisClass = baseClassName + name
-					input = $($(item).find(thisClass)).children('[name="'+name+'"]')[0]
-					field[name] = getInputValue(input)
+			self.data = 
+				name: ko.observable("")
+				metadata_fields_attributes: ko.observableArray []			
+			
+			addId = ''
+			method = "POST"
+			if $('body').hasClass('edit')
+				addId = '/' + metadataSetId
+				method = "PUT"
+				self.data.id = metadataSetId
+				$.ajax(
+					type: "GET"
+					dataType: "json"
+					url: '/metadata_sets/'+metadataSetId+'.json'
+					success: (data) ->
+						console.log data
+						self.data.name(data.name)
+						self.data.metadata_fields_attributes(data.metadata_fields)
 				)
-				field.order = i
-				data.metadata_set.metadata_fields_attributes.push field
 
-		$('#add_field').click ->
-			$('#fields').append($(fieldTemplate).clone(true))
+			self.addMetadataField = ->
+				self.data.metadata_fields_attributes.push new MetadataField()
 
-		fieldTemplate = $('#field-template').clone(true)
-		fieldTemplate.attr('hidden', false)
+			self.removeField = (field) -> 
+				self.data.metadata_fields_attributes.destroy field
+
+			self.saveMetadataSet = ->
+				
+				$.ajax(
+					type: method
+					dataType: 'json'
+					data: ko.toJS(metadata_set: self.data)
+					url: '/metadata_sets'+addId+'.json'
+				)
+
+			console.log ""
+		
+		ko.applyBindings( new MetadataSetViewModel() )
 
 $(document).on('turbolinks:load', metadataSetReady);

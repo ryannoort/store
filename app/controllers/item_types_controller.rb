@@ -14,6 +14,7 @@ class ItemTypesController < ApplicationController
 
   # GET /item_types/new
   def new
+    @item = Item.new
     @item_type = ItemType.new
   end
 

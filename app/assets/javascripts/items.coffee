@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 itemsReady = ->
-	if ($("body").hasClass("items") and ($("body").hasClass("new") or $("body").hasClass("edit")))
+	if $("body").hasClass("items") and ($("body").hasClass("new") or $("body").hasClass("edit"))
 
 		enabledButtons = []
 		disabledButtons = []
@@ -116,10 +116,28 @@ itemsReady = ->
 						field['value'] = ""
 
 			self.data = 
-				name: ""
-				start_time: ""
-				end_time: ""
-				is_public: true
+				name: ko.observable ""
+				start_time: ko.observable ""
+				end_time: ko.observable ""
+				is_public: ko.observable true
+			
+
+			if $("body").hasClass("edit")
+				$.ajax(
+					type: "GET"
+					dataType: "json"
+					url: '/items/5.json'
+					success: (data) ->
+						setAllDataValues(data)						
+				)
+						
+			
+			setAllDataValues = (data) ->
+				self.data.name(data.name)
+				self.data.start_time(data.start_time)
+				self.data.end_time(data.end_time)
+				self.data.is_public(data.is_public)
+
 				
 			getExtraData = ->
 				self.data.location = $("#item_location").val()
@@ -145,10 +163,6 @@ itemsReady = ->
 					data: data
 					url: '/items.json'
 
-
-			# add value to fields
-
-			# self.itemType = ko.observable(self.itemTypes[0])
 			console.log ""
 
 
