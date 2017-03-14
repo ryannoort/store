@@ -173,6 +173,8 @@ itemsReady = ->
 					dataType: 'json'
 					data: data
 					url: '/items' + addId + '.json'
+					success: (resp) ->
+						window.location.href = resp.url
 
 			console.log ""
 

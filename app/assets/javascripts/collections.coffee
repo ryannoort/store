@@ -63,6 +63,8 @@ collectionsReady = ->
 					dataType: 'json'
 					data: data
 					url: '/collections' + addId + '.json'
+					success: (resp) ->
+						window.location.href = resp.url
 
 			console.log ""
 

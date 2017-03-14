@@ -39,12 +39,14 @@ itemTypeReady = ->
 				self.data.metadata_sets_ids.destroy metadata_set
 
 			self.saveItemType = ->
-				$.ajax(
+				$.ajax
 					type: method
 					dataType: 'json'
 					data: ko.toJS(item_type: self.data)
 					url: '/item_types' + addId + '.json'
-				)
+					success: (resp) ->
+						window.location.href = resp.url
+				
 
 			console.log ''
 

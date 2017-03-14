@@ -41,7 +41,6 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
-        # @item.update_item_type item_params['item_type_id']
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render :show, status: :created, location: @item }
       else
@@ -56,7 +55,6 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
-        # @item.update_item_type item_params['item_type_id']
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }
         format.json { render :show, status: :ok, location: @item }
       else

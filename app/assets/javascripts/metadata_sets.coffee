@@ -44,12 +44,13 @@ metadataSetReady = ->
 
 			self.saveMetadataSet = ->
 				
-				$.ajax(
+				$.ajax
 					type: method
 					dataType: 'json'
 					data: ko.toJS(metadata_set: self.data)
 					url: '/metadata_sets' + addId + '.json'
-				)
+					success: (resp) ->
+						window.location.href = resp.url
 
 			console.log ''
 		
