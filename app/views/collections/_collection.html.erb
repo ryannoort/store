@@ -3,9 +3,9 @@
 	<dd><%= collection.name %></dd>
 	<dt>Meta Data</dt>
 	<dd>
-	<%= @item_type.name %>
+	<%= @collection.item_type_values.name %>
 	<ul>
-	<% @item_type.metadata_sets.each do |metadata_set| %>
+	<% @collection.item_type_values.metadata_sets.each do |metadata_set| %>
 		<li>
 		<%= metadata_set.name %>
 		</li>

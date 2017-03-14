@@ -16,9 +16,9 @@
 				<dd><%= item.end_time %></dd>
 				<dt>Meta Data</dt>
 				<dd>
-				<%= @item_type.name %>
+				<%= @item.item_type_values.name %>
 				<ul>
-				<% @item_type.metadata_sets.each do |metadata_set| %>
+				<% @item.item_type_values.metadata_sets.each do |metadata_set| %>
 					<li>
 					<%= metadata_set.name %>
 					</li>
@@ -34,7 +34,6 @@
 				<% end %>				
 				</ul>
 				</dd>
-
 
 			</dl>
 

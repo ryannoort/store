@@ -2,9 +2,15 @@ class ItemType < ApplicationRecord
 	has_and_belongs_to_many :metadata_sets
 	accepts_nested_attributes_for :metadata_sets
 
-	scope :fetch_for_item, -> (item) {
-		includes(metadata_sets: [metadata_fields: [:metadata_values] ])
-			.where(item_types: {id: item.item_type_id} , metadata_values: {valuable_type: item.class.name, valuable_id: item.id}) 
+	scope :item_type_values, -> (metadatable) {
+		includes(metadata_sets: 
+			[metadata_fields: [:metadata_values] ])
+			.where(
+				item_types: 
+				{id: metadatable.item_type_id} , 
+				metadata_values: 
+				{valuable_type: metadatable.class.name, 
+				valuable_id: metadatable.id}) 
 	}
 
 

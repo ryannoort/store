@@ -11,9 +11,9 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
-    @item_type = ItemType.includes(metadata_sets: [metadata_fields: [:metadata_values] ])
-                        .where(item_types: {id: @item.item_type_id} , metadata_values: {valuable_type: @item.class.name, valuable_id: @item.id})
-                        .first
+    # @item_type = ItemType.includes(metadata_sets: [metadata_fields: [:metadata_values] ])
+    #                     .where(item_types: {id: @item.item_type_id} , metadata_values: {valuable_type: @item.class.name, valuable_id: @item.id})
+    #                     .first
     # @item_type = ItemType.fetch_for_item(@item).first
     # @item.item_type = ItemType.fetch_for_item(@item).first
   end
