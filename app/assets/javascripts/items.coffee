@@ -190,7 +190,5 @@ itemsReady = ->
 			map.fitBounds(geojsonLayer.getBounds());
 
 
-
-#$(document).ready(itemsReady);
 $(document).on('turbolinks:load', itemsReady);
 
