@@ -122,9 +122,10 @@ itemsReady = ->
 				is_public: ko.observable true
 			
 
+			addId = ""
 			if $("body").hasClass("edit")
 				addId = '/' + itemId
-				# method = 'PUT'
+				method = 'PUT'
 				$.ajax(
 					type: "GET"
 					dataType: "json"
@@ -166,10 +167,10 @@ itemsReady = ->
 
 				# ajax call
 				$.ajax
-					type: 'POST'
+					type: method
 					dataType: 'json'
 					data: data
-					url: '/items.json'
+					url: '/items' + addId + '.json'
 
 			console.log ""
 
