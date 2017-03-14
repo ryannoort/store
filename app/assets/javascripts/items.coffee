@@ -3,6 +3,9 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 itemsReady = ->
+
+
+
 	if $("body").hasClass("items") and ($("body").hasClass("new") or $("body").hasClass("edit"))
 
 		enabledButtons = []
@@ -107,6 +110,12 @@ itemsReady = ->
 
 		# item type management
 
+		# store.linkedTimePickers('start-time-picker', 'end-time-picker')
+
+
+		
+
+
 		MetadataTypeViewModel = ->
 			self = this
 			# itemTypes is defined on items/_form.html.erb from a ItemType.all call
@@ -135,7 +144,25 @@ itemsReady = ->
 					success: (data) ->
 						setAllDataValues data
 				)
-						
+		
+			# setupLinkedTimePicker('#start-time-picker', '#end-time-picker')				
+			$('#start-time-picker').datetimepicker(
+				format: 'YYYY-MM-DD'
+			);
+			$('#end-time-picker').datetimepicker(
+				format: 'YYYY-MM-DD'
+				useCurrent: false 
+			);
+			
+			$('#start-time-picker').on("dp.change", (e) -> 				
+				self.data.start_time( $('#start-time-picker > input').val() )
+				$('#end-time-picker').data("DateTimePicker").minDate(e.date);
+			);
+
+			$('#end-time-picker').on("dp.change", (e) -> 				
+				self.data.end_time( $('#end-time-picker > input').val() )
+				$('#start-time-picker').data("DateTimePicker").maxDate(e.date);
+			);
 			
 			setAllDataValues = (data) ->
 				

@@ -11,15 +11,32 @@
 			<input data-bind="value: data.name" />
 		</div>
 
-		<div>
-			<label>Start time</label>
-			<input data-bind="value: data.start_time" />
-		</div>
 
-		<div>
-			<label>End time</label>
-			<input data-bind="value: data.end_time" />
-		</div>
+		<div class="">
+		    <div class=''>
+
+		        <div class="form-group">
+		        	<label>Start time</label>
+		            <div class='input-group date' id='start-time-picker'>
+		                <input type='text' class="form-control" data-bind="value: data.start_time" />
+		                <span class="input-group-addon">
+		                    <span class="glyphicon glyphicon-calendar"></span>
+		                </span>
+		            </div>
+		        </div>
+		    </div>
+		    <div class=''>
+		        <div class="form-group">
+		        <label>End time</label>
+		            <div class='input-group date' id='end-time-picker'>
+		                <input type='text' class="form-control"  data-bind="value: data.end_time" />
+		                <span class="input-group-addon">
+		                    <span class="glyphicon glyphicon-calendar"></span>
+		                </span>
+		            </div>
+		        </div>
+		    </div>
+		</div> 
 
 		<div>
 			<label>Is public</label>
