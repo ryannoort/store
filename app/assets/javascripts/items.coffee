@@ -78,7 +78,7 @@ itemsReady = ->
 		# setLocationValue()
 
 		# editing section
-		if ($("body").hasClass("edit"))
+		if $("body").hasClass("edit")
 			disableDrawing()
 			geojsonLayer = L.geoJSON(feature)
 			addNonGroupLayers(geojsonLayer, featureGroup)
@@ -108,9 +108,9 @@ itemsReady = ->
 		MetadataTypeViewModel = ->
 			self = this
 			# itemTypes is defined on items/_form.html.erb from a ItemType.all call
-			self.itemTypes = itemTypes
+			self.itemTypes = ko.observableArray itemTypes
 			self.itemType = ko.observable(self.itemTypes[0])
-			$.each self.itemTypes, (i, type) ->
+			$.each self.itemTypes(), (i, type) ->
 				$.each type.metadata_sets, (j, set) ->
 					$.each set.metadata_fields, (k, field) ->
 						field['value'] = ""
@@ -123,20 +123,28 @@ itemsReady = ->
 			
 
 			if $("body").hasClass("edit")
+				addId = '/' + itemId
+				# method = 'PUT'
 				$.ajax(
 					type: "GET"
 					dataType: "json"
-					url: '/items/5.json'
+					url: '/items' + addId + '.json'
 					success: (data) ->
-						setAllDataValues(data)						
+						setAllDataValues data
 				)
 						
 			
 			setAllDataValues = (data) ->
-				self.data.name(data.name)
-				self.data.start_time(data.start_time)
-				self.data.end_time(data.end_time)
-				self.data.is_public(data.is_public)
+				
+				self.data.name data.name
+				self.data.start_time data.start_time
+				self.data.end_time data.end_time
+				self.data.is_public data.is_public
+
+				$.each self.itemTypes(), (i, type) ->
+					if type.id == data.item_type.id
+						self.itemTypes.replace(type, data.item_type)
+						self.itemType data.item_type
 
 				
 			getExtraData = ->

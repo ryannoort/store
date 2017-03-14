@@ -4,21 +4,21 @@
 
 metadataSetReady = ->
 
-	if $('body').hasClass('metadata_sets') and $('body').hasClass('new') or $('body').hasClass('edit')
+	if $('body').hasClass('metadata_sets') and ($('body').hasClass('new') or $('body').hasClass('edit'))
 
 		MetadataField = ->
 			self = this
-			self.name = ""
-			self.field_type = ""
-			self.hint = ""
-			self.default = ""
+			self.name = ''
+			self.field_type = ''
+			self.hint = ''
+			self.default = ''
 			self.is_required = false
 
 		MetadataSetViewModel = ->
 			self = this
 
 			self.data = 
-				name: ko.observable("")
+				name: ko.observable ''
 				metadata_fields_attributes: ko.observableArray []			
 			
 			addId = ''
@@ -30,9 +30,8 @@ metadataSetReady = ->
 				$.ajax(
 					type: "GET"
 					dataType: "json"
-					url: '/metadata_sets/'+metadataSetId+'.json'
+					url: '/metadata_sets' + addId + '.json'
 					success: (data) ->
-						console.log data
 						self.data.name(data.name)
 						self.data.metadata_fields_attributes(data.metadata_fields)
 				)
@@ -49,10 +48,10 @@ metadataSetReady = ->
 					type: method
 					dataType: 'json'
 					data: ko.toJS(metadata_set: self.data)
-					url: '/metadata_sets'+addId+'.json'
+					url: '/metadata_sets' + addId + '.json'
 				)
 
-			console.log ""
+			console.log ''
 		
 		ko.applyBindings( new MetadataSetViewModel() )
 
