@@ -14,8 +14,9 @@ class ItemTypesController < ApplicationController
 
   # GET /item_types/new
   def new
-    @item = Item.new
+    # @item = Item.new
     @item_type = ItemType.new
+    # @item_type.metadata_sets.build 
   end
 
   # GET /item_types/1/edit
@@ -26,7 +27,6 @@ class ItemTypesController < ApplicationController
   # POST /item_types.json
   def create
     @item_type = ItemType.new(item_type_params)
-
     respond_to do |format|
       if @item_type.save
         format.html { redirect_to @item_type, notice: 'Item type was successfully created.' }
@@ -70,7 +70,7 @@ class ItemTypesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_type_params
-      params.fetch(:item_type, {}).permit(:name, metadata_set_ids: [])
+      params.fetch(:item_type, {}).permit(:name, metadata_sets_ids: [:id])
     end
 
 end

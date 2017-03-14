@@ -28,6 +28,9 @@
 
 <script>
 var itemTypes = <%= ItemType.all().to_json(include: {metadata_sets: {include: :metadata_fields}}).html_safe %>
+<% if @collection.id %>
+var collectionId = <%= @collection.id %> 
+<% end %>
 </script>
 
 <select data-bind="options: itemTypes, value: itemType, optionsText: 'name'"></select>
