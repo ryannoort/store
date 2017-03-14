@@ -79,10 +79,12 @@ itemsReady = ->
 
 		# editing section
 		if $("body").hasClass("edit")
-			disableDrawing()
+			
 			geojsonLayer = L.geoJSON(feature)
 			addNonGroupLayers(geojsonLayer, featureGroup)
-			map.fitBounds(geojsonLayer.getBounds());
+			if geojsonLayer.getBounds().isValid()
+				map.fitBounds(geojsonLayer.getBounds());
+				disableDrawing()
 			setLocationValue()
 
 		# Update location value catching map events
@@ -121,8 +123,8 @@ itemsReady = ->
 				end_time: ko.observable ""
 				is_public: ko.observable true
 			
-
-			addId = ""
+			addId = ''
+			method = 'POST'
 			if $("body").hasClass("edit")
 				addId = '/' + itemId
 				method = 'PUT'
@@ -184,7 +186,8 @@ itemsReady = ->
 		}).addTo(map);
 
 		geojsonLayer = L.geoJSON(feature).addTo(map);
-		map.fitBounds(geojsonLayer.getBounds());
+		if geojsonLayer.getBounds().isValid()
+			map.fitBounds(geojsonLayer.getBounds());
 
 
 
