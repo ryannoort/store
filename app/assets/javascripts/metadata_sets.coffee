@@ -33,7 +33,11 @@ metadataSetReady = ->
 					dataType: "json"
 					url: '/metadata_sets' + addId + '.json'
 					success: (data) ->
-						self.data.name(data.name)
+						console.log "test"
+						self.data.name data.name
+						$.each(data.metadata_fields, (i,val) ->
+							val.name = ko.observable(val.name).extend required: ''
+						)
 						self.data.metadata_fields_attributes(data.metadata_fields)
 				)
 
