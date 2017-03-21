@@ -9,7 +9,7 @@ collectionsReady = ->
 			$.each self.itemTypes(), (i, type) ->
 				$.each type.metadata_sets, (j, set) ->
 					$.each set.metadata_fields, (k, field) ->
-						field['value'] = ""
+						field['value'] = storeHelpers.createValidatableField(field, field.default)
 
 			self.data = 
 				name: ko.observable("").extend required: ""
@@ -35,6 +35,11 @@ collectionsReady = ->
 				self.data.item_ids  data.item_ids.join ','
 				self.data.collection_ids data.collection_ids
 				self.data.item_type_id data.item_type_id
+
+				$.each data.item_type.metadata_sets, (j, set) ->
+					$.each set.metadata_fields, (k, field) ->
+						field.value = storeHelpers.createValidatableField(field, field.value)
+
 				$.each self.itemTypes(), (i, type) ->
 					if type.id == data.item_type.id
 						self.itemTypes.replace(type, data.item_type)

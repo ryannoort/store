@@ -4,8 +4,6 @@
 
 itemsReady = ->
 
-
-
 	if $("body").hasClass("items") and ($("body").hasClass("new") or $("body").hasClass("edit"))
 
 		enabledButtons = []
@@ -110,34 +108,16 @@ itemsReady = ->
 
 		# item type management
 
-		# store.linkedTimePickers('start-time-picker', 'end-time-picker')
-
-
-		
-
-
 		MetadataTypeViewModel = ->
 			self = this
 			# itemTypes is defined on items/_form.html.erb from a ItemType.all call
-			
-			createObservableField = (field, value) ->
-				console.log field
-				observableField = ko.observable value
-				if field.is_required
-					observableField.extend required: ""
-				if field.field_type == "email"
-					observableField.extend email: ""
-				if field.field_type == "number"
-					observableField.extend numeric: ""
-
-				return observableField
 
 			self.itemTypes = ko.observableArray itemTypes
 			self.itemType = ko.observable(self.itemTypes[0])
 			$.each self.itemTypes(), (i, type) ->
 				$.each type.metadata_sets, (j, set) ->
 					$.each set.metadata_fields, (k, field) ->
-						field['value'] = createObservableField(field, field.default)
+						field['value'] = storeHelpers.createValidatableField(field, field.default)
 
 			self.data = 
 				name: ko.observable("").extend required: ""
@@ -189,7 +169,7 @@ itemsReady = ->
 
 				$.each data.item_type.metadata_sets, (j, set) ->
 					$.each set.metadata_fields, (k, field) ->
-						field.value = createObservableField(field, field.value)
+						field.value = storeHelpers.createValidatableField(field, field.value)
 
 				$.each self.itemTypes(), (i, type) ->
 					if type.id == data.item_type.id

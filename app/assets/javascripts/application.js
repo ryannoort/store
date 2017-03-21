@@ -20,6 +20,19 @@
 //= require knockout
 //= require moment
 //= require js/bootstrap-datetimepicker.min
-//= require_tree .
+//= require store
+//= require auth_token
+//= require cable
+//= require extenders
+//= require components
+//= require collections
+//= require home
+//= require item_types
+//= require items
+//= require metadata_sets
+//= require users
+
+//= require store
+
 
 
