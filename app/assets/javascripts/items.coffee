@@ -119,15 +119,28 @@ itemsReady = ->
 		MetadataTypeViewModel = ->
 			self = this
 			# itemTypes is defined on items/_form.html.erb from a ItemType.all call
+			
+			createObservableField = (field, value) ->
+				console.log field
+				observableField = ko.observable value
+				if field.is_required
+					observableField.extend required: ""
+				if field.field_type == "email"
+					observableField.extend email: ""
+				if field.field_type == "number"
+					observableField.extend numeric: ""
+
+				return observableField
+
 			self.itemTypes = ko.observableArray itemTypes
 			self.itemType = ko.observable(self.itemTypes[0])
 			$.each self.itemTypes(), (i, type) ->
 				$.each type.metadata_sets, (j, set) ->
 					$.each set.metadata_fields, (k, field) ->
-						field['value'] = ""
+						field['value'] = createObservableField(field, field.default)
 
 			self.data = 
-				name: ko.observable ""
+				name: ko.observable("").extend required: ""
 				start_time: ko.observable ""
 				end_time: ko.observable ""
 				is_public: ko.observable true
@@ -164,12 +177,20 @@ itemsReady = ->
 				$('#start-time-picker').data("DateTimePicker").maxDate(e.date);
 			);
 			
+
+
+
 			setAllDataValues = (data) ->
 				
 				self.data.name data.name
 				self.data.start_time data.start_time
 				self.data.end_time data.end_time
 				self.data.is_public data.is_public
+
+				$.each data.item_type.metadata_sets, (j, set) ->
+					$.each set.metadata_fields, (k, field) ->
+						console.log "test dentro"
+						field.value = createObservableField(field, field.value)
 
 				$.each self.itemTypes(), (i, type) ->
 					if type.id == data.item_type.id
@@ -180,13 +201,27 @@ itemsReady = ->
 			getExtraData = ->
 				self.data.location = $("#item_location").val()
 				self.data.item_type_id = self.itemType().id
+				
 				self.data.metadata_values_attributes = []
 				$.each self.itemType().metadata_sets, (j, set) ->
 					$.each set.metadata_fields, (k, field) ->
 						self.data.metadata_values_attributes.push(
 							metadata_field_id: field.id
-							value: field.value
+							value: field.value()
 						)
+
+			isFormValid = ->
+				if self.data.name.hasError()
+					return false
+				
+				isValid = true
+				$.each self.itemType().metadata_sets, (j, set) ->
+					$.each set.metadata_fields, (k, field) ->						
+						if field.value.hasError()
+							console.log field
+							isValid = false
+							return false
+				return isValid
 
 			self.saveItem = ->
 				getExtraData()
@@ -195,13 +230,17 @@ itemsReady = ->
 					item: self.data
 
 				# ajax call
-				$.ajax
-					type: method
-					dataType: 'json'
-					data: data
-					url: '/items' + addId + '.json'
-					success: (resp) ->
-						window.location.href = resp.url
+				if isFormValid()					
+					$.ajax
+						type: method
+						dataType: 'json'
+						data: data
+						url: '/items' + addId + '.json'
+						success: (resp) ->
+							window.location.href = resp.url
+				else 
+					alertify.notify("Form is not valid", "error")
+			
 
 			console.log ""
 
@@ -209,6 +248,7 @@ itemsReady = ->
 		ko.applyBindings( new MetadataTypeViewModel() )
 
 	if ($("body").hasClass("items") and $("body").hasClass("show"))
+		# XXX Change set view to parameter specified on rail side
 		map = L.map('store-map').setView([53.525283, -113.525612], 14);
 		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

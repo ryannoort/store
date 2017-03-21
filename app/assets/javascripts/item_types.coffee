@@ -14,7 +14,7 @@ itemTypeReady = ->
 
 
 			self.data =
-				name: ko.observable ''
+				name: ko.observable("").extend required: ""
 				metadata_sets_ids: ko.observableArray []
 
 			addId = ''
@@ -32,6 +32,11 @@ itemTypeReady = ->
 						self.data.metadata_sets_ids(data.metadata_sets)
 				)
 
+			isFormValid = ->
+				if self.data.name.hasError()
+					return false
+				return true
+
 			self.addMetadataSet = ->
 				self.data.metadata_sets_ids.push new MetadataSet()
 
@@ -39,13 +44,16 @@ itemTypeReady = ->
 				self.data.metadata_sets_ids.destroy metadata_set
 
 			self.saveItemType = ->
-				$.ajax
-					type: method
-					dataType: 'json'
-					data: ko.toJS(item_type: self.data)
-					url: '/item_types' + addId + '.json'
-					success: (resp) ->
-						window.location.href = resp.url
+				if isFormValid()
+					$.ajax
+						type: method
+						dataType: 'json'
+						data: ko.toJS(item_type: self.data)
+						url: '/item_types' + addId + '.json'
+						success: (resp) ->
+							window.location.href = resp.url
+				else
+					alertify.notify("Form is not valid", "error")
 				
 
 			console.log ''

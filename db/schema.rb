@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20170213183801) do
 
   create_table "collections", force: :cascade do |t|
     t.string   "name",          null: false
-    t.integer  "owner_id"
+    t.integer  "owner_id",      null: false
     t.integer  "collection_id"
     t.integer  "item_type_id"
     t.datetime "created_at",    null: false
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20170213183801) do
   end
 
   create_table "item_types", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(version: 20170213183801) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.boolean  "is_public",                                          default: false, null: false
-    t.integer  "owner_id"
-    t.integer  "item_type_id"
+    t.integer  "owner_id",                                                           null: false
+    t.integer  "item_type_id",                                                       null: false
     t.datetime "created_at",                                                         null: false
     t.datetime "updated_at",                                                         null: false
     t.index ["item_type_id"], name: "index_items_on_item_type_id", using: :btree
@@ -64,11 +64,11 @@ ActiveRecord::Schema.define(version: 20170213183801) do
   end
 
   create_table "metadata_fields", force: :cascade do |t|
-    t.integer  "field_type"
-    t.string   "name"
+    t.integer  "field_type",      null: false
+    t.string   "name",            null: false
     t.string   "hint"
     t.string   "default"
-    t.boolean  "is_required"
+    t.boolean  "is_required",     null: false
     t.integer  "order"
     t.integer  "metadata_set_id"
     t.datetime "created_at",      null: false
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20170213183801) do
   end
 
   create_table "metadata_sets", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

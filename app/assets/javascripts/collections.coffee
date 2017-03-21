@@ -12,7 +12,7 @@ collectionsReady = ->
 						field['value'] = ""
 
 			self.data = 
-				name: ko.observable "Collection test"
+				name: ko.observable("").extend required: ""
 				item_ids: ko.observable "1"
 				collection_ids: ko.observable ""
 				item_type_id: ko.observable ""

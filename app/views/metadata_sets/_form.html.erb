@@ -3,11 +3,19 @@
 <div class="form-inputs">
 	<ul>
 		<li>
-			<label>Name</label>
-			<input type="" name="" data-bind="value: data.name" />
-		</li>
-	</ul>
+			<validate-input params="{label: 'Name', value: data.name}"></validate-input>
+			<!-- <div class="form-group" data-bind='css:{"has\-error": data.name.hasError}'>
+				<label class="control-label">Name</label>
+				
+				<input class="form-control" data-bind='value: data.name, valueUpdate: "afterkeydown"' />
 
+				<span data-bind="if: data.name.validationMessage">
+					<span class="control-label" data-bind='html: data.name.validationMessage()'></span>
+				</span>
+			</div> -->
+
+		</li>
+	</ul>	
 <ul data-bind="template: { name: 'metadata-field-template',
 							foreach: data.metadata_fields_attributes,
 							as: 'metadata_field' }">					
@@ -53,8 +61,9 @@
 	<li>
 		<ul>
 		<li>
-			<label>Field name</label>
-			<input type="" name="" data-bind="value: metadata_field.name">
+			<!-- <label>Field name</label> -->
+			<!-- <input type="" name="" data-bind="value: metadata_field.name"> -->
+			<validate-input params="{label: 'Field name', value: metadata_field.name}"></validate-input>
 		</li>
 		<li>
 			<label>Field type</label>

@@ -21,12 +21,8 @@ module Store
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'knockout', 'dist')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'moment', 'min')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'eonasdan-bootstrap-datetimepicker', 'build')
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'font-awesome')
+    
 
-    config.assets.precompile.push(Proc.new do |path|
-      File.extname(path).in? [
-        '.png',  '.gif', '.jpg', '.jpeg', '.svg', # Images
-        '.eot',  '.otf', '.svc', '.woff', '.ttf', # Fonts
-      ]
-    end)
   end
 end

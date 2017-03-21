@@ -7,8 +7,8 @@
 
 		<form class="simple_form new_item" id="new_item">
 		<div>
-			<label>Name</label>
-			<input data-bind="value: data.name" />
+			
+			<validate-input params="{label: 'Name', value: data.name}"></validate-input>
 		</div>
 
 
@@ -20,7 +20,7 @@
 		            <div class='input-group date' id='start-time-picker'>
 		                <input type='text' class="form-control" data-bind="value: data.start_time" />
 		                <span class="input-group-addon">
-		                    <span class="glyphicon glyphicon-calendar"></span>
+		                   	<i class="fa fa-calendar" aria-hidden="true"></i>
 		                </span>
 		            </div>
 		        </div>
@@ -31,7 +31,7 @@
 		            <div class='input-group date' id='end-time-picker'>
 		                <input type='text' class="form-control"  data-bind="value: data.end_time" />
 		                <span class="input-group-addon">
-		                    <span class="glyphicon glyphicon-calendar"></span>
+		                    <i class="fa fa-calendar" aria-hidden="true"></i>
 		                </span>
 		            </div>
 		        </div>
@@ -81,26 +81,42 @@ var itemId = <%= @item.id %>
 
 <select data-bind="options: itemTypes, value: itemType, optionsText: 'name'"></select>
 
-
-<script type="text/html" id="field-template">
-	<div data-bind="text: name"></div>
-	<div data-bind="text: field_type"></div>
-	<div data-bind="template: {name: field_type+'-template'}"></div>
-	<!-- <div data-bind="template: {name: field_type+'-template', data: value}"></div> -->
-</script>
-
-<script type="text/html" id="text_field-template">
-	<input data-bind="value: value" />
-</script>
-
-<script type="text/html" id="file-template">
-	<input data-bind="value: value" />
-</script>
-
-
 <div data-bind="foreach: itemType().metadata_sets">
 	<div data-bind="text: name"></div>
 	<div data-bind="foreach: metadata_fields">
 		<div data-bind="template: {name:'field-template', data: $data}"></div>
 	</div>
 </div>
+
+<!-- knockout templates -->
+
+
+<script type="text/html" id="field-template">
+	
+	<div data-bind="template: {name: field_type+'-template'}"></div>
+	<!-- <div data-bind="template: {name: field_type+'-template', data: value}"></div> -->
+</script>
+
+<script type="text/html" id="text_field-template">
+	<!-- <div data-bind="text: name"></div>
+	<input data-bind="value: value" / -->
+	<validate-input params="{label: name, value: value}"></validate-input>
+</script>
+
+<script type="text/html" id="file-template">
+	<div data-bind="text: name"></div>
+	<input data-bind="value: value" />
+	<!-- <validate-input params="{label: name, value: value}"></validate-input> -->
+</script>
+
+<script type="text/html" id="email-template">
+	<!-- <div data-bind="text: name"></div>
+	<input data-bind="value: value" / -->
+	<validate-input params="{label: name, value: value}"></validate-input>
+</script>
+
+<script type="text/html" id="number-template">
+	<!-- <div data-bind="text: name"></div>
+	<input data-bind="value: value" / -->
+	<validate-input params="{label: name, value: value}"></validate-input>
+</script>

@@ -8,7 +8,7 @@ metadataSetReady = ->
 
 		MetadataField = ->
 			self = this
-			self.name = ''
+			self.name = ko.observable('').extend required: ''
 			self.field_type = ''
 			self.hint = ''
 			self.default = ''
@@ -18,7 +18,8 @@ metadataSetReady = ->
 			self = this
 
 			self.data = 
-				name: ko.observable ''
+				name: ko.observable('').extend required: "" 
+				# name: ko.observable('')
 				metadata_fields_attributes: ko.observableArray []			
 			
 			addId = ''
@@ -36,6 +37,21 @@ metadataSetReady = ->
 						self.data.metadata_fields_attributes(data.metadata_fields)
 				)
 
+			isFormValid = ->
+
+				if self.data.name.hasError()
+					return false
+
+				isValid = true
+				$.each(self.data.metadata_fields_attributes(), (i, val) ->
+					if val.name.hasError()
+						isValid = false
+						return false
+				)
+
+				return isValid
+
+
 			self.addMetadataField = ->
 				self.data.metadata_fields_attributes.push new MetadataField()
 
@@ -43,14 +59,18 @@ metadataSetReady = ->
 				self.data.metadata_fields_attributes.destroy field
 
 			self.saveMetadataSet = ->
+				# check if name is not ''
+				if isFormValid()
+					$.ajax
+						type: method
+						dataType: 'json'
+						data: ko.toJS(metadata_set: self.data)
+						url: '/metadata_sets' + addId + '.json'
+						success: (resp) ->
+							window.location.href = resp.url
+				else
+					alertify.notify("Form is not valid", "error")
 				
-				$.ajax
-					type: method
-					dataType: 'json'
-					data: ko.toJS(metadata_set: self.data)
-					url: '/metadata_sets' + addId + '.json'
-					success: (resp) ->
-						window.location.href = resp.url
 
 			console.log ''
 		

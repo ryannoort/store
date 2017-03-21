@@ -1,8 +1,7 @@
 <div class="form-inputs">
   <ul>
     <li>
-      <label>Name</label>
-      <input type="" name="" data-bind="value: data.name" />
+      <validate-input params="{label: 'Name', value: data.name}"></validate-input>
     </li>
   </ul>
 
@@ -14,25 +13,6 @@
 
 </div>
 
-
-<%= simple_form_for @item_type do |f| %>
-
-<!-- 	<li class="well set" id="set-template" hidden>		
-		<%= f.input :metadata_sets, collection: MetadataSet.all, include_blank: false, input_html: { name: 'item_type_metadata_set' } %>
-		<a class="btn btn-danger remove-set">X</a>
-	</li>
-
-  <div class="form-inputs">
-  	<%= f.input :name %>
-  	<ul id="sets">
-  		
-  	</ul>
-  </div> -->
-
-<% end %>
-
-<!-- <button id="add_set" class="btn btn-default">Add</button>
-<button id="save_item_type" class="btn btn-default">Save</button> -->
 
 <button id="add_set" class="btn btn-default" data-bind="click: addMetadataSet">Add</button>
 <button id="save_type" class="btn btn-default" data-bind="click: saveItemType">Save</button>

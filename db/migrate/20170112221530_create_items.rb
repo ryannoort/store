@@ -6,8 +6,8 @@ class CreateItems < ActiveRecord::Migration[5.0]
       t.datetime :start_time
       t.datetime :end_time
       t.boolean :is_public, null: false, default: false
-      t.belongs_to :owner
-      t.belongs_to :item_type
+      t.belongs_to :owner, null: false
+      t.belongs_to :item_type, null: false
       t.timestamps
     end
     add_index :items, :location, using: :gist
