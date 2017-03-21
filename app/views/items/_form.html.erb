@@ -74,11 +74,6 @@ var itemId = <%= @item.id %>
 </script>
 
 
-<!--  -->
-<!-- knogout test -->
-
-
-
 <select data-bind="options: itemTypes, value: itemType, optionsText: 'name'"></select>
 
 <div data-bind="foreach: itemType().metadata_sets">
@@ -90,33 +85,4 @@ var itemId = <%= @item.id %>
 
 <!-- knockout templates -->
 
-
-<script type="text/html" id="field-template">
-	
-	<div data-bind="template: {name: field_type+'-template'}"></div>
-	<!-- <div data-bind="template: {name: field_type+'-template', data: value}"></div> -->
-</script>
-
-<script type="text/html" id="text_field-template">
-	<!-- <div data-bind="text: name"></div>
-	<input data-bind="value: value" / -->
-	<validate-input params="{label: name, value: value}"></validate-input>
-</script>
-
-<script type="text/html" id="file-template">
-	<div data-bind="text: name"></div>
-	<input data-bind="value: value" />
-	<!-- <validate-input params="{label: name, value: value}"></validate-input> -->
-</script>
-
-<script type="text/html" id="email-template">
-	<!-- <div data-bind="text: name"></div>
-	<input data-bind="value: value" / -->
-	<validate-input params="{label: name, value: value}"></validate-input>
-</script>
-
-<script type="text/html" id="number-template">
-	<!-- <div data-bind="text: name"></div>
-	<input data-bind="value: value" / -->
-	<validate-input params="{label: name, value: value}"></validate-input>
-</script>
+<%= render partial: "knockout_templates" %>

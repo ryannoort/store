@@ -189,7 +189,6 @@ itemsReady = ->
 
 				$.each data.item_type.metadata_sets, (j, set) ->
 					$.each set.metadata_fields, (k, field) ->
-						console.log "test dentro"
 						field.value = createObservableField(field, field.value)
 
 				$.each self.itemTypes(), (i, type) ->
