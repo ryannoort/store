@@ -1,10 +1,10 @@
 
 extendersNameSpace =
-	flattenBooleanHash : (h) ->
-		for key of h 
-			if h[key]
-				return false
-		return true
+	# flattenBooleanHash : (h) ->
+	# 	for key of h 
+	# 		if h[key]
+	# 			return false
+	# 	return true
 
 	addValidationParameters : (target) ->
 		target.hasError ?= ko.observable()
@@ -47,3 +47,9 @@ ko.extenders.email = (target, overrideMessage) ->
 	message = overrideMessage || '<span>This field should be an email address</span>'
 	isEmail = new RegExp /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	extendersNameSpace.validateInput(target, message, isEmail)	
+
+ko.extenders.simple = (target, overrideMessage) ->
+	# target.hasError ?= -> return false
+	message = overrideMessage || ''
+	isSomething = new RegExp /(?!.+)/;
+	extendersNameSpace.validateInput(target, message, isSomething)	

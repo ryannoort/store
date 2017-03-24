@@ -47,7 +47,7 @@ collectionsReady = ->
 			
 			getExtraData = ->
 				self.data.item_ids = self.data.item_ids().split(",")
-				# self.data.collections = self.data.collection_ids().split(",")
+				self.data.collection_ids = self.data.collection_ids().split(",")
 				self.data.item_type_id = self.itemType().id
 				self.data.metadata_values_attributes = []
 				$.each self.itemType().metadata_sets, (j, set) ->

@@ -21,3 +21,69 @@
 		Temporal controls
 	</div>
 </div>
+
+
+
+<div class="row">
+	<div class="col-md-12">
+		<button class='btn btn-default' data-bind="click: prevPage, css: {disabled: page() == 1}"><i class='fa fa-arrow-left'></i></button>
+		<span data-bind='text: page'></span> / <span data-bind='text: pages'></span>
+		<button class='btn btn-default' data-bind="click: nextPage, css: {disabled: page() == pages()} "><i class='fa fa-arrow-right'></i></button>
+<!-- <nav aria-label="Page navigation">
+  <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <i class='fa fa-arrow-left'></i>
+      </a>
+    </li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li>
+      <a href="#" aria-label="Next">
+        <i class='fa fa-arrow-right'></i>
+      </a>
+    </li>
+  </ul>
+</nav> -->
+
+
+		Collections
+		<div class="collections-scroll">
+			<ul>
+				<span data-bind="template: {name: 'collection-container', foreach: collections}"></span>
+			</ul>
+		</div>		
+	</div>
+</div>
+
+
+<script type="text/html" id="item-container">
+	<li>
+		<span data-bind="text: name, event: {mouseover: $root.mouseOver}"></span>
+		<input type="checkbox" data-bind="checked: isChecked" />
+	</li>
+</script>
+
+<script type="text/html" id="collection-container">
+	<li>
+		Name
+		<div data-bind="text: name"></div> 
+		<input type="checkbox" data-bind="checked: isChecked" />
+
+		<span data-bind='if: collections.length'>
+			Collections
+			<ul>
+				<span data-bind="template: {name: 'collection-container', foreach: collections}"></span>
+			</ul>
+		</span>
+		<span data-bind='if: items.length'>
+			Items
+			<ul>
+				<span data-bind="template: {name: 'item-container', foreach: items}"></span>
+			</ul>
+		</span>
+	</li>
+</script>

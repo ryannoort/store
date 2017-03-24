@@ -1,11 +1,11 @@
 class CollectionsController < ApplicationController
-  before_action :set_collection, only: [:show, :edit, :update, :destroy]
+  before_action :set_collection, only: [:show, :edit, :update, :destroy, :tree]
+  before_action :set_collections, only: [:index]
   # load_and_authorize_resource
   
   # GET /collections
   # GET /collections.json
   def index
-    @collections = Collection.all
   end
 
   # GET /collections/1
@@ -28,9 +28,7 @@ class CollectionsController < ApplicationController
   # POST /collections.json
   def create
     @collection = Collection.new(collection_params)
-    # @collection.owner_id = 1 # TODO: Change to grab the current users Id
     @collection.owner = current_user
-
 
     respond_to do |format|
       if @collection.save
@@ -69,16 +67,31 @@ class CollectionsController < ApplicationController
     end
   end
 
+  # GET /collections/tree/1.json
+  def tree
+  end
+
+  # GET /collections/trees.json
+  def trees
+    @collections = Collection.paginate(page: params[:page], per_page: params[:per_page])
+    @collection_page = params[:page].to_i
+    @collection_per_page = params[:per_page].to_i
+    @collection_count = Collection.count
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_collection
       @collection = Collection.find(params[:id])
     end
 
+    def set_collections
+      @collections = Collection.all
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def collection_params
       # params.fetch(:collection, {}).permit(:parent_collection_id, :name, :form_attributes => [ :id, :schema_id, :fields_attributes => [:id, :name, :content, :type, :mime_content] ])
       params.fetch(:collection, {}).permit(:name, :item_type_id, item_ids: [], collection_ids: [], metadata_values_attributes: [:value, :metadata_field_id])
-
     end
 end

@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   resources :item_types
   resources :metadata_sets
+  
   get 'test/index'
-
   get 'home/index'
+  get 'collections/trees', to: 'collections#trees'
+  get 'collections/trees/:id', to: 'collections#tree'
 
   resources :collections
   resources :items

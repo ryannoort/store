@@ -11,3 +11,14 @@ ko.components.register 'validate-input',
 				"<span class=\"control-label\" data-bind='html: value.validationMessage()'></span>" +
 				"</span>" +
 			  "</div>"
+
+# ko.component.register 'collection-item',
+# 	viewModel: (params) ->
+		
+
+
+ko.components.register 'collection-list',
+	viewModel: (params) ->
+		this.label = params.label
+		this.collections = params.collections
+	template: {element: 'collection-list-template'}
