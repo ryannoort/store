@@ -22,6 +22,7 @@
 //= require js/bootstrap-datetimepicker.min
 //= require store
 //= require collections_view_model
+//= require search_view_model
 //= require auth_token
 //= require cable
 //= require extenders

@@ -25,3 +25,21 @@
 		</span>
 	</li>
 </script>
+
+
+<div class="row" id="collection-widget">
+	<div class="col-md-12">		
+		<div class="well scroll-vertically">
+
+<!-- 		<button class='btn btn-default' data-bind="click: prevPage, css: {disabled: page() == 1}"><i class='fa fa-arrow-left'></i></button>
+<span data-bind='text: page'></span> / <span data-bind='text: pages'></span>
+<button class='btn btn-default' data-bind="click: nextPage, css: {disabled: page() == pages()} "><i class='fa fa-arrow-right'></i></button> -->
+
+			<div class="results-scroll">
+				<ul>
+					<span data-bind="template: {name: 'collection-container', foreach: collections}"></span>
+				</ul>
+			</div>		
+		</div>
+	</div>
+</div>

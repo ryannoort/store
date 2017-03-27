@@ -1,4 +1,5 @@
-window.storeViewModels = {}
+window.storeViewModels ?= {}
+
 storeViewModels.CollectionsViewModel = ->
 	self = this
 	self.collections = ko.observableArray []
@@ -6,10 +7,11 @@ storeViewModels.CollectionsViewModel = ->
 	selectedItems = []
 	selectedCollections = []
 
-	self.page = ko.observable 1
-	self.pages = ko.observable 1
-	perPage = 2
-	collectionsCount = 0
+	
+	# self.page = ko.observable 1
+	# self.pages = ko.observable 1
+	# perPage = 2
+	# collectionsCount = 0
 
 	self.mouseOver = (node) ->
 		console.log "mouseOver " + node
@@ -26,46 +28,51 @@ storeViewModels.CollectionsViewModel = ->
 			collections: selectedCollections
 		}
 
-	# XXX Move pagination to outside of widget
-
-	self.prevPage = () ->
-		if self.page() > 1
-			self.page(self.page() - 1 )
-			fetchPage()
-
-	self.nextPage = () ->
-
-		if self.page() < self.pages()
-			self.page(self.page() + 1)
-			fetchPage()
-
-	setPaginationData = (data) ->
+	self.updateCollections = (data) ->
 		collections = data.collections
-		self.page(data.page)
-		# perPage = data.per_page
-		collectionsCount = data.count
-		self.pages Math.ceil(collectionsCount / perPage)
-		
 		collections.forEach (e) ->
 			travelHierarchy e, addCheckValues
 		self.collections collections
 
-	fetchPage = () ->
-		data =
-			page: self.page()
-			per_page: perPage
+	# # XXX Move pagination to outside of widget
 
-		$.ajax(
-			type: 'GET'
-			data: data
-			dataType: "json"
-			url: '/collections/trees.json'
-			success: (data) ->
-				setPaginationData data
-				applyCheckValuesToPage()
-		)
+	# self.prevPage = () ->
+	# 	if self.page() > 1
+	# 		self.page(self.page() - 1 )
+	# 		fetchPage()
 
-	fetchPage()
+	# self.nextPage = () ->
+
+	# 	if self.page() < self.pages()
+	# 		self.page(self.page() + 1)
+	# 		fetchPage()
+
+	# setPaginationData = (data) ->
+	# 	collections = data.collections
+	# 	self.page(data.page)
+	# 	collectionsCount = data.count
+	# 	self.pages Math.ceil(collectionsCount / perPage)
+		
+	# 	collections.forEach (e) ->
+	# 		travelHierarchy e, addCheckValues
+	# 	self.collections collections
+
+	# fetchPage = () ->
+	# 	data =
+	# 		page: self.page()
+	# 		per_page: perPage
+
+	# 	$.ajax(
+	# 		type: 'GET'
+	# 		data: data
+	# 		dataType: "json"
+	# 		url: '/collections/trees.json'
+	# 		success: (data) ->
+	# 			setPaginationData data
+	# 			applyCheckValuesToPage()
+	# 	)
+
+	# fetchPage()
 
 	# End of pagination code
 

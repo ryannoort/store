@@ -73,10 +73,11 @@ class CollectionsController < ApplicationController
 
   # GET /collections/trees.json
   def trees
-    @collections = Collection.paginate(page: params[:page], per_page: params[:per_page])
+    results = Collection.where(["name LIKE ?", "%#{params[:query]}%"])
+    @collections = results.paginate(page: params[:page], per_page: params[:per_page])
     @collection_page = params[:page].to_i
     @collection_per_page = params[:per_page].to_i
-    @collection_count = Collection.count
+    @collection_count = results.count
   end
 
   private

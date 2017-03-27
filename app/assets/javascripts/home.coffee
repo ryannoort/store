@@ -9,7 +9,12 @@ homeReady = ->
 		collectionsWidget = new storeViewModels.CollectionsViewModel()
 		# set callbacks
 
-		ko.applyBindings( collectionsWidget )
+		searchWidget = new storeViewModels.SearchViewModel()
+		searchWidget.registerUpdate (collectionsWidget.updateCollections)
+		# set callback
+
+		ko.applyBindings( collectionsWidget, document.getElementById("collection-widget") )
+		ko.applyBindings( searchWidget, document.getElementById("search-widget") )
 
 $(document).on('turbolinks:load', homeReady);
 

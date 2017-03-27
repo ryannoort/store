@@ -4,7 +4,7 @@
 	    <%= link_to "STORE", home_index_path, class: "navbar-brand" %>
     </div>
 
-    <ul class="nav navbar-nav navbar-left">
+<!--     <ul class="nav navbar-nav navbar-left">
         <li>
             <%= link_to("Items", { controller: "items", action: "index" }) %>       
         </li>
@@ -24,7 +24,7 @@
             <%= link_to("Users", { controller: "users", action: "index" }) %>       
         </li>
         <% end %>
-    </ul>
+    </ul> -->
 
     <ul class="nav navbar-nav navbar-right">
     	<% if current_user %>
@@ -43,3 +43,24 @@
 		
   </div>
 </nav>
+
+
+<div class="row bottom-20">
+    <div class="col-md-9">
+        <div class="btn-group" role="group" aria-label="...">
+        <%= link_to("Items", { controller: "items", action: "index" }, class: "btn btn-default") %>
+        <%= link_to("Collections", { controller: "collections", action: "index" }, class: "btn btn-default") %>
+        <% if current_user && current_user.admin? %>  
+            <%= link_to("Item types", { controller: "item_types", action: "index" }, class: "btn btn-default") %>
+            <%= link_to("Metadata sets", { controller: "metadata_sets", action: "index" }, class: "btn btn-default") %>
+            <%= link_to("Users", { controller: "users", action: "index" }, class: "btn btn-default") %> 
+        <% end %>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="btn-group pull-right" role="group" aria-label="...">
+            <a href="#" class="btn btn-default"> About </a>
+            <a href="#" class="btn btn-default"> Contact </a>
+        </div>
+    </div>    
+</div>
