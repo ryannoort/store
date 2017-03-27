@@ -2,9 +2,18 @@
 # # All this logic will automatically be available in application.js.
 # # You can use CoffeeScript in this file: http://coffeescript.org/
 
-homeReady = ->
+ready = ->
+
+	setupMap = ->
+		map = L.map('store-map').setView([53.525283, -113.525612], 14);
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
+
 
 	if $("body").hasClass("home")
+
+		setupMap()
 
 		collectionsWidget = new storeViewModels.CollectionsViewModel()
 		# set callbacks
@@ -16,7 +25,7 @@ homeReady = ->
 		ko.applyBindings( collectionsWidget, document.getElementById("collection-widget") )
 		ko.applyBindings( searchWidget, document.getElementById("search-widget") )
 
-$(document).on('turbolinks:load', homeReady);
+$(document).on('turbolinks:load', ready);
 
 
 # parseLocatoin = (location) ->
