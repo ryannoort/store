@@ -55,7 +55,6 @@ storeViewModels.SearchViewModel = ->
 			success: (data) ->
 				setPaginationData data
 				callRegistrations data
-				console.log data
 		)
 
 	fetchPage()

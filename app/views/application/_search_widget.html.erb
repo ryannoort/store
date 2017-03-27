@@ -1,6 +1,24 @@
-    <div class="input-group" id="search-widget">
-      <input type="text" class="form-control" data-bind="value: query" placeholder="Search for...">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button" data-bind="click: search" ><i class="fa fa-search"></i></button>
-      </span>
-    </div>
+
+<div id="search-widget">
+
+	<div class="row bottom-20">
+		<div class="col-md-12">
+	    <div class="input-group" >
+	      <input type="text" class="form-control" data-bind="value: query" placeholder="Search">
+	      <span class="input-group-btn">
+	        <button class="btn btn-default" type="button" data-bind="click: search" ><i class="fa fa-search"></i></button>
+	      </span>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- pagination -->
+
+	<div class="row">
+		<div class="col-md-12">
+			<button class='btn btn-default' data-bind="click: prevPage, css: {disabled: page() == 1}"><i class='fa fa-arrow-left'></i></button>
+				<span data-bind='text: page'></span> / <span data-bind='text: pages'></span>
+				<button class='btn btn-default' data-bind="click: nextPage, css: {disabled: page() == pages()} "><i class='fa fa-arrow-right'></i></button>
+		</div>
+	</div>
+</div>
