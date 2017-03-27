@@ -1,0 +1,27 @@
+<script type="text/html" id="item-container">
+	<li>
+		<span data-bind="text: name, event: {mouseover: $root.mouseOver}"></span>
+		<input type="checkbox" data-bind="checked: isChecked" />
+	</li>
+</script>
+
+<script type="text/html" id="collection-container">
+	<li>
+		Name
+		<div data-bind="text: name"></div> 
+		<input type="checkbox" data-bind="checked: isChecked" />
+
+		<span data-bind='if: collections.length'>
+			Collections
+			<ul>
+				<span data-bind="template: {name: 'collection-container', foreach: collections}"></span>
+			</ul>
+		</span>
+		<span data-bind='if: items.length'>
+			Items
+			<ul>
+				<span data-bind="template: {name: 'item-container', foreach: items}"></span>
+			</ul>
+		</span>
+	</li>
+</script>

@@ -21,6 +21,7 @@
 //= require moment
 //= require js/bootstrap-datetimepicker.min
 //= require store
+//= require collections_view_model
 //= require auth_token
 //= require cable
 //= require extenders
@@ -31,6 +32,7 @@
 //= require items
 //= require metadata_sets
 //= require users
+
 
 //= require store
 

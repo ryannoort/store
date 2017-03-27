@@ -7,10 +7,6 @@ storeReady = ->
 			observableField = ko.observable value
 			if field.is_required
 				observableField.extend required: ""
-			# if field.field_type == "email"
-			# 	observableField.extend email: ""
-			# if field.field_type == "number"
-			# 	observableField.extend numeric: ""
 
 			switch field.field_type
 				when "email" then observableField.extend email: ""
