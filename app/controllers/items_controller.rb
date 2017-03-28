@@ -74,6 +74,14 @@ class ItemsController < ApplicationController
     end
   end
 
+  def search
+    results = Item.where(["name LIKE ?", "%#{params[:name]}%"])
+    @items = results.paginate(page: params[:page], per_page: params[:per_page])
+    @item_page = params[:page].to_i
+    @item_per_page = params[:per_page].to_i
+    @item_count = results.count
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item

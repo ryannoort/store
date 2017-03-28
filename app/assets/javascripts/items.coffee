@@ -170,6 +170,7 @@ itemsReady = ->
 				$.each data.item_type.metadata_sets, (j, set) ->
 					$.each set.metadata_fields, (k, field) ->
 						field.value = storeHelpers.createValidatableField(field, field.value)
+						console.log field.value.hasError
 
 				$.each self.itemTypes(), (i, type) ->
 					if type.id == data.item_type.id

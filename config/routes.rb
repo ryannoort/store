@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'collections/trees', to: 'collections#trees'
   get 'collections/trees/:id', to: 'collections#tree'
+  get 'items/search', to: 'items#search'
 
   resources :collections
   resources :items
