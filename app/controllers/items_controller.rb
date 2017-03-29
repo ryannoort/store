@@ -111,7 +111,7 @@ class ItemsController < ApplicationController
       begin 
         year, month, day = params[symbol].split('-').map {|s| s.to_i}      
         if Date.valid_date?(year, month, day)
-          return relation.where([symbol.to_s + " "+comparisson_operator+" ?", Date.new(year,month,day)])
+          return relation.where([symbol.to_s + " " + comparisson_operator+" :date", date: Date.new(year,month,day)])
         end
       rescue
         return relation
