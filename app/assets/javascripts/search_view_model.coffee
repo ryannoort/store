@@ -6,6 +6,32 @@ storeViewModels.SearchViewModel = ->
 	self.page = ko.observable 1
 	self.pages = ko.observable 1
 	self.query = ko.observable ""
+	
+	self.data =
+		start_time: ko.observable ""
+		end_time: ko.observable ""
+		location: ko.observable ""
+
+	setupTimePickers = ->
+		$('#start-time-picker').datetimepicker(
+			format: 'YYYY-MM-DD'
+		);
+		$('#end-time-picker').datetimepicker(
+			format: 'YYYY-MM-DD'
+			useCurrent: false 
+		);
+		
+		$('#start-time-picker').on("dp.change", (e) -> 				
+			self.data.start_time( $('#start-time-picker > input').val() )
+			$('#end-time-picker').data("DateTimePicker").minDate(e.date);
+		);
+
+		$('#end-time-picker').on("dp.change", (e) -> 				
+			self.data.end_time( $('#end-time-picker > input').val() )
+			$('#start-time-picker').data("DateTimePicker").maxDate(e.date);
+		);
+
+
 	perPage = 2
 	resultsCount = 0
 	registrations = []	
@@ -43,7 +69,10 @@ storeViewModels.SearchViewModel = ->
 		data =
 			page: self.page()
 			per_page: perPage
-			name: self.query()
+			query: self.query()
+			start_time: self.data.start_time()
+			end_time: self.data.end_time()
+			location: self.data.location()
 
 		$.ajax(
 			type: 'GET'
@@ -63,6 +92,7 @@ storeViewModels.SearchViewModel = ->
 				callRegistrations data
 		)
 
+	setupTimePickers()
 	fetchPage()
 
 	console.log ""

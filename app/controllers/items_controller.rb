@@ -75,8 +75,12 @@ class ItemsController < ApplicationController
   end
 
   def search
-    results = Item.where(["name LIKE ?", "%#{params[:name]}%"])
-    @items = results.paginate(page: params[:page], per_page: params[:per_page])
+    results = Item.where(["name LIKE ?", "%#{params[:query]}%"])
+    results = addDateLimitGE(results, :start_time)
+    results = addDateLimitLE(results, :end_time)
+    results.where(is_public: true) unless current_user and current_user.admin?
+
+    @items = results.order(created_at: :asc).paginate(page: params[:page], per_page: params[:per_page])
     @item_page = params[:page].to_i
     @item_per_page = params[:per_page].to_i
     @item_count = results.count
@@ -93,5 +97,25 @@ class ItemsController < ApplicationController
       item = params.fetch(:item, {}).permit(:name, :location, :start_time, :end_time, :is_public, :location, :item_type_id, metadata_values_attributes: [:value, :metadata_field_id])
       item[:location] = RGeo::GeoJSON.decode(item[:location], json_parser: :json)
       return item
+    end
+
+    def addDateLimitGE(relation, symbol)
+      addDateLimit(relation, symbol, ">=")      
+    end
+
+    def addDateLimitLE(relation, symbol)
+      addDateLimit(relation, symbol, "<=")      
+    end
+
+    def addDateLimit(relation, symbol, comparisson_operator)
+      begin 
+        year, month, day = params[symbol].split('-').map {|s| s.to_i}      
+        if Date.valid_date?(year, month, day)
+          return relation.where([symbol.to_s + " "+comparisson_operator+" ?", Date.new(year,month,day)])
+        end
+      rescue
+        return relation
+      end      
+      return relation
     end
 end

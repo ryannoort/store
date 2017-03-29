@@ -34,5 +34,8 @@ class Ability
     if user.admin? 
         can :manage, :all
     end
+
+    can :search, [Item, Collection]
+    
   end
 end
