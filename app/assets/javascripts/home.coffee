@@ -97,7 +97,11 @@ homeReady = ->
 				geojson.resetStyle(itemLayers[node.id])
 			# console.log itemLayers[node.id]
 
-		
+		collectionsWidget.clicked = (node) ->
+			console.log node
+
+		collectionsWidget.clicked = (node) ->
+			window.location.href = "/items/" + node.id
 
 		# set callback
 
