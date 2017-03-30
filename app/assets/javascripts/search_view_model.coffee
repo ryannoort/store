@@ -84,6 +84,7 @@ storeViewModels.SearchViewModel = ->
 					id: 0
 					name: "Items"
 					items: data.items
+					collections: []
 
 				data.collections = [
 					{
