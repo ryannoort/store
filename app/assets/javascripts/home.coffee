@@ -78,9 +78,13 @@ homeReady = ->
 	if $("body").hasClass("home")
 
 		setupMap()
-
+		searchWidget = new storeViewModels.SearchViewModel()
 		collectionsWidget = new storeViewModels.CollectionsViewModel()
+
 		# set callbacks
+		searchWidget.registerUpdate (collectionsWidget.updateCollections)
+		searchWidget.registerUpdate (updateMap)
+
 		collectionsWidget.mouseOver = (node) ->
 			if itemLayers[node.id]
 				itemLayers[node.id].setStyle {color: '#FF8833'}
@@ -93,13 +97,16 @@ homeReady = ->
 				geojson.resetStyle(itemLayers[node.id])
 			# console.log itemLayers[node.id]
 
-		searchWidget = new storeViewModels.SearchViewModel()
-		searchWidget.registerUpdate (collectionsWidget.updateCollections)
-		searchWidget.registerUpdate (updateMap)
+		collectionsWidget.clicked = (node) ->
+			console.log node
+
+		collectionsWidget.clicked = (node) ->
+			window.location.href = "/items/" + node.id
+
 		# set callback
 
-		ko.applyBindings( collectionsWidget, document.getElementById("collection-widget") )
 		ko.applyBindings( searchWidget, document.getElementById("search-widget") )
+		ko.applyBindings( collectionsWidget, document.getElementById("collection-widget") )		
 
 $(document).on('turbolinks:load', homeReady);
 

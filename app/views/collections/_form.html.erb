@@ -1,5 +1,42 @@
 
 <div class="row form" id="collections">
+	<div class="col-md-9" id="collections-form">
+		<!-- Collection name -->
+		<div class="actions">
+			<form class="simple_form new_collection" id="new_collection">
+			<div>
+				<validate-input params="{label: 'Name', value: data.name}"></validate-input>
+			</div>	
+			</form>
+		</div>
+
+		<!--  -->
+		<select data-bind="options: itemTypes, value: itemType, optionsText: 'name'"></select>
+		
+		<div data-bind="foreach: itemType().metadata_sets">
+			<div data-bind="text: name"></div>
+			<div data-bind="foreach: metadata_fields">
+				<div data-bind="template: {name:'field-template', data: $data}"></div>
+			</div>
+		</div>
+
+		<button id="save_collection" data-bind="click: saveCollection" class="btn btn-default">Create Collection</button>
+
+
+	</div>
+
+
+	<div class="col-md-3">
+		<!-- collection items -->
+		<%= render partial: "search_widget" %>
+		<%= render partial: "collection_widget" %>
+	</div>
+	
+</div>
+
+
+<!-- 
+<div class="row form" id="collections">
 	<div class="col-md-12">
 		<div class="actions">
 
@@ -7,6 +44,7 @@
 		<div>
 			<validate-input params="{label: 'Name', value: data.name}"></validate-input>
 		</div>
+
 
 		<div>
 			<label>Items</label>
@@ -41,5 +79,15 @@ var collectionId = <%= @collection.id %>
 		<div data-bind="template: {name:'field-template', data: $data}"></div>
 	</div>
 </div>
+-->
 
-<%= render partial: "knockout_templates" %>
+
+
+<script>
+var itemTypes = <%= ItemType.all().to_json(include: {metadata_sets: {include: :metadata_fields}}).html_safe %>
+<% if @collection.id %>
+var collectionId = <%= @collection.id %> 
+<% end %>
+</script>
+
+<%= render partial: "knockout_templates" %> 

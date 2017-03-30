@@ -197,6 +197,7 @@ itemsReady = ->
 				isValid = true
 				$.each self.itemType().metadata_sets, (j, set) ->
 					$.each set.metadata_fields, (k, field) ->						
+						console.log field.name
 						if field.value.hasError()
 							console.log field
 							isValid = false

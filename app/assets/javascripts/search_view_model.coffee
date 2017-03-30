@@ -12,6 +12,10 @@ storeViewModels.SearchViewModel = ->
 		end_time: ko.observable ""
 		location: ko.observable ""
 
+	perPage = 2
+	resultsCount = 0
+	registrations = []
+
 	setupTimePickers = ->
 		$('#start-time-picker').datetimepicker(
 			format: 'YYYY-MM-DD'
@@ -29,12 +33,7 @@ storeViewModels.SearchViewModel = ->
 		$('#end-time-picker').on("dp.change", (e) -> 				
 			self.data.end_time( $('#end-time-picker > input').val() )
 			$('#start-time-picker').data("DateTimePicker").maxDate(e.date);
-		);
-
-
-	perPage = 2
-	resultsCount = 0
-	registrations = []	
+		);	
 
 	self.search = ->
 		self.page 1
@@ -80,12 +79,19 @@ storeViewModels.SearchViewModel = ->
 			dataType: "json"
 			url: '/items/search.json'
 			success: (data) ->
+
+				firstCollection = 
+					id: 0
+					name: "Items"
+					items: data.items
+					collections: []
+
 				data.collections = [
 					{
 						id: 0,
-						name: "Items",
-						items: data.items
-						collections: []
+						name: "Results",
+						items: []
+						collections: [firstCollection]
 					}
 				]
 				setPaginationData data

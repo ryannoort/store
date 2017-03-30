@@ -1,6 +1,6 @@
 <script type="text/html" id="item-container">
 	<li>
-		<span data-bind="text: name, event: {mouseover: $root.mouseOver, mouseout: $root.mouseOut}"></span>
+		<span data-bind="text: name, event: {mouseover: $root.mouseOver, mouseout: $root.mouseOut}, click: $root.clicked"></span>
 		<span data-bind="if: $root.itemsSelectable">
 			<input type="checkbox" data-bind="checked: isChecked" />
 		</span>
@@ -14,7 +14,6 @@
 			<input type="checkbox" data-bind="checked: isChecked" />
 		</span>
 		<span data-bind='if: collections.length'>
-			Collections
 			<ul>
 				<span data-bind="template: {name: 'collection-container', foreach: collections}"></span>
 			</ul>
