@@ -46,9 +46,12 @@ collectionsReady = ->
 						self.itemType data.item_type
 			
 			getExtraData = ->
-				self.data.item_ids = self.data.item_ids().split(",")
+				self.data.item_ids = collectionsWidget.getSelected().items #self.data.item_ids().split(",")
 				self.data.collection_ids = self.data.collection_ids().split(",")
 				self.data.item_type_id = self.itemType().id
+
+				console.log self.data
+
 				self.data.metadata_values_attributes = []
 				$.each self.itemType().metadata_sets, (j, set) ->
 					$.each set.metadata_fields, (k, field) ->
@@ -74,6 +77,14 @@ collectionsReady = ->
 			console.log ""
 
 		
-		ko.applyBindings( new CollectionViewModel() )
+		collectionsWidget = new storeViewModels.CollectionsViewModel()
+		collectionsWidget.itemsSelectable = true
+		searchWidget = new storeViewModels.SearchViewModel()
+		searchWidget.registerUpdate (collectionsWidget.updateCollections)
+
+		ko.applyBindings( searchWidget, document.getElementById("search-widget") )
+		ko.applyBindings( collectionsWidget, document.getElementById("collection-widget") )
+
+		ko.applyBindings( new CollectionViewModel(), document.getElementById("collections-form") )
 
 $(document).on('turbolinks:load', collectionsReady);

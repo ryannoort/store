@@ -8,8 +8,9 @@ storeViewModels.CollectionsViewModel = ->
 	self.itemsSelectable = false
 	self.collectionsSelectable = false
 	# selected will keep a list of selected object ids to reset when page has changed
-	selectedItems = []
-	selectedCollections = []
+	selected =
+		items: []
+		collections: []
 
 	# callbacks
 	self.mouseOver = (node) ->
@@ -25,16 +26,14 @@ storeViewModels.CollectionsViewModel = ->
 		return 
 
 	self.getSelected = () ->
-		{
-			items: selectedItems,
-			collections: selectedCollections
-		}
+		return selected
 
 	self.updateCollections = (data) ->
 		collections = data.collections
 		collections.forEach (e) ->
 			travelHierarchy e, addCheckValues
 		self.collections collections
+		applyCheckValuesToPage()
 
 	isCollection = (node) ->
 		node.collections?
@@ -48,7 +47,7 @@ storeViewModels.CollectionsViewModel = ->
 		array.push node.id if index == -1
 
 	getSelectedArray = (node)	->
-		if isCollection node then selectedCollections else selectedItems
+		if isCollection node then selected.collections else selected.items
 
 	setCheckedValues = (node) ->
 		array = getSelectedArray node
@@ -62,7 +61,6 @@ storeViewModels.CollectionsViewModel = ->
 		applyTo = if node.isChecked() then addIdToArray else removeIdFromArray
 		array = getSelectedArray node
 		applyTo array, node
-		applyCheckValuesToPage()
 		# self.selected(self.getSelected)
 		
 
