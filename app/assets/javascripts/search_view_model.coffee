@@ -12,7 +12,8 @@ storeViewModels.SearchViewModel = ->
 		end_time: ko.observable ""
 		location: ko.observable ""
 
-	perPage = 5
+	perPage = 3
+
 	resultsCount = 0
 	registrations = []
 
