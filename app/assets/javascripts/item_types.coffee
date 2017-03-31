@@ -5,9 +5,10 @@
 itemTypeReady = ->
 	if $('body').hasClass('item_types') and ($('body').hasClass('new') or $('body').hasClass('edit'))
 
-		MetadataSet = ->
+		MetadataSet = (id = "", name = "") ->
 			self = this
-			self.id = ''
+			self.id = id
+			self.name = name
 
 		ItemTypeViewModel = ->
 			self = this			
@@ -40,8 +41,12 @@ itemTypeReady = ->
 			self.addMetadataSet = ->
 				self.data.metadata_sets_ids.push new MetadataSet()
 
+			# Change to use destroy instead of removing metadata_set
 			self.removeMetadataSet = (metadata_set) ->
-				self.data.metadata_sets_ids.destroy metadata_set
+				console.log metadata_set
+				# self.data.metadata_sets_ids.destroy metadata_set
+				self.data.metadata_sets_ids.remove metadata_set
+				console.log self.data.metadata_sets_ids()
 
 			self.saveItemType = ->
 				if isFormValid()
@@ -55,10 +60,8 @@ itemTypeReady = ->
 				else
 					alertify.notify("Form is not valid", "error")
 				
-
 			console.log ''
 
 		ko.applyBindings( new ItemTypeViewModel() )
 
 $(document).on('turbolinks:load', itemTypeReady);	
-
