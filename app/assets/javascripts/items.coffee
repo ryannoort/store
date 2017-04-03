@@ -50,6 +50,9 @@ itemsReady = ->
 				targetGroup.addLayer(sourceLayer)
 
 		# Create map
+		# XXX starting view coordinates to be set on rails
+
+		# map = L.map('store-map').setView([53.525283, -113.525612], 14);
 		map = L.map('store-map').setView(mapInformation.latlng, mapInformation.zoom);
 		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 		    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -223,7 +226,9 @@ itemsReady = ->
 
 		ko.applyBindings( new MetadataTypeViewModel() )
 
-	if ($("body").hasClass("items") and $("body").hasClass("show"))=
+	if ($("body").hasClass("items") and $("body").hasClass("show"))
+		# XXX Change set view to parameter specified on rail side
+		# map = L.map('store-map').setView([53.525283, -113.525612], 14);
 		map = L.map('store-map').setView(mapInformation.latlng, mapInformation.zoom);
 		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
