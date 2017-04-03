@@ -156,9 +156,6 @@ itemsReady = ->
 				self.data.end_time( $('#end-time-picker > input').val() )
 				$('#start-time-picker').data("DateTimePicker").maxDate(e.date);
 			);
-			
-
-
 
 			setAllDataValues = (data) ->
 				

@@ -11,10 +11,15 @@
 				<dd><%= item.name %></dd>
 				<dt>Owner</dt>
 				<dd><%= item.owner.name %></dd>
+				
+				<% if item.start_time %>
 				<dt>Start time</dt>
-				<dd><%= item.start_time %></dd>
+				<dd><%= item.start_time.to_s :year_month_day %></dd>
+				<% end %>
+				<% if item.end_time %>
 				<dt>End time</dt>
-				<dd><%= item.end_time %></dd>
+				<dd><%= item.end_time.to_s :year_month_day %></dd>
+				<% end %>
 				<dt>Meta Data</dt>
 				<dd>
 				<%= @item.item_type_values.name %>

@@ -35,7 +35,21 @@ class Ability
         can :manage, :all
     end
 
-    can :search, [Item, Collection]
-    
+    if user.editor?
+        can :manage, [Item, Collection, ItemType, MetadataSet, MetadataField, MetadataValues]
+    end
+
+    if user.user?
+        can :show, [Item, Collection]
+    end
+
+    # can :show, [Item, Collection], is_public: true
+
+    can [:read, :search], [Item, Collection], is_public: true
+     
+    # admin
+    # editor
+    # user
+
   end
 end

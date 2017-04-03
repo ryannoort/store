@@ -1,6 +1,7 @@
 class MetadataSetsController < ApplicationController
   before_action :set_metadata_set, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
+  
   # GET /metadata_sets
   # GET /metadata_sets.json
   def index

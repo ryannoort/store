@@ -1,21 +1,16 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_items, only: [:index]
   load_and_authorize_resource
 
   # GET /items
   # GET /items.json
-  def index
-    @items = Item.all
+  def index    
   end
 
   # GET /items/1
   # GET /items/1.json
   def show
-    # @item_type = ItemType.includes(metadata_sets: [metadata_fields: [:metadata_values] ])
-    #                     .where(item_types: {id: @item.item_type_id} , metadata_values: {valuable_type: @item.class.name, valuable_id: @item.id})
-    #                     .first
-    # @item_type = ItemType.fetch_for_item(@item).first
-    # @item.item_type = ItemType.fetch_for_item(@item).first
   end
 
   # GET /items/new
@@ -25,8 +20,6 @@ class ItemsController < ApplicationController
 
   # GET /items/1/edit
   def edit
-    # @item_types = ItemType.includes(metadata_sets: [metadata_fields: [:metadata_values] ])
-    #                       .where(metadata_values: {item_id: @item.id})
   end
 
   # POST /items
@@ -90,6 +83,14 @@ class ItemsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_item
       @item = Item.find(params[:id])
+    end
+
+    def set_items
+      if current_user and (current_user.admin? or current_user.editor?)
+        @items = Item.all
+      else 
+        @items = Item.where is_public: true
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

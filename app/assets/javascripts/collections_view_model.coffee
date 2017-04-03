@@ -7,23 +7,47 @@ storeViewModels.CollectionsViewModel = ->
 	# toggle checkboxes
 	self.itemsSelectable = false
 	self.collectionsSelectable = false
+	self.mouseOverSet = false
+	self.mouseOutSet = false
+	self.clickedSet = false
+	self.checkedSet = false
+
+
+
 	# selected will keep a list of selected object ids to reset when page has changed
 	selected =
 		items: []
 		collections: []
 
+	# set callbacks
+	self.setMouseOver = (f) ->
+		self.mouseOver = f
+		self.mouseOverSet = true
+	
+	self.setMouseOut = (f) ->
+		self.mouseOut = f
+		self.mouseOutSet = true
+	
+	self.setClicked = (f) ->
+		self.clicked = f
+		self.clickedSet = true
+	
+	self.setChecked = (f) ->
+		self.checked = f
+		self.checkedSet = true
+
 	# callbacks
 	self.mouseOver = (node) ->
-		return
+		false
 
 	self.mouseOut = (node) ->
-		return
+		false
 
 	self.clicked = (node) ->
-		return
+		false
 
 	self.checked = (node) ->
-		return 
+		false
 
 	self.getSelected = () ->
 		return selected

@@ -15,3 +15,11 @@ body {
 	height: 300px;
 	overflow-y: scroll;
 }
+
+.clickable {
+	cursor: pointer;
+}
+
+.clickable:hover {
+	background: #FF8833;
+}

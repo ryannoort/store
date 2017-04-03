@@ -2,7 +2,8 @@
 window.storeHelpers = {}
 
 storeReady = ->
-	window.storeHelpers = {
+	window.storeHelpers = 
+
 		createValidatableField : (field, value) ->
 			observableField = ko.observable value
 			console.log field
@@ -17,6 +18,5 @@ storeReady = ->
 						observableField.extend simple: ""
 
 			return observableField
-	}
 
 $(document).on('turbolinks:load', storeReady);

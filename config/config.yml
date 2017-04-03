@@ -1,0 +1,15 @@
+
+defaults: &defaults
+  application_name: "River Valley Atlas"
+  collection_max_depth: 5
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+
+  

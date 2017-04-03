@@ -1,6 +1,6 @@
 <script type="text/html" id="item-container">
 	<li>
-		<span data-bind="text: name, event: {mouseover: $root.mouseOver, mouseout: $root.mouseOut}, click: $root.clicked"></span>
+		<span data-bind="css: {clickable: $root.clickedSet} , text: name, event: {mouseover: $root.mouseOver, mouseout: $root.mouseOut}, click: $root.clicked"></span>
 		<span data-bind="if: $root.itemsSelectable">
 			<input type="checkbox" data-bind="checked: isChecked" />
 		</span>

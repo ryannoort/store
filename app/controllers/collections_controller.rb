@@ -87,7 +87,11 @@ class CollectionsController < ApplicationController
     end
 
     def set_collections
-      @collections = Collection.all
+      if current_user and (current_user.admin? or current_user.editor?)
+        @collections = Collection.all
+      else 
+        @collections = Collection.where is_public: true
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

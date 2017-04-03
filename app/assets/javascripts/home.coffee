@@ -85,22 +85,19 @@ homeReady = ->
 		searchWidget.registerUpdate (collectionsWidget.updateCollections)
 		searchWidget.registerUpdate (updateMap)
 
-		collectionsWidget.mouseOver = (node) ->
+		collectionsWidget.setMouseOver (node) ->
 			if itemLayers[node.id]
 				itemLayers[node.id].setStyle {color: '#FF8833'}
 				itemLayers[node.id].bringToFront()
 				
 			# console.log itemLayers[node.id]
 
-		collectionsWidget.mouseOut = (node) ->
+		collectionsWidget.setMouseOut (node) ->
 			if itemLayers[node.id]
 				geojson.resetStyle(itemLayers[node.id])
 			# console.log itemLayers[node.id]
 
-		collectionsWidget.clicked = (node) ->
-			console.log node
-
-		collectionsWidget.clicked = (node) ->
+		collectionsWidget.setClicked (node) ->
 			window.location.href = "/items/" + node.id
 
 		# set callback

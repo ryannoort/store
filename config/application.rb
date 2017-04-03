@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# ENV.update YAML.load_file('config/application.yml')[Rails.env] rescue {}
+
 module Store
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -21,8 +23,7 @@ module Store
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'knockout', 'dist')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'moment', 'min')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'eonasdan-bootstrap-datetimepicker', 'build')
-    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'font-awesome')
-    
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'font-awesome')    
 
   end
 end

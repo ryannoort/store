@@ -1,6 +1,6 @@
 class ItemTypesController < ApplicationController
   before_action :set_item_type, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
   # GET /item_types
   # GET /item_types.json
   def index

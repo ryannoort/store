@@ -43,10 +43,10 @@ itemTypeReady = ->
 
 			# Change to use destroy instead of removing metadata_set
 			self.removeMetadataSet = (metadata_set) ->
-				console.log metadata_set
+				# console.log metadata_set
 				# self.data.metadata_sets_ids.destroy metadata_set
 				self.data.metadata_sets_ids.remove metadata_set
-				console.log self.data.metadata_sets_ids()
+				# console.log self.data.metadata_sets_ids()
 
 			self.saveItemType = ->
 				if isFormValid()

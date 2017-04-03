@@ -58,7 +58,7 @@ metadataSetReady = ->
 			self.addMetadataField = ->
 				self.data.metadata_fields_attributes.push new MetadataField()
 
-			self.removeField = (field) -> 
+			self.removeField = (field) ->
 				self.data.metadata_fields_attributes.destroy field
 
 			self.saveMetadataSet = ->
