@@ -65,6 +65,8 @@
 
 <button id="save_item" data-bind="click: saveItem" class="btn btn-default">Create Item</button>
 
+<%= render partial: "map_information" %> 
+
 <script>
 var feature = <%= item.feature_to_json.html_safe %>
 var itemTypes = <%= ItemType.all().to_json(include: {metadata_sets: {include: :metadata_fields}}).html_safe %>

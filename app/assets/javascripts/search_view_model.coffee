@@ -36,6 +36,10 @@ storeViewModels.SearchViewModel = ->
 			$('#start-time-picker').data("DateTimePicker").maxDate(e.date);
 		);	
 
+	self.setPerPage = (n) ->
+		perPage = n
+		fetchPage()
+
 	self.search = ->
 		self.page 1
 		fetchPage()

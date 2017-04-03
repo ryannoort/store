@@ -86,6 +86,7 @@ homeReady = ->
 		searchWidget.registerUpdate (collectionsWidget.updateCollections)
 		searchWidget.registerUpdate (updateMap)
 
+
 		collectionsWidget.setMouseOver (node) ->
 			if itemLayers[node.id]
 				itemLayers[node.id].setStyle {color: '#FF8833'}
@@ -104,6 +105,7 @@ homeReady = ->
 		# set callback
 
 		ko.applyBindings( searchWidget, document.getElementById("search-widget") )
+		searchWidget.setPerPage 1
 		ko.applyBindings( collectionsWidget, document.getElementById("collection-widget") )		
 
 $(document).on('turbolinks:load', homeReady);

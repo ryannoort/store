@@ -6,7 +6,6 @@ storeReady = ->
 
 		createValidatableField : (field, value) ->
 			observableField = ko.observable value
-			console.log field
 			if field.is_required
 				observableField.extend required: ""
 
