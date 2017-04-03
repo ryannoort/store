@@ -9,7 +9,7 @@ homeReady = ->
 	itemLayers = {}
 
 	setupMap = ->
-		map = L.map('store-map').setView([53.525283, -113.525612], 14);
+		map = L.map('store-map').setView(mapInformation.latlng, mapInformation.zoom);
 		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 		    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(map);
