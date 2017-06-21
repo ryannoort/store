@@ -19,6 +19,9 @@ storeViewModels.CollectionsViewModel = ->
 		items: []
 		collections: []
 
+	self.test = (items) ->
+		selected.items = items;
+
 	# set callbacks
 	self.setMouseOver = (f) ->
 		self.mouseOver = f
@@ -70,7 +73,7 @@ storeViewModels.CollectionsViewModel = ->
 		index = array.indexOf node.id
 		array.push node.id if index == -1
 
-	getSelectedArray = (node)	->
+	getSelectedArray = (node) ->
 		if isCollection node then selected.collections else selected.items
 
 	setCheckedValues = (node) ->
@@ -85,6 +88,7 @@ storeViewModels.CollectionsViewModel = ->
 		applyTo = if node.isChecked() then addIdToArray else removeIdFromArray
 		array = getSelectedArray node
 		applyTo array, node
+		# console.log node
 		# self.selected(self.getSelected)
 		
 

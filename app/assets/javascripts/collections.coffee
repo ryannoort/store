@@ -13,7 +13,7 @@ collectionsReady = ->
 
 			self.data = 
 				name: ko.observable("").extend required: ""
-				item_ids: ko.observable "1"
+				item_ids: ko.observable ""
 				collection_ids: ko.observable ""
 				item_type_id: ko.observable ""
 
@@ -29,6 +29,10 @@ collectionsReady = ->
 					success: (data) ->
 						setAllDataValues data
 				)
+
+			self.getItemsIds =() ->
+				console.log 
+				return self.data.item_ids()
 
 			setAllDataValues = (data) ->
 				self.data.name data.name
@@ -47,7 +51,7 @@ collectionsReady = ->
 			
 			getExtraData = ->
 				self.data.item_ids = collectionsWidget.getSelected().items #self.data.item_ids().split(",")
-				self.data.collection_ids = self.data.collection_ids().split(",")
+				#self.data.collection_ids = self.data.collection_ids().split(",")
 				self.data.item_type_id = self.itemType().id
 
 				console.log self.data
@@ -78,13 +82,15 @@ collectionsReady = ->
 
 		
 		collectionsWidget = new storeViewModels.CollectionsViewModel()
+		collectionViewModel = new CollectionViewModel()
 		collectionsWidget.itemsSelectable = true
+		# collectionsWidget.test collectionViewModel.getItemsIds() #self.data.item_ids
 		searchWidget = new storeViewModels.SearchViewModel()
 		searchWidget.registerUpdate (collectionsWidget.updateCollections)
 
 		ko.applyBindings( searchWidget, document.getElementById("search-widget") )
 		ko.applyBindings( collectionsWidget, document.getElementById("collection-widget") )
 
-		ko.applyBindings( new CollectionViewModel(), document.getElementById("collections-form") )
+		ko.applyBindings( collectionViewModel, document.getElementById("collections-form") )
 
 $(document).on('turbolinks:load', collectionsReady);

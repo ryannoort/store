@@ -17,12 +17,13 @@ ActiveRecord::Schema.define(version: 20170213183801) do
   enable_extension "postgis"
 
   create_table "collections", force: :cascade do |t|
-    t.string   "name",          null: false
-    t.integer  "owner_id",      null: false
+    t.string   "name",                          null: false
+    t.integer  "owner_id",                      null: false
     t.integer  "collection_id"
-    t.integer  "item_type_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "item_type_id",                  null: false
+    t.boolean  "is_public",     default: false, null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.index ["collection_id"], name: "index_collections_on_collection_id", using: :btree
     t.index ["item_type_id"], name: "index_collections_on_item_type_id", using: :btree
     t.index ["owner_id"], name: "index_collections_on_owner_id", using: :btree
