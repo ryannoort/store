@@ -1,4 +1,4 @@
-json.extract! item, :id, :name, :location
+json.extract! item, :id, :name, :location, :is_public
 if item.start_time.present?
 	json.start_time item.start_time.to_s :year_month_day
 end

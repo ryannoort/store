@@ -29,7 +29,6 @@ class CollectionsController < ApplicationController
   def create
     @collection = Collection.new(collection_params)
     @collection.owner = current_user
-
     respond_to do |format|
       if @collection.save
         # @collection.update_item_type collection_params['item_type_id']

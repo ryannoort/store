@@ -105,7 +105,7 @@ homeReady = ->
 		# set callback
 
 		ko.applyBindings( searchWidget, document.getElementById("search-widget") )
-		searchWidget.setPerPage 1
+		searchWidget.setPerPage 3
 		ko.applyBindings( collectionsWidget, document.getElementById("collection-widget") )		
 
 $(document).on('turbolinks:load', homeReady);
