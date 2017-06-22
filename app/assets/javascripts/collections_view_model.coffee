@@ -19,8 +19,10 @@ storeViewModels.CollectionsViewModel = ->
 		items: []
 		collections: []
 
-	self.test = (items) ->
-		selected.items = items;
+	self.updateSelected = (items, collections) ->
+		selected.items = items
+		selected.collections = collections
+		applyCheckValuesToPage()
 
 	# set callbacks
 	self.setMouseOver = (f) ->
@@ -60,6 +62,7 @@ storeViewModels.CollectionsViewModel = ->
 		collections.forEach (e) ->
 			travelHierarchy e, addCheckValues
 		self.collections collections
+		# selected.items = data.item_ids
 		applyCheckValuesToPage()
 
 	isCollection = (node) ->
@@ -87,10 +90,7 @@ storeViewModels.CollectionsViewModel = ->
 	changeSelectedValue = (node) ->
 		applyTo = if node.isChecked() then addIdToArray else removeIdFromArray
 		array = getSelectedArray node
-		applyTo array, node
-		# console.log node
-		# self.selected(self.getSelected)
-		
+		applyTo array, node		
 
 	travelHierarchy = (node, callback) ->
 		callback(node)
