@@ -18,6 +18,7 @@
     "AlertifyJS": "alertify-js#^1.8.0",
     "knockout": "knockoutjs#^3.4.1",
     "eonasdan-bootstrap-datetimepicker": "bootstrap-datetimepicker-3#^4.17.45",
-    "font-awesome": "Font-Awesome#^4.7.0"
+    "font-awesome": "Font-Awesome#^4.7.0",
+    "summernote": "^0.8.4"
   }
 }

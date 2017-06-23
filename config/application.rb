@@ -24,6 +24,7 @@ module Store
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'moment', 'min')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'eonasdan-bootstrap-datetimepicker', 'build')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'font-awesome')    
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'summernote', 'dist')    
 
   end
 end

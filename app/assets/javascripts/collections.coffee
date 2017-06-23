@@ -1,4 +1,5 @@
 collectionsReady = ->
+
 	if ($("body").hasClass("collections") and ($("body").hasClass("new") or $("body").hasClass("edit")))
 
 		CollectionViewModel = ->
