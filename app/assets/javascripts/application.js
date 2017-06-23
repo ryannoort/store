@@ -20,6 +20,8 @@
 //= require knockout
 //= require moment
 //= require js/bootstrap-datetimepicker.min
+//= require summernote
+
 //= require store
 //= require collections_view_model
 //= require search_view_model
@@ -33,9 +35,5 @@
 //= require items
 //= require metadata_sets
 //= require users
-
-
-//= require store
-
-
+//= require ko_bindings
 

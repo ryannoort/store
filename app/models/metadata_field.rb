@@ -7,7 +7,8 @@ class MetadataField < ApplicationRecord
 		image: 3,
 		email: 4,
 		url: 5,
-		number: 6
+		number: 6,
+		rich_text: 7
 	}
 	
 	belongs_to :metadata_set
