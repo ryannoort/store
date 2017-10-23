@@ -25,6 +25,6 @@ module Store
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'eonasdan-bootstrap-datetimepicker', 'build')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'font-awesome')    
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'summernote', 'dist')    
-
+    config.autoload_paths += %W(#{config.root}/app/models/entity)
   end
 end

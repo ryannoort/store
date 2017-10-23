@@ -1,9 +1,9 @@
- class Collection < ApplicationRecord
+ class Collection < Entity
  	
- 	include Metadatable
+ 	# include Metadatable
 
 	belongs_to :owner, class_name: "User"
-	has_many :collections
-	has_and_belongs_to_many :items
+	# has_many :collections
+	# has_and_belongs_to_many :items
 
 end
