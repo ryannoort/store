@@ -10,30 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213183801) do
+ActiveRecord::Schema.define(version: 20171023193113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
 
-  create_table "collections", force: :cascade do |t|
-    t.string   "name",                          null: false
-    t.integer  "owner_id",                      null: false
-    t.integer  "collection_id"
-    t.integer  "item_type_id",                  null: false
-    t.boolean  "is_public",     default: false, null: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.index ["collection_id"], name: "index_collections_on_collection_id", using: :btree
-    t.index ["item_type_id"], name: "index_collections_on_item_type_id", using: :btree
-    t.index ["owner_id"], name: "index_collections_on_owner_id", using: :btree
+  create_table "child_entities", force: :cascade do |t|
+    t.integer  "entity_id"
+    t.integer  "child_entity_id"
+    t.integer  "order"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["child_entity_id"], name: "index_child_entities_on_child_entity_id", using: :btree
+    t.index ["entity_id"], name: "index_child_entities_on_entity_id", using: :btree
   end
 
-  create_table "collections_items", id: false, force: :cascade do |t|
-    t.integer "collection_id", null: false
-    t.integer "item_id",       null: false
-    t.index ["collection_id", "item_id"], name: "index_collections_items_on_collection_id_and_item_id", using: :btree
-    t.index ["item_id", "collection_id"], name: "index_collections_items_on_item_id_and_collection_id", using: :btree
+  create_table "entities", force: :cascade do |t|
+    t.string   "name",                                                               null: false
+    t.integer  "owner_id",                                                           null: false
+    t.integer  "item_type_id",                                                       null: false
+    t.boolean  "is_public",                                          default: false, null: false
+    t.geometry "location",     limit: {:srid=>0, :type=>"geometry"}
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "type"
+    t.datetime "created_at",                                                         null: false
+    t.datetime "updated_at",                                                         null: false
+    t.index ["item_type_id"], name: "index_entities_on_item_type_id", using: :btree
+    t.index ["location"], name: "index_entities_on_location", using: :gist
+    t.index ["owner_id"], name: "index_entities_on_owner_id", using: :btree
   end
 
   create_table "item_types", force: :cascade do |t|
@@ -47,20 +53,6 @@ ActiveRecord::Schema.define(version: 20170213183801) do
     t.integer "metadata_set_id"
     t.index ["item_type_id"], name: "index_item_types_metadata_sets_on_item_type_id", using: :btree
     t.index ["metadata_set_id"], name: "index_item_types_metadata_sets_on_metadata_set_id", using: :btree
-  end
-
-  create_table "items", force: :cascade do |t|
-    t.string   "name",                                                               null: false
-    t.geometry "location",     limit: {:srid=>0, :type=>"geometry"}
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.boolean  "is_public",                                          default: false, null: false
-    t.integer  "owner_id",                                                           null: false
-    t.integer  "item_type_id"
-    t.datetime "created_at",                                                         null: false
-    t.datetime "updated_at",                                                         null: false
-    t.index ["location"], name: "index_items_on_location", using: :gist
-    t.index ["owner_id"], name: "index_items_on_owner_id", using: :btree
   end
 
   create_table "metadata_fields", force: :cascade do |t|

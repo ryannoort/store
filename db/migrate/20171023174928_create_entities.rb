@@ -10,6 +10,8 @@ class CreateEntities < ActiveRecord::Migration[5.0]
       t.datetime :start_time
       t.datetime :end_time
 
+      t.string :type
+
       t.timestamps
     end
 	add_index :entities, :location, using: :gist
