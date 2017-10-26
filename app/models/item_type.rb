@@ -9,7 +9,9 @@ class ItemType < ApplicationRecord
 				item_types: 
 				{id: metadatable.item_type_id} , 
 				metadata_values: 
-				{valuable_type: metadatable.class.name, 
+				{
+					#valuable_type: metadatable.class.name, 
+				# {valuable_type: 'Entity', 
 				valuable_id: metadatable.id}) 
 	}
 
