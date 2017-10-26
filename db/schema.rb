@@ -111,12 +111,11 @@ ActiveRecord::Schema.define(version: 20171023193113) do
   create_table "metadata_values", force: :cascade do |t|
     t.string   "value"
     t.integer  "metadata_field_id"
-    t.string   "valuable_type"
-    t.integer  "valuable_id"
+    t.integer  "entity_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.index ["entity_id"], name: "index_metadata_values_on_entity_id", using: :btree
     t.index ["metadata_field_id"], name: "index_metadata_values_on_metadata_field_id", using: :btree
-    t.index ["valuable_type", "valuable_id"], name: "index_metadata_values_on_valuable_type_and_valuable_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
