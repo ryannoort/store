@@ -9,7 +9,7 @@ class Entity < ApplicationRecord
 
 	has_many :parent_entities, class_name: "ParentEntity", foreign_key: :parent_entity_id
 	# has_many :children, through: :child_entities, foreign_key: :child_entity_id, source: :entity
-	has_many :parents, :through => :parent_entities, :source => :entity
+	has_many :parents, :through => :parent_entities, :source => :child_entity
 	accepts_nested_attributes_for :metadata_values, allow_destroy: true
 
 	def item_type_values

@@ -75,12 +75,12 @@ ActiveRecord::Schema.define(version: 20171023193113) do
   end
 
   create_table "parent_entities", force: :cascade do |t|
-    t.integer  "entity_id"
+    t.integer  "child_entity_id"
     t.integer  "parent_entity_id"
     t.integer  "order"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.index ["entity_id"], name: "index_parent_entities_on_entity_id", using: :btree
+    t.index ["child_entity_id"], name: "index_parent_entities_on_child_entity_id", using: :btree
     t.index ["parent_entity_id"], name: "index_parent_entities_on_parent_entity_id", using: :btree
   end
 
