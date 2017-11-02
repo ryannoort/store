@@ -162,13 +162,14 @@ collectionsReady = ->
 			self.name = collection.name
 			self.template = collection.type + '-template'
 			self.children = ko.observableArray []
-			opened = false;
+			self.isOpen = ko.observableArray(false)
+			fetched = false;
 
 			itemCallback = -> return
 			collectionCallback = -> return
 			
 			processChildren = (children) ->
-				self.children.removeAll()
+				# self.children.removeAll()
 				ko.utils.arrayForEach(children, (child) -> 
 					entity = {}
 
@@ -189,15 +190,14 @@ collectionsReady = ->
 					url: '/collections/' + self.id + '.json'
 					success: (resp) ->		
 						processChildren resp.children
-						self.collectionCallback(resp)
+						collectionCallback(resp)
 
 			self.click = () ->
-				if not opened
+				if not fetched
 					self.fetchChildren()
-				else 
-					self.children.removeAll()
-				opened = ! opened
-				
+					fetched = true
+					console.log "fetching"
+				self.isOpen(!self.isOpen())
 
 			self.setItemCallback = (callback) ->
 				itemCallback = callback
