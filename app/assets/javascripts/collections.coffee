@@ -128,25 +128,24 @@ collectionsReady = ->
 			self.name = item.name
 			self.template = item.type + '-template'
 			self.feature = ""
+			self.fetched = false
 
 			itemCallback = -> return
 
-			fetchItemFeature = ->
-				$.ajax
-					type: 'GET'
-					url: '/items/' + self.id + '.json'
-					success: (resp) ->		
-						self.feature = resp.feature					
-						itemCallback(resp)
-
 			self.click = () ->
-				fetchItemFeature()
-				itemCallback()
+				itemCallback(self)
 
 			self.setItemCallback = (callback) ->
 				itemCallback = callback
 
-			self.fetch = () -> return
+			self.fetch = -> 
+				if not self.fetched
+					$.ajax
+						type: 'GET'
+						url: '/items/' + self.id + '.json'
+						success: (resp) ->		
+							self.feature = resp.feature	
+							self.fetched = true
 
 			return
 
@@ -164,7 +163,6 @@ collectionsReady = ->
 			collectionCallback = -> return
 			
 			processChildren = (children) ->
-				# self.children.removeAll()
 				ko.utils.arrayForEach(children, (child) -> 
 					entity = {}
 
@@ -185,7 +183,7 @@ collectionsReady = ->
 					url: '/collections/' + self.id + '.json'
 					success: (resp) ->		
 						processChildren(resp.children)
-						collectionCallback(resp)
+						collectionCallback(self)
 						callback()
 
 			self.fetchChildren = ->
