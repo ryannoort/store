@@ -113,21 +113,14 @@ collectionsReady = ->
 			geojson.clearLayers()
 			itemLayers = {}	
 
-		updateMap = (data) ->
+		updateMap = (data) ->			
 			feature = data.feature
 			clearLayers()
 
 			if feature.geometry
-				# currentItem = item
 				geojson.addData feature
 				if geojson.getBounds().isValid()
 					map.fitBounds(geojson.getBounds());
-
-		# 			geojsonLayer = L.geoJSON(feature).addTo(map);
-		# if geojsonLayer.getBounds().isValid()
-		# 	map.fitBounds(geojsonLayer.getBounds());
-		# ^^^ copied and modified from home.coffee				
-
 
 		ItemViewModel = (item) ->
 			self = this
@@ -152,6 +145,8 @@ collectionsReady = ->
 
 			self.setItemCallback = (callback) ->
 				itemCallback = callback
+
+			self.fetch = () -> return
 
 			return
 
@@ -184,13 +179,19 @@ collectionsReady = ->
 					self.children.push entity
 				)
 
-			self.fetchChildren = ->
+			self.fetch = (callback = () -> return) ->
 				$.ajax
 					type: 'GET'
 					url: '/collections/' + self.id + '.json'
 					success: (resp) ->		
-						processChildren resp.children
+						processChildren(resp.children)
 						collectionCallback(resp)
+						callback()
+
+			self.fetchChildren = ->
+				ko.utils.arrayForEach(self.children(), (child) ->
+					child.fetch()
+				)
 
 			self.click = () ->
 				if not fetched
@@ -216,7 +217,8 @@ collectionsReady = ->
 		collectionParent = new CollectionViewModel(initialCollection)
 				
 		collectionParent.setItemCallback updateMap
-		collectionParent.fetchChildren()
+		collectionParent.fetch(collectionParent.fetchChildren)
+		
 
 		ko.applyBindings(collectionParent, document.getElementById('collection-parent'))
 
