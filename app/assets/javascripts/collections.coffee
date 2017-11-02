@@ -94,6 +94,40 @@ collectionsReady = ->
 		ko.applyBindings( collectionViewModel, document.getElementById("collections-form") )
 
 	if ($("body").hasClass("collections") and ($("body").hasClass("show")))
+		# vvv copied and modified from home.coffee
+
+
+		map = {}
+		geojson = {}
+		itemLayers = {}
+
+		map = L.map('store-map').setView(mapInformation.latlng, mapInformation.zoom);
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
+		geojson = L.geoJSON().addTo(map);
+		geojson.on 'layeradd', (e) ->
+			itemLayers[e.layer.feature.id] = e.layer
+
+		clearLayers = ->
+			geojson.clearLayers()
+			itemLayers = {}	
+
+		updateMap = (data) ->
+			feature = data.feature
+			clearLayers()
+
+			if feature.geometry
+				# currentItem = item
+				geojson.addData feature
+				if geojson.getBounds().isValid()
+					map.fitBounds(geojson.getBounds());
+
+		# 			geojsonLayer = L.geoJSON(feature).addTo(map);
+		# if geojsonLayer.getBounds().isValid()
+		# 	map.fitBounds(geojsonLayer.getBounds());
+		# ^^^ copied and modified from home.coffee				
+
 
 		ItemViewModel = (item) ->
 			self = this
@@ -102,15 +136,22 @@ collectionsReady = ->
 			self.template = item.type + '-template'
 			self.feature = ""
 
+			itemCallback = -> return
+
 			fetchItemFeature = ->
 				$.ajax
 					type: 'GET'
 					url: '/items/' + self.id + '.json'
 					success: (resp) ->		
-						self.feature = resp.feature
+						self.feature = resp.feature					
+						itemCallback(resp)
 
 			self.click = () ->
 				fetchItemFeature()
+				itemCallback()
+
+			self.setItemCallback = (callback) ->
+				itemCallback = callback
 
 			return
 
@@ -120,17 +161,24 @@ collectionsReady = ->
 			self.id = collection.id
 			self.name = collection.name
 			self.template = collection.type + '-template'
-			self.children = ko.observableArray []			
+			self.children = ko.observableArray []
+			opened = false;
 
+			itemCallback = -> return
+			collectionCallback = -> return
+			
 			processChildren = (children) ->
 				self.children.removeAll()
 				ko.utils.arrayForEach(children, (child) -> 
 					entity = {}
-				
+
 					if child.type == "Item"
 						entity = new ItemViewModel(child)
+						entity.setItemCallback itemCallback
 					else if child.type == "Collection"
 						entity = new CollectionViewModel(child)
+						entity.setItemCallback itemCallback
+						entity.setCollectionCallback collectionCallback
 
 					self.children.push entity
 				)
@@ -141,10 +189,21 @@ collectionsReady = ->
 					url: '/collections/' + self.id + '.json'
 					success: (resp) ->		
 						processChildren resp.children
+						self.collectionCallback(resp)
 
 			self.click = () ->
-				console.log "collection clicked"
-				self.fetchChildren()
+				if not opened
+					self.fetchChildren()
+				else 
+					self.children.removeAll()
+				opened = ! opened
+				
+
+			self.setItemCallback = (callback) ->
+				itemCallback = callback
+
+			self.setCollectionCallback = (callback) ->
+				collectionCallback = callback
 
 			return
 		
@@ -155,7 +214,7 @@ collectionsReady = ->
 
 		collectionParent = new CollectionViewModel(initialCollection)
 				
-
+		collectionParent.setItemCallback updateMap
 		collectionParent.fetchChildren()
 
 		ko.applyBindings(collectionParent, document.getElementById('collection-parent'))
