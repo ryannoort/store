@@ -93,4 +93,73 @@ collectionsReady = ->
 		ko.applyBindings( collectionsWidget, document.getElementById("collection-widget") )
 		ko.applyBindings( collectionViewModel, document.getElementById("collections-form") )
 
+	if ($("body").hasClass("collections") and ($("body").hasClass("show")))
+
+		ItemViewModel = (item) ->
+			self = this
+			self.id = item.id
+			self.name = item.name
+			self.template = item.type + '-template'
+			self.feature = ""
+
+			fetchItemFeature = ->
+				$.ajax
+					type: 'GET'
+					url: '/items/' + self.id + '.json'
+					success: (resp) ->		
+						self.feature = resp.feature
+
+			self.click = () ->
+				fetchItemFeature()
+
+			return
+
+
+		CollectionViewModel = (collection) ->
+			self = this
+			self.id = collection.id
+			self.name = collection.name
+			self.template = collection.type + '-template'
+			self.children = ko.observableArray []			
+
+			processChildren = (children) ->
+				self.children.removeAll()
+				ko.utils.arrayForEach(children, (child) -> 
+					entity = {}
+				
+					if child.type == "Item"
+						entity = new ItemViewModel(child)
+					else if child.type == "Collection"
+						entity = new CollectionViewModel(child)
+
+					self.children.push entity
+				)
+
+			self.fetchChildren = ->
+				$.ajax
+					type: 'GET'
+					url: '/collections/' + self.id + '.json'
+					success: (resp) ->		
+						processChildren resp.children
+
+			self.click = () ->
+				console.log "collection clicked"
+				self.fetchChildren()
+
+			return
+		
+		# XXX fetch this id from back-end
+		initialCollection =
+			id: 1
+			name: 'collection'
+
+		collectionParent = new CollectionViewModel(initialCollection)
+				
+
+		collectionParent.fetchChildren()
+
+		ko.applyBindings(collectionParent, document.getElementById('collection-parent'))
+
+		return
+
 $(document).on('turbolinks:load', collectionsReady);
