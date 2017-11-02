@@ -53,7 +53,11 @@
 		<div id="collection-parent">			
 
 			<script type="text/html" id="Collection-template">
-				<div data-bind='text: name, click: click'></div>
+				<div>
+					<span data-bind='text: name, click: click'></span>
+					<span data-bind='text: children().length'></span>
+				</div>
+
 				<ul data-bind='visible: isOpen(), foreach: children'>
 					<li data-bind='template: template'></li>
 				</ul>		

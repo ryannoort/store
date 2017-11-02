@@ -162,7 +162,7 @@ collectionsReady = ->
 			self.name = collection.name
 			self.template = collection.type + '-template'
 			self.children = ko.observableArray []
-			self.isOpen = ko.observableArray(false)
+			self.isOpen = ko.observable(false)
 			fetched = false;
 
 			itemCallback = -> return
@@ -196,8 +196,9 @@ collectionsReady = ->
 				if not fetched
 					self.fetchChildren()
 					fetched = true
-					console.log "fetching"
-				self.isOpen(!self.isOpen())
+
+				self.isOpen(not self.isOpen())
+
 
 			self.setItemCallback = (callback) ->
 				itemCallback = callback
