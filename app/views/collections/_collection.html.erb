@@ -55,7 +55,7 @@
 			<script type="text/html" id="Collection-template">
 				<div>
 					<span data-bind='text: name, click: click'></span>
-					<span data-bind='text: children().length'></span>
+					(<span data-bind='text: children().length'></span>)
 				</div>
 
 				<ul data-bind='visible: isOpen(), foreach: children'>
