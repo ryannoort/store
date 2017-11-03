@@ -6,7 +6,7 @@ collectionsReady = ->
 			self = this
 
 			self.itemTypes = ko.observableArray itemTypes
-			self.itemType = ko.observable self.itemTypes[0]
+			self.itemType = ko.observable self.itemTypes[0]			
 			$.each self.itemTypes(), (i, type) ->
 				$.each type.metadata_sets, (j, set) ->
 					$.each set.metadata_fields, (k, field) ->
@@ -31,15 +31,30 @@ collectionsReady = ->
 						setAllDataValues data
 				)
 
+			# need to get all entities
+			self.entities = ko.observableArray()
+			self.data.children = ko.observableArray()
+			$.ajax(
+					type: "GET"
+					dataType: "json"
+					url: '/entities/index.json'
+					success: (data) ->
+						entities = data.map((x) ->
+							type = Object.keys(x)[0];
+							result = x[type]
+							result.type = type
+							return result
+						)
+						self.entities(entities)
+						console.log self.entities()
+				)			
+
 			self.getItemsIds =() ->
 				return self.data.item_ids().split(',')
 
 			setAllDataValues = (data) ->
-				self.data.name data.name
-				self.data.item_ids  data.item_ids.join ','
-				self.data.collection_ids data.collection_ids
-				self.data.item_type_id data.item_type_id
-				self.updateSelected( data.item_ids, data.collection_ids)
+				self.data.name data.name				
+				self.data.children(data.children)
 
 				$.each data.item_type.metadata_sets, (j, set) ->
 					$.each set.metadata_fields, (k, field) ->
@@ -51,8 +66,6 @@ collectionsReady = ->
 						self.itemType data.item_type
 			
 			getExtraData = ->
-				self.data.item_ids = collectionsWidget.getSelected().items #self.data.item_ids().split(",")
-				#self.data.collection_ids = self.data.collection_ids().split(",")
 				self.data.item_type_id = self.itemType().id
 				self.data.metadata_values_attributes = []
 				$.each self.itemType().metadata_sets, (j, set) ->
@@ -76,21 +89,11 @@ collectionsReady = ->
 					success: (resp) ->
 						window.location.href = resp.url
 
-			# XXX Fix this. Should be turned into a registered callback if more are needed
-			self.updateSelected = (data) -> {}
-
-			console.log ""
+			return
 
 		
-		collectionsWidget = new storeViewModels.CollectionsViewModel()
+		
 		collectionViewModel = new CollectionViewModel()
-		collectionsWidget.itemsSelectable = true
-		collectionViewModel.updateSelected = collectionsWidget.updateSelected
-		searchWidget = new storeViewModels.SearchViewModel()
-		searchWidget.registerUpdate (collectionsWidget.updateCollections)
-
-		ko.applyBindings( searchWidget, document.getElementById("search-widget") )
-		ko.applyBindings( collectionsWidget, document.getElementById("collection-widget") )
 		ko.applyBindings( collectionViewModel, document.getElementById("collections-form") )
 
 	if ($("body").hasClass("collections") and ($("body").hasClass("show")))

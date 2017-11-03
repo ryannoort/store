@@ -1,6 +1,6 @@
 
-<div class="row form" id="collections">
-	<div class="col-md-9" id="collections-form">
+<div class="row form" id="collections-form">
+	<div class="col-md-4" id="">
 		<!-- Collection name -->
 		<div class="actions">
 			<form class="simple_form new_collection" id="new_collection">
@@ -20,16 +20,29 @@
 			</div>
 		</div>
 
-		<button id="save_collection" data-bind="click: saveCollection" class="btn btn-default">Create Collection</button>
+		<button id="save_collection" data-bind="click: saveCollection" class="btn btn-default">Save Collection</button>
 
+
+		<!-- mover de aqui -->		
 
 	</div>
 
+	<div class="col-md-4">
+		<ul data-bind="foreach: entities">
+			<li>
+				<span data-bind="text: name"></span>
+				(<span data-bind="text: type"></span>)
+			</li>
+		</ul>
+	</div>
 
-	<div class="col-md-3">
-		<!-- collection items -->
-		<%= render partial: "search_widget" %>
-		<%= render partial: "collection_widget" %>
+	<div class="col-md-4">
+		<ul data-bind="foreach: data.children">
+			<li>
+				<span data-bind="text: name"></span>
+				(<span data-bind="text: type"></span>)
+			</li>
+		</ul>
 	</div>
 	
 </div>
