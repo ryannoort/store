@@ -31,7 +31,7 @@
 		<ul data-bind="foreach: entities">
 			<li data-bind="dragZone: { name: 'lists' }">
 				<span data-bind="text: name"></span>
-				(<span data-bind="text: type"></span>)
+				<span class="label" data-bind="text: type, css: type == 'Collection' ? 'label-primary' : 'label-info'"></span>
 			</li>
 		</ul>
 	</div>
@@ -40,7 +40,8 @@
 		<ul data-bind="foreach: children, dropZone: { accepts: 'lists', drop: drop }">
 			<li>
 				<span data-bind="text: name"></span>
-				(<span data-bind="text: type"></span>)
+				<span class="label" data-bind="text: type, css: type == 'Collection' ? 'label-primary' : 'label-info'"></span>
+				<span class="btn btn-danger btn-xs" data-bind="click: $root.removeEntity">x</span>
 			</li>
 		</ul>
 	</div>

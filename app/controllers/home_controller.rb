@@ -8,5 +8,6 @@ class HomeController < ApplicationController
 	private 
 		def set_root_collections
 			@root_collections = Collection.without_parents.where is_public: true
+			puts @root_collections
 		end
 end

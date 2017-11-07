@@ -45,7 +45,7 @@ class CollectionsController < ApplicationController
   # PATCH/PUT /collections/1.json
   def update
     respond_to do |format|      
-      if @collection.update(collection_params)
+      if @collection.update(collection_params) and pre_update()
         # @collection.update_item_type collection_params['item_type_id']
         format.html { redirect_to @collection, notice: 'Collection was successfully updated.' }
         format.json { render :show, status: :ok, location: @collection }
@@ -102,5 +102,19 @@ class CollectionsController < ApplicationController
         metadata_values_attributes: [:value, :metadata_field_id],
         children_associations: [:id, :order]  
       )
+    end
+
+    def pre_update()
+      @collection.children.clear    
+      if collection_params[:children_associations]
+        collection_params[:children_associations].each do |index|
+          child = collection_params[:children_associations][index]        
+          parent_association = ParentEntity.new
+          parent_association.parent_entity =  Entity.find child[:id]
+          parent_association.child_entity = @collection
+          parent_association.order = child[:order]
+          parent_association.save
+        end
+      end
     end
 end

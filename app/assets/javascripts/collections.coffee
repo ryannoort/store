@@ -30,6 +30,11 @@ collectionsReady = ->
 				)
 
 			# need to get all entities
+
+			capitalize = (sentence) ->
+				first = sentence[0].toUpperCase()
+				return first + sentence.slice(1)
+
 			self.entities = ko.observableArray()
 			self.children = ko.observableArray()
 			$.ajax(
@@ -40,11 +45,10 @@ collectionsReady = ->
 						entities = data.map((x) ->
 							type = Object.keys(x)[0];
 							result = x[type]
-							result.type = type
+							result.type = capitalize(type)
 							return result
 						)
 						self.entities(entities)
-						console.log self.entities()
 				)			
 
 			self.drop = (data) ->
@@ -84,21 +88,24 @@ collectionsReady = ->
 						order: i
 					)
 
+			self.removeEntity = (entity) ->
+				self.children.remove(entity)
+				console.log "removing"
+
 			self.saveCollection = ->
 				getExtraData()
 
 				data =
 					collection: self.data				
-				
+
 				console.log data
 				$.ajax
 					type: method
 					dataType: 'json'
 					data: data
 					url: '/collections' + addId + '.json'
-					success: (resp) ->
-						console.log resp
-						# window.location.href = resp.url
+					success: (resp) ->						
+						window.location.href = resp.url
 
 			return
 
@@ -221,9 +228,9 @@ collectionsReady = ->
 
 			return
 		
-		# XXX fetch this id from back-end
+		# collectionId comes from back end rendered on collection partial
 		initialCollection =
-			id: 1
+			id: collectionId
 			name: 'collection'
 
 		collectionParent = new CollectionViewModel(initialCollection)
