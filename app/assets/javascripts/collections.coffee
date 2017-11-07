@@ -13,9 +13,7 @@ collectionsReady = ->
 						field['value'] = storeHelpers.createValidatableField(field, field.default)
 
 			self.data = 
-				name: ko.observable("").extend required: ""
-				item_ids: ko.observable ""
-				collection_ids: ko.observable ""
+				name: ko.observable("").extend required: ""				
 				item_type_id: ko.observable ""
 
 			method = 'POST'
@@ -33,7 +31,7 @@ collectionsReady = ->
 
 			# need to get all entities
 			self.entities = ko.observableArray()
-			self.data.children = ko.observableArray()
+			self.children = ko.observableArray()
 			$.ajax(
 					type: "GET"
 					dataType: "json"
@@ -49,12 +47,17 @@ collectionsReady = ->
 						console.log self.entities()
 				)			
 
-			self.getItemsIds =() ->
-				return self.data.item_ids().split(',')
+			self.drop = (data) ->
+				self.children.push(data)
+
+			# drop: function (data, model) {
+   #      model.source.remove(data);
+   #      model.target.push(data);
+   #  }
 
 			setAllDataValues = (data) ->
 				self.data.name data.name				
-				self.data.children(data.children)
+				self.children(data.children)
 
 				$.each data.item_type.metadata_sets, (j, set) ->
 					$.each set.metadata_fields, (k, field) ->
@@ -68,12 +71,18 @@ collectionsReady = ->
 			getExtraData = ->
 				self.data.item_type_id = self.itemType().id
 				self.data.metadata_values_attributes = []
+				self.data.children_associations = []
 				$.each self.itemType().metadata_sets, (j, set) ->
 					$.each set.metadata_fields, (k, field) ->
 						self.data.metadata_values_attributes.push(
 							metadata_field_id: field.id
 							value: field.value
 						)
+				$.each self.children(), (i, child) ->
+					self.data.children_associations.push(
+						id: child.id
+						order: i
+					)
 
 			self.saveCollection = ->
 				getExtraData()
@@ -81,13 +90,15 @@ collectionsReady = ->
 				data =
 					collection: self.data				
 				
+				console.log data
 				$.ajax
 					type: method
 					dataType: 'json'
 					data: data
 					url: '/collections' + addId + '.json'
 					success: (resp) ->
-						window.location.href = resp.url
+						console.log resp
+						# window.location.href = resp.url
 
 			return
 

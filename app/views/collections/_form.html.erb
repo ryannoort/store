@@ -29,7 +29,7 @@
 
 	<div class="col-md-4">
 		<ul data-bind="foreach: entities">
-			<li>
+			<li data-bind="dragZone: { name: 'lists' }">
 				<span data-bind="text: name"></span>
 				(<span data-bind="text: type"></span>)
 			</li>
@@ -37,7 +37,7 @@
 	</div>
 
 	<div class="col-md-4">
-		<ul data-bind="foreach: data.children">
+		<ul data-bind="foreach: children, dropZone: { accepts: 'lists', drop: drop }">
 			<li>
 				<span data-bind="text: name"></span>
 				(<span data-bind="text: type"></span>)
