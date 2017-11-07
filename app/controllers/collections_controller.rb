@@ -98,7 +98,7 @@ class CollectionsController < ApplicationController
       # params.fetch(:collection, {}).permit(:parent_collection_id, :name, :form_attributes => [ :id, :schema_id, :fields_attributes => [:id, :name, :content, :type, :mime_content] ])
       # params.fetch(:collection, {}).permit(:name, :item_type_id, item_ids: [], collection_ids: [], metadata_values_attributes: [:value, :metadata_field_id])
       params.fetch(:collection, {}).permit(
-        :name, :item_type_id, :test,
+        :name, :item_type_id, :is_public,
         metadata_values_attributes: [:value, :metadata_field_id],
         children_associations: [:id, :order]  
       )

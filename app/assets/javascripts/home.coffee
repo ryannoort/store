@@ -36,34 +36,34 @@ homeReady = ->
 
 
 	if $("body").hasClass("home")
+		return 0
+		# setupMap()
+		# searchWidget = new storeViewModels.SearchViewModel()
+		# collectionsWidget = new storeViewModels.CollectionsViewModel()
 
-		setupMap()
-		searchWidget = new storeViewModels.SearchViewModel()
-		collectionsWidget = new storeViewModels.CollectionsViewModel()
-
-		# set callbacks
-		searchWidget.registerUpdate (collectionsWidget.updateCollections)
-		searchWidget.registerUpdate (updateMap)
+		# # set callbacks
+		# searchWidget.registerUpdate (collectionsWidget.updateCollections)
+		# searchWidget.registerUpdate (updateMap)
 
 
-		collectionsWidget.setMouseOver (node) ->
-			if itemLayers[node.id]
-				itemLayers[node.id].setStyle {color: '#FF8833'}
-				itemLayers[node.id].bringToFront()
+		# collectionsWidget.setMouseOver (node) ->
+		# 	if itemLayers[node.id]
+		# 		itemLayers[node.id].setStyle {color: '#FF8833'}
+		# 		itemLayers[node.id].bringToFront()
 				
 
-		collectionsWidget.setMouseOut (node) ->
-			if itemLayers[node.id]
-				geojson.resetStyle(itemLayers[node.id])
+		# collectionsWidget.setMouseOut (node) ->
+		# 	if itemLayers[node.id]
+		# 		geojson.resetStyle(itemLayers[node.id])
 
-		collectionsWidget.setClicked (node) ->
-			window.location.href = "/items/" + node.id
+		# collectionsWidget.setClicked (node) ->
+		# 	window.location.href = "/items/" + node.id
 
-		# set callback
+		# # set callback
 
-		ko.applyBindings( searchWidget, document.getElementById("search-widget") )
-		searchWidget.setPerPage 3
-		ko.applyBindings( collectionsWidget, document.getElementById("collection-widget") )		
+		# ko.applyBindings( searchWidget, document.getElementById("search-widget") )
+		# searchWidget.setPerPage 3
+		# ko.applyBindings( collectionsWidget, document.getElementById("collection-widget") )		
 
 $(document).on('turbolinks:load', homeReady);
 

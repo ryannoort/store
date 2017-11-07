@@ -15,6 +15,7 @@ collectionsReady = ->
 			self.data = 
 				name: ko.observable("").extend required: ""				
 				item_type_id: ko.observable ""
+				is_public: ko.observable(true)
 
 			method = 'POST'
 			addId = ''
@@ -60,8 +61,10 @@ collectionsReady = ->
    #  }
 
 			setAllDataValues = (data) ->
+				console.log data
 				self.data.name data.name				
 				self.children(data.children)
+				self.data.is_public(data.is_public)
 
 				$.each data.item_type.metadata_sets, (j, set) ->
 					$.each set.metadata_fields, (k, field) ->
@@ -97,8 +100,7 @@ collectionsReady = ->
 
 				data =
 					collection: self.data				
-
-				console.log data
+				
 				$.ajax
 					type: method
 					dataType: 'json'
