@@ -32,8 +32,8 @@
 	</div>
 
 	<div class="col-md-4">
-		<ul data-bind="foreach: entities">
-			<li data-bind="dragZone: { name: 'lists' }" class="">
+		<ul class="list-group" data-bind="foreach: entities">
+			<li class="list-group-item" data-bind="dragZone: { name: 'lists' }" class="">
 				<span data-bind="if: type == 'Collection'" class="label label-primary">C</span>
 				<span data-bind="if: type == 'Item'" class="label label-info">I</span>
 				<span data-bind="text: name"></span>
@@ -45,8 +45,8 @@
 	</div>
 
 	<div class="col-md-4">
-		<ul data-bind="foreach: children, dropZone: { accepts: 'lists', drop: drop }">
-			<li data-bind="
+		<ul class="list-group" data-bind="foreach: children, dropZone: { accepts: 'lists', drop: drop }">
+			<li class="list-group-item" data-bind="
 										dragZone: {
 											name: 'sortable',
 											dragStart: $parent.dragStart,
@@ -61,7 +61,8 @@
 				<span data-bind="if: type == 'Collection'" class="label label-primary">C</span>
 				<span data-bind="if: type == 'Item'" class="label label-info">I</span>
 				<span data-bind="text: name"></span>				
-				<span class="btn btn-danger btn-xs" data-bind="click: $root.removeEntity">x</span>
+				<button type="button" class="close" aria-label="Close" data-bind="click: $root.removeEntity"><span aria-hidden="true">&times;</span></button>
+				<!-- <span class="btn btn-danger btn-xs" aria-hidden="true" data-bind="click: $root.removeEntity">&times;</span> -->
 			</li>
 		</ul>
 	</div>

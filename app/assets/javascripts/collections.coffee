@@ -53,7 +53,9 @@ collectionsReady = ->
 				)			
 
 			self.drop = (data) ->
-				return
+				# console.log "test"
+				# self.children.push(data)
+				return 
 
 			self.dragStart = (item) ->
 				console.log item
@@ -65,11 +67,6 @@ collectionsReady = ->
 			self.reorder = (event, dragData, zoneData) ->
 				if (dragData != zoneData.item)					
 					zoneDataIndex = zoneData.items.indexOf(zoneData.item);
-					# if zoneDataIndex == -1
-					# 	self.drop dragData
-					# 	console.log "adding"
-					# 	zoneDataIndex = zoneData.items.indexOf(zoneData.item);
-
 					zoneData.items.remove(dragData);
 					zoneData.items.splice(zoneDataIndex, 0, dragData);
 
