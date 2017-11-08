@@ -77,3 +77,12 @@ body {
 	color: #D75453;	
 }
 	
+#collection-parent {
+	width: 350px;
+	height: 450px;
+	overflow: scroll;
+}
+
+.do-not-wrap {
+	white-space: nowrap;
+}
