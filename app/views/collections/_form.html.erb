@@ -33,18 +33,23 @@
 
 	<div class="col-md-4">
 		<ul data-bind="foreach: entities">
-			<li data-bind="dragZone: { name: 'lists' }">
+			<li data-bind="dragZone: { name: 'lists' }" class="">
+				<span data-bind="if: type == 'Collection'" class="label label-primary">C</span>
+				<span data-bind="if: type == 'Item'" class="label label-info">I</span>
 				<span data-bind="text: name"></span>
-				<span class="label" data-bind="text: type, css: type == 'Collection' ? 'label-primary' : 'label-info'"></span>
+				
+
+				<!-- <span class="label" data-bind="text: type, css: type == 'Collection' ? 'label-primary' : 'label-info'"></span> -->
 			</li>
 		</ul>
 	</div>
 
 	<div class="col-md-4">
 		<ul data-bind="foreach: children, dropZone: { accepts: 'lists', drop: drop }">
-			<li>
-				<span data-bind="text: name"></span>
-				<span class="label" data-bind="text: type, css: type == 'Collection' ? 'label-primary' : 'label-info'"></span>
+			<li>				
+				<span data-bind="if: type == 'Collection'" class="label label-primary">C</span>
+				<span data-bind="if: type == 'Item'" class="label label-info">I</span>
+				<span data-bind="text: name"></span>				
 				<span class="btn btn-danger btn-xs" data-bind="click: $root.removeEntity">x</span>
 			</li>
 		</ul>
