@@ -26,6 +26,7 @@ module Store
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'font-awesome')    
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'summernote', 'dist')    
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'knockout-dragdrop', 'lib')
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components', 'Sortable')
 
     config.autoload_paths += %W(#{config.root}/app/models/entity)
   end

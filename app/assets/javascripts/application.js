@@ -21,8 +21,8 @@
 //= require moment
 //= require js/bootstrap-datetimepicker.min
 //= require summernote
-//= require knockout.dragdrop
-
+//= require Sortable
+//= require knockout-sortable/knockout-sortable
 
 //= require store
 //= require collections_view_model

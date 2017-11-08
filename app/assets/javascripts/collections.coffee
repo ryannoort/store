@@ -53,7 +53,10 @@ collectionsReady = ->
 				)			
 
 			self.drop = (data) ->
-				# console.log "test"
+				# console.log data
+				# if self.children().length == 0
+				# 	self.drop = () -> return
+				# 	self.children.push(data)
 				# self.children.push(data)
 				return 
 
@@ -65,9 +68,11 @@ collectionsReady = ->
 				item.dragging(false)
 
 			self.reorder = (event, dragData, zoneData) ->
+				console.log "rer"
 				if (dragData != zoneData.item)					
 					zoneDataIndex = zoneData.items.indexOf(zoneData.item);
 					zoneData.items.remove(dragData);
+					console.log zoneData.item
 					zoneData.items.splice(zoneDataIndex, 0, dragData);
 
 				#     SortableView.prototype.reorder = function (event, dragData, zoneData) {

@@ -32,8 +32,16 @@
 	</div>
 
 	<div class="col-md-4">
-		<ul class="list-group" data-bind="foreach: entities">
+	
+		<!-- <ul class="list-group" data-bind="foreach: entities">
 			<li class="list-group-item" data-bind="dragZone: { name: 'lists' }" class="">
+				<span data-bind="if: type == 'Collection'" class="label label-primary">C</span>
+				<span data-bind="if: type == 'Item'" class="label label-info">I</span>
+				<span data-bind="text: name"></span>
+				</li>
+		</ul> -->
+	<ul data-bind="draggable: {foreach: entities, options: {group: 'test'}}">
+		<li class="list-group-item" data-bind="" class="">
 				<span data-bind="if: type == 'Collection'" class="label label-primary">C</span>
 				<span data-bind="if: type == 'Item'" class="label label-info">I</span>
 				<span data-bind="text: name"></span>
@@ -41,11 +49,31 @@
 
 				<!-- <span class="label" data-bind="text: type, css: type == 'Collection' ? 'label-primary' : 'label-info'"></span> -->
 			</li>
-		</ul>
+	<!-- optional item template here -->
+</ul>
 	</div>
 
 	<div class="col-md-4">
-		<ul class="list-group" data-bind="foreach: children, dropZone: { accepts: 'lists', drop: drop }">
+		<ul data-bind="sortable: {foreach: children, options: {group: 'test'}}">
+			<li class="list-group-item">
+				<span data-bind="if: type == 'Collection'" class="label label-primary">C</span>
+				<span data-bind="if: type == 'Item'" class="label label-info">I</span>
+				<span data-bind="text: name"></span>				
+				<button type="button" class="close" aria-label="Close" data-bind="click: $root.removeEntity"><span aria-hidden="true">&times;</span></button>
+			</li>
+		</ul>
+<!-- 	<ul data-bind="draggable: {foreach: entities}">
+		<li class="list-group-item" data-bind="" class="">
+				<span data-bind="if: type == 'Collection'" class="label label-primary">C</span>
+				<span data-bind="if: type == 'Item'" class="label label-info">I</span>
+				<span data-bind="text: name"></span>
+				
+
+	
+			</li>
+	
+</ul> -->
+		<!-- <ul class="list-group min-height" data-bind="foreach: children, dropZone: { accepts: 'lists', drop: drop }">
 			<li class="list-group-item" data-bind="
 										dragZone: {
 											name: 'sortable',
@@ -62,12 +90,19 @@
 				<span data-bind="if: type == 'Item'" class="label label-info">I</span>
 				<span data-bind="text: name"></span>				
 				<button type="button" class="close" aria-label="Close" data-bind="click: $root.removeEntity"><span aria-hidden="true">&times;</span></button>
-				<!-- <span class="btn btn-danger btn-xs" aria-hidden="true" data-bind="click: $root.removeEntity">&times;</span> -->
+
 			</li>
 		</ul>
+
+		 -->
 	</div>
-	
+
+
+
+
 </div>
+
+
 
 
 <!-- 

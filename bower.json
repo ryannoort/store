@@ -20,6 +20,6 @@
     "eonasdan-bootstrap-datetimepicker": "bootstrap-datetimepicker-3#^4.17.45",
     "font-awesome": "Font-Awesome#^4.7.0",
     "summernote": "^0.8.4",
-    "knockout-dragdrop": "^2.6.1"
+    "Sortable": "sortablejs#^1.6.0"
   }
 }
