@@ -46,34 +46,10 @@ collectionsReady = ->
 							type = Object.keys(x)[0];
 							result = x[type]
 							result.type = capitalize(type)
-							result.dragging = ko.observable(false)				
 							return result
 						)
 						self.entities(entities)
 				)			
-
-			self.drop = (data) ->
-				# console.log data
-				# if self.children().length == 0
-				# 	self.drop = () -> return
-				# 	self.children.push(data)
-				# self.children.push(data)
-				return 
-
-			self.dragStart = (item) ->
-				console.log item
-				item.dragging(true)
-
-			self.dragStop = (item) ->
-				item.dragging(false)
-
-			self.reorder = (event, dragData, zoneData) ->
-				console.log "rer"
-				if (dragData != zoneData.item)					
-					zoneDataIndex = zoneData.items.indexOf(zoneData.item);
-					zoneData.items.remove(dragData);
-					console.log zoneData.item
-					zoneData.items.splice(zoneDataIndex, 0, dragData);
 
 				#     SortableView.prototype.reorder = function (event, dragData, zoneData) {
     #     if (dragData !== zoneData.item) {
@@ -92,10 +68,6 @@ collectionsReady = ->
 				console.log data
 				self.data.name data.name				
 				self.children(data.children)
-				
-				ko.utils.arrayForEach(self.children(), (child) -> 
-					child.dragging = ko.observable(false)
-				)
 				
 				self.data.is_public(data.is_public)
 
@@ -125,8 +97,9 @@ collectionsReady = ->
 					)
 
 			self.removeEntity = (entity) ->
+				console.log entity
 				self.children.remove(entity)
-				console.log "removing"
+				
 
 			self.saveCollection = ->
 				getExtraData()

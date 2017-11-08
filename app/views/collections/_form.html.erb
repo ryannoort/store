@@ -54,7 +54,7 @@
 	</div>
 
 	<div class="col-md-4">
-		<ul data-bind="sortable: {foreach: children, options: {group: 'test'}}">
+		<ul data-bind="sortable: {foreach: children, options: {group: 'test'}}" class="child-list">
 			<li class="list-group-item">
 				<span data-bind="if: type == 'Collection'" class="label label-primary">C</span>
 				<span data-bind="if: type == 'Item'" class="label label-info">I</span>
