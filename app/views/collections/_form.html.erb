@@ -46,7 +46,18 @@
 
 	<div class="col-md-4">
 		<ul data-bind="foreach: children, dropZone: { accepts: 'lists', drop: drop }">
-			<li>				
+			<li data-bind="
+										dragZone: {
+											name: 'sortable',
+											dragStart: $parent.dragStart,
+											dragEnd: $parent.dragEnd
+										},
+										dragEvents: {
+											accepts: ['sortable', 'lists'],
+											dragOver: $parent.reorder,
+											data: { items: $parent.children, item: $data }
+										}
+			">		
 				<span data-bind="if: type == 'Collection'" class="label label-primary">C</span>
 				<span data-bind="if: type == 'Item'" class="label label-info">I</span>
 				<span data-bind="text: name"></span>				

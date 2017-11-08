@@ -3,8 +3,7 @@ collectionsReady = ->
 	if ($("body").hasClass("collections") and ($("body").hasClass("new") or $("body").hasClass("edit")))
 
 		CollectionViewModel = ->
-			self = this
-
+			self = this			
 			self.itemTypes = ko.observableArray itemTypes
 			self.itemType = ko.observable self.itemTypes[0]			
 			$.each self.itemTypes(), (i, type) ->
@@ -47,13 +46,40 @@ collectionsReady = ->
 							type = Object.keys(x)[0];
 							result = x[type]
 							result.type = capitalize(type)
+							result.dragging = ko.observable(false)				
 							return result
 						)
 						self.entities(entities)
 				)			
 
 			self.drop = (data) ->
-				self.children.push(data)
+				return
+
+			self.dragStart = (item) ->
+				console.log item
+				item.dragging(true)
+
+			self.dragStop = (item) ->
+				item.dragging(false)
+
+			self.reorder = (event, dragData, zoneData) ->
+				if (dragData != zoneData.item)					
+					zoneDataIndex = zoneData.items.indexOf(zoneData.item);
+					# if zoneDataIndex == -1
+					# 	self.drop dragData
+					# 	console.log "adding"
+					# 	zoneDataIndex = zoneData.items.indexOf(zoneData.item);
+
+					zoneData.items.remove(dragData);
+					zoneData.items.splice(zoneDataIndex, 0, dragData);
+
+				#     SortableView.prototype.reorder = function (event, dragData, zoneData) {
+    #     if (dragData !== zoneData.item) {
+    #         var zoneDataIndex = zoneData.items.indexOf(zoneData.item);
+    #         zoneData.items.remove(dragData);
+    #         zoneData.items.splice(zoneDataIndex, 0, dragData);
+    #     }
+    # };
 
 			# drop: function (data, model) {
    #      model.source.remove(data);
@@ -64,6 +90,11 @@ collectionsReady = ->
 				console.log data
 				self.data.name data.name				
 				self.children(data.children)
+				
+				ko.utils.arrayForEach(self.children(), (child) -> 
+					child.dragging = ko.observable(false)
+				)
+				
 				self.data.is_public(data.is_public)
 
 				$.each data.item_type.metadata_sets, (j, set) ->
