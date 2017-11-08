@@ -54,23 +54,26 @@
 
 			<script type="text/html" id="Collection-template">
 				<div>
+					
+					<i data-bind="css: {'fa-plus': !isOpen(), 'fa-minus': isOpen()}" class="fa color-primary" aria-hidden="true"></i>
 					<span data-bind='text: name, click: click'></span>
 					<span class="badge badge-primary" data-bind='text: children().length'></span>
 				</div>
 
 				<ul class="tree-list" data-bind='visible: isOpen(), foreach: children'>
-					<li data-bind='template: template'></li>
+					<li data-bind='template: type+"-template"'></li>
 				</ul>		
 			</script>
 
 			<script type="text/html" id="Item-template">
-				<div data-bind='text: name, click: click'></div>
+				<i class="fa fa-square color-primary" aria-hidden="true"></i>
+				<span data-bind='text: name, click: click'></span>
 			</script>
 
 			<div>Children</div>
 
 			<ul class="tree-list" data-bind='foreach: children'>
-				<li data-bind='template: template'></li>
+				<li data-bind='template: type+"-template"'></li></span>
 			</ul>
 		</div>
 

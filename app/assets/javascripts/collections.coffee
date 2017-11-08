@@ -177,7 +177,7 @@ collectionsReady = ->
 			self = this
 			self.id = item.id
 			self.name = item.name
-			self.template = item.type + '-template'
+			self.type = item.type
 			self.feature = ""
 			self.fetched = false
 
@@ -205,7 +205,7 @@ collectionsReady = ->
 			self = this
 			self.id = collection.id
 			self.name = collection.name
-			self.template = collection.type + '-template'
+			self.type = collection.type
 			self.children = ko.observableArray []
 			self.isOpen = ko.observable(false)
 			fetched = false;

@@ -51,14 +51,29 @@ body {
 .tree-list {
 	list-style: none;
 	padding-left: 20px;
-
-	li::before {
-		content: "\25A0"; 
-		color: #377BB5;
-		float: left;
-		padding-right: 5px;
-	}
 }
 
+.color-default {
+	color: #777777;
+}
 
+.color-primary {
+	color: #377BB5;	
+}
+
+.color-success {
+	color: #60B660;	
+}
+
+.color-info {
+	color: #60C0DC;
+}
+
+.color-warning {
+	color: #EFAC57;	
+}
+
+.color-danger {
+	color: #D75453;	
+}
 	
