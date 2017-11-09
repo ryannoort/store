@@ -110,8 +110,8 @@ class CollectionsController < ApplicationController
         collection_params[:children_associations].each do |index|
           child = collection_params[:children_associations][index]        
           parent_association = ParentEntity.new
-          parent_association.parent_entity =  Entity.find child[:id]
-          parent_association.child_entity = @collection
+          parent_association.child_entity =  Entity.find child[:id]
+          parent_association.parent_entity = @collection
           parent_association.order = child[:order]
           parent_association.save
         end
