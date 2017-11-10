@@ -70,6 +70,7 @@ itemsReady = ->
 		drawControlOptions =
 			draw:
 				circle: false
+				circlemarker: false
 				rectangle: false
 			edit:
 				featureGroup: featureGroup
