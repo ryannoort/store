@@ -23,3 +23,82 @@ body {
 .clickable:hover {
 	background: #FF8833;
 }
+
+.badge-default {
+	background-color: #777777;
+}
+
+.badge-primary {
+	background-color: #377BB5;	
+}
+
+.badge-success {
+	background-color: #60B660;	
+}
+
+.badge-info {
+	background-color: #60C0DC;
+}
+
+.badge-warning {
+	background-color: #EFAC57;	
+}
+
+.badge-danger {
+	background-color: #D75453;	
+}
+
+.tree-list {
+	list-style: none;
+	padding-left: 20px;
+}
+
+.color-default {
+	color: #777777;
+}
+
+.color-primary {
+	color: #377BB5;	
+}
+
+.color-success {
+	color: #60B660;	
+}
+
+.color-info {
+	color: #60C0DC;
+}
+
+.color-warning {
+	color: #EFAC57;	
+}
+
+.color-danger {
+	color: #D75453;	
+}
+	
+#collection-parent {
+	width: 350px;
+	height: 450px;
+	overflow: scroll;
+}
+
+.do-not-wrap {
+	white-space: nowrap;
+}
+
+.min-height {
+	min-height: 75px;
+}
+
+.child-list {
+	min-height: 75px;
+	border: 5px dashed;
+	border-radius: 4px;
+	border-color: #DDD;
+	padding: 10px;
+}
+
+.entity-drag {
+	cursor: move;
+}

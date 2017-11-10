@@ -44,8 +44,8 @@ class CollectionsController < ApplicationController
   # PATCH/PUT /collections/1
   # PATCH/PUT /collections/1.json
   def update
-    respond_to do |format|
-      if @collection.update(collection_params)
+    respond_to do |format|      
+      if @collection.update(collection_params) and pre_update()
         # @collection.update_item_type collection_params['item_type_id']
         format.html { redirect_to @collection, notice: 'Collection was successfully updated.' }
         format.json { render :show, status: :ok, location: @collection }
@@ -96,6 +96,25 @@ class CollectionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def collection_params
       # params.fetch(:collection, {}).permit(:parent_collection_id, :name, :form_attributes => [ :id, :schema_id, :fields_attributes => [:id, :name, :content, :type, :mime_content] ])
-      params.fetch(:collection, {}).permit(:name, :item_type_id, item_ids: [], collection_ids: [], metadata_values_attributes: [:value, :metadata_field_id])
+      # params.fetch(:collection, {}).permit(:name, :item_type_id, item_ids: [], collection_ids: [], metadata_values_attributes: [:value, :metadata_field_id])
+      params.fetch(:collection, {}).permit(
+        :name, :item_type_id, :is_public,
+        metadata_values_attributes: [:value, :metadata_field_id],
+        children_associations: [:id, :order]  
+      )
+    end
+
+    def pre_update()
+      @collection.children.clear    
+      if collection_params[:children_associations]
+        collection_params[:children_associations].each do |index|
+          child = collection_params[:children_associations][index]        
+          parent_association = ParentEntity.new
+          parent_association.child_entity =  Entity.find child[:id]
+          parent_association.parent_entity = @collection
+          parent_association.order = child[:order]
+          parent_association.save
+        end
+      end
     end
 end

@@ -9,8 +9,8 @@ class ItemType < ApplicationRecord
 				item_types: 
 				{id: metadatable.item_type_id} , 
 				metadata_values: 
-				{valuable_type: metadatable.class.name, 
-				valuable_id: metadatable.id}) 
+				{entity_id: metadatable.id}
+			) 
 	}
 
 
@@ -22,13 +22,13 @@ class ItemType < ApplicationRecord
 
 		# check for _destroy
 		self.metadata_sets.clear
-    metadata_sets_ids.each do |key, metadata_set_id|        
+    	metadata_sets_ids.each do |key, metadata_set_id|        
     	# puts metadata_set_id.inspect
     	# unless metadata_set_id._destroy
-      metadata_set = MetadataSet.find metadata_set_id['id']
-      if metadata_set
-        self.metadata_sets << metadata_set
-      end
+      	metadata_set = MetadataSet.find metadata_set_id['id']
+      	if metadata_set
+        	self.metadata_sets << metadata_set
+      	end
 	    # end
     end
 

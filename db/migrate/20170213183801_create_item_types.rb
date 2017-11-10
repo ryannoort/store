@@ -1,9 +1,8 @@
 class CreateItemTypes < ActiveRecord::Migration[5.0]
-  def change
-    create_table :item_types do |t|
-    	t.string :name, null: false
-    	# t.references :itemable, polymorphic: true, index: true
-      t.timestamps
-    end
-  end
+	def change
+    	create_table :item_types do |t|
+			t.string :name, null: false
+			t.timestamps
+    	end
+  	end
 end
