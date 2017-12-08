@@ -1,4 +1,4 @@
-# SpatioTemporal Object REpository
+# STORE: SpatioTemporal Object REpository
 
 STORE is a platform that allows creating spatiotemporal objects (a.k.a items) and organize them in collections and sub-collections.
 
