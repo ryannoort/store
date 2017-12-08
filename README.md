@@ -9,11 +9,11 @@ An item is identified by the following attributes:
 
 Items and collections can be described using metadata. Metadata can be specified as a group of descriptive fields called metadata sets. Each such metadata set can be further grouped into “types”, and items and collections can be created based on a selected type. This way, when an item or a collection is created, it will contain a defined set of fields. 
 
-A collection contains both items and collections. An item can be a digital object representing a page, a media clip, etc. A collection of such items could represent a narrative. A collection could also contain sub collections, representing multiple narratives.
+A collection contains both items and collections. An item can be a digital object representing a page, a media clip, etc. A collection of such items could represent a narrative. A collection could also contain sub collections, representing sections of a narrative.
 
 ## Interface
 
-The front page of STORE shows the list of top level collections. When clicked on each top collection, it shows a detailed view of the collection, with consists of a tree view of the children and a map.
+The front page of STORE shows the list of top level collections. When clicked on each top level collection, it shows a detailed view of the collection, which consists of a tree view of the children and a map.
 
 This interface allows drill-down through child items and collections so that one can walk through a nested tree representation of a narrative. 
 
