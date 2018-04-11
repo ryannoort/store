@@ -87,9 +87,9 @@ class ItemsController < ApplicationController
 
     def set_items
       if current_user and (current_user.admin? or current_user.editor?)
-        @items = Item.all
+        @items = Item.all.order(:name)
       else 
-        @items = Item.where is_public: true
+        @items = Item.order(:name).where is_public: true
       end
     end
 
